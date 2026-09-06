@@ -1,0 +1,165 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    background: #f4f5f7;
+    color: #2a2a2a;
+}
+
+.contenedor-login {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px 20px;
+}
+
+.tarjeta-login {
+    width: 100%;
+    max-width: 420px;
+
+    background: #ffffff;
+
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+
+    padding: 35px 40px;
+
+    text-align: center;
+
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+}
+
+.logo-fio {
+    display: block;
+
+    max-width: 190px;
+    max-height: 90px;
+
+    width: auto;
+    height: auto;
+
+    margin: 0 auto 22px auto;
+}
+
+.tarjeta-login h1 {
+    margin: 0 0 5px 0;
+
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.tarjeta-login h2 {
+    margin: 0 0 15px 0;
+
+    font-size: 18px;
+    font-weight: 500;
+
+    color: #555555;
+}
+
+.texto-acceso {
+    margin: 0 0 25px 0;
+
+    font-size: 14px;
+    color: #666666;
+}
+
+.grupo-campo {
+    margin-bottom: 18px;
+
+    text-align: left;
+}
+
+.grupo-campo label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.grupo-campo input {
+    width: 100%;
+
+    padding: 11px 12px;
+
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+
+    font-size: 15px;
+
+    outline: none;
+}
+
+.grupo-campo input:focus {
+    border-color: #777777;
+}
+
+#btn-login {
+    width: 100%;
+
+    margin-top: 5px;
+
+    padding: 12px;
+
+    border: none;
+    border-radius: 5px;
+
+    background: #333333;
+    color: #ffffff;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+#btn-login:hover {
+    background: #111111;
+}
+
+#btn-login:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.mensaje-login {
+    min-height: 21px;
+
+    margin: 18px 0 5px 0;
+
+    font-size: 14px;
+}
+
+.mensaje-error {
+    color: #a60000;
+}
+
+.mensaje-correcto {
+    color: #176c36;
+}
+
+.volver-catalogo {
+    display: inline-block;
+
+    margin-top: 15px;
+
+    font-size: 14px;
+
+    color: #555555;
+    text-decoration: none;
+}
+
+.volver-catalogo:hover {
+    text-decoration: underline;
+}

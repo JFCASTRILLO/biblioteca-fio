@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Administración - Biblioteca FIO</title>
+
+    <link rel="stylesheet" href="admin.css">
+
+    <!-- Cliente Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+    <main class="contenedor-login">
+
+        <section class="tarjeta-login">
+
+            <img
+                src="../Logo_FIO.png"
+                alt="Fundación Infante de Orleans"
+                class="logo-fio"
+            >
+
+            <h1>Biblioteca FIO</h1>
+
+            <h2>Acceso de administración</h2>
+
+            <p class="texto-acceso">
+                Introduzca sus credenciales para acceder al área privada.
+            </p>
+
+            <form id="form-login">
+
+                <div class="grupo-campo">
+                    <label for="email">Correo electrónico</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        autocomplete="username"
+                        required
+                    >
+                </div>
+
+                <div class="grupo-campo">
+                    <label for="password">Contraseña</label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" id="btn-login">
+                    Iniciar sesión
+                </button>
+
+            </form>
+
+            <p id="mensaje-login" class="mensaje-login"></p>
+
+            <a href="../index.html" class="volver-catalogo">
+                ← Volver al catálogo
+            </a>
+
+        </section>
+
+    </main>
+
+    <script src="admin.js"></script>
+
+</body>
+
+</html>

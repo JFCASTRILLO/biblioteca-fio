@@ -1,0 +1,649 @@
+/* ==========================================================================
+   1. CONFIGURACIÓN BASE E IDENTIDAD VISUAL REAL FIO
+   ========================================================================== */
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0 0 50px 0;
+    color: #2a2a2a;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+.contenedor {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Cabecera idéntica a la sobriedad de la web: limpia, gris oscura y tipografía esbelta */
+.fio-header {
+    background-color: rgb(33, 44, 89); /* O también puedes usar #212c59 */
+    padding: 35px 0;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* ==========================================================
+   CABECERA FIO CON LOGOTIPO
+   ========================================================== */
+
+.cabecera-contenido{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo-fio{
+    height:80px;
+    width:auto;
+    display:block;
+    margin-right:5px;
+    margin-top:0px;
+}
+
+.titulos-fio{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.fio-header{
+    background:#212c59;
+    padding:28px 0;
+}
+
+.fio-header h1{
+    margin: 2px;;
+    font-size:0.95rem;
+    font-weight:400;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:#fff;
+    opacity:.85;
+}
+
+.fio-header h2{
+    margin:2px 0 0 0;
+    font-size:2.6rem;
+    font-weight:600;
+    color:#fff;
+}
+
+
+/* ==========================================================================
+   2. PANELES Y COMPONENTES DE CONTROL
+   ========================================================================== */
+.panel-informativo {
+    background-color: #fbfbfb;
+    border-left: 3px solid #8b1d22; /* El rojo burdeos corporativo de la FIO */
+    padding: 18px 24px;
+    border-radius: 2px;
+    margin-bottom: 30px;
+    font-size: 0.95rem;
+    color: #555555;
+}
+
+.panel-controles {
+    background: #ffffff;
+    padding: 0 0 25px 0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 30px;
+}
+
+.grupo-input {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
+.caja-busqueda { flex: 2; min-width: 300px; }
+.caja-filtro, .caja-boton-crud { flex: 1; min-width: 180px; }
+
+.etiqueta-input {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 0.75rem;
+    color: #666666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Entradas de texto y selectores limpios y sutiles */
+.grupo-input select,
+.grupo-input input[type="text"] {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    border: 1px solid #cccccc;
+    border-radius: 2px;
+    box-sizing: border-box;
+    background-color: #fff;
+    font-family: inherit;
+    color: #2a2a2a;
+    height: 42px;
+    transition: border-color 0.2s;
+}
+
+textarea { height: auto; resize: vertical; }
+
+.grupo-input select:focus,
+.grupo-input input:focus {
+    border-color: #8b1d22;
+    outline: none;
+}
+
+/* ==========================================================================
+   3. BOTONES DE ACCIÓN (ESTILO WEB ORIGINAL)
+   ========================================================================== */
+button, .botones-formulario button {
+    height: 42px;
+    padding: 0 24px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+/* Botón principal oscuro FIO */
+.btn-fio-oscuro { background: #2a2a2a; color: #ffffff; }
+.btn-fio-oscuro:hover { background: #111111; }
+
+/* Botón de énfasis rojo FIO */
+.btn-fio-rojo { background: #8b1d22; color: #ffffff; }
+.btn-fio-rojo:hover { background: #6b1418; }
+
+.btn-fio-gris { background: #ffffff; border: 1px solid #cccccc; color: #555555; }
+.btn-fio-gris:hover { background: #f5f5f5; color: #2a2a2a; }
+
+#contador { font-size: 0.85rem; color: #777777; margin-top: 12px; font-style: italic; }
+
+/* ==========================================================================
+   4. LA TABLA DE CATALOGACIÓN (ESTILO MINIMALISTA)
+   ========================================================================== */
+.contenedor-tabla {
+    max-height: 540px;
+    overflow-y: auto;
+    border: 1px solid #eaeaea;
+    background: #ffffff;
+    border-radius: 2px;
+    display: none;
+}
+
+table { width: 100%; border-collapse: collapse; text-align: left; }
+
+th {
+    background-color: #fbfbfb;
+    color: #2a2a2a;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding: 14px 16px;
+    border-bottom: 2px solid #eaeaea;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f5f5f5;
+    font-size: 0.88rem;
+    color: #444444;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+}
+
+.fila-libro { cursor: pointer; transition: background-color 0.15s; }
+.fila-libro:hover { background-color: #f9f9f9; }
+
+.sin-resultados { padding: 40px; text-align: center; color: #999999; font-style: italic; }
+
+/* Identificadores estéticos sutiles para los Préstamos */
+.estado-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 2px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.status-disponible { background-color: #e2f0d9; color: #385723; }
+.status-prestado { background-color: #fce4d6; color: #c65911; }
+.status-reservado { background-color: #fff2cc; color: #7f6000; }
+
+/* ==========================================================================
+   5. FICHA MODAL FLOTANTE
+   ========================================================================== */
+
+.modal{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.45);
+    justify-content:center;
+    align-items:center;
+    z-index:1000;
+}
+
+.contenido-modal{
+    background:#fff;
+    width:95%;
+    max-width:1200px;
+    padding:25px;
+    border-radius:8px;
+    position:relative;
+
+    max-height:90vh;
+    overflow-y:auto;
+
+    box-shadow:0 10px 40px rgba(0,0,0,.20);
+}
+
+.boton-cerrar{
+    position:absolute;
+    top:15px;
+    right:20px;
+    font-size:30px;
+    color:#999;
+    cursor:pointer;
+}
+
+.boton-cerrar:hover{
+    color:#8b1d22;
+}
+
+/* ==================================================
+   CABECERA DEL LIBRO
+   ================================================== */
+
+.detalles-libro{
+    display:grid;
+    grid-template-columns:260px 1fr;
+    gap:35px;
+    align-items:start;
+}
+
+/* ==================================================
+   PORTADA
+   ================================================== */
+
+.portada-libro{
+    position:relative;
+    width:260px;
+}
+
+.portada-libro img{
+    width:100%;
+    height:auto;
+    display:block;
+
+    border-radius:6px;
+    border:1px solid #ddd;
+
+    background:#fff;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,.12),
+        0 10px 25px rgba(0,0,0,.08);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.portada-libro img:hover{
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.18),
+        0 15px 35px rgba(0,0,0,.10);
+}
+
+/* ==================================================
+   SPINNER DE CARGA
+   ================================================== */
+
+.loader-portada{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    display:none;
+    z-index:10;
+}
+
+.loader-portada::after{
+    content:"";
+    width:28px;
+    height:28px;
+    display:block;
+
+    border:3px solid #ddd;
+    border-top:3px solid #8b1d22;
+
+    border-radius:50%;
+
+    animation:girar .8s linear infinite;
+}
+
+@keyframes girar{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+}
+
+/* ==================================================
+   DATOS DEL LIBRO
+   ================================================== */
+
+.info-tecnica{
+    display:block;
+}
+
+.info-tecnica h2{
+    font-size:2.3rem;
+    font-weight:700;
+    line-height:1.15;
+}
+
+.info-tecnica h3{
+    margin:0 0 20px 0;
+    font-size:1.05rem;
+    color:#666;
+    font-weight:400;
+    border:none;
+    padding:0;
+}
+
+/* ==================================================
+   CUADRO DE DETALLES
+   ================================================== */
+
+.grid-detalles{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px 25px;
+
+    padding:0;
+
+    border:none;
+    background:none;
+}
+
+.grid-detalles p{
+    margin:0;
+    padding:8px 0;
+
+    border-bottom:1px solid #efefef;
+
+    font-size:.92rem;
+}
+
+.estado-badge{
+    padding:2px 8px;
+    border-radius:3px;
+    font-size:.75rem;
+    font-weight:600;
+}
+
+/* ==================================================
+   SINOPSIS
+   ================================================== */
+
+.sinopsis-completa{
+    margin-top:30px;
+
+    padding-top:20px;
+
+    border-top:1px solid #e5e5e5;
+}
+
+.sinopsis-completa h4{
+    margin:0 0 12px 0;
+
+    font-size:.85rem;
+    font-weight:700;
+
+    text-transform:uppercase;
+    letter-spacing:.5px;
+
+    color:#666;
+}
+
+#modal-sinopsis{
+    max-width:900px;
+    
+    padding:0;
+
+    background:none;
+
+    border:none;
+
+    font-size:.95rem;
+
+    line-height:1.8;
+
+    color:#444;
+
+}
+
+/* ==================================================
+   MODAL IMAGEN AMPLIADA
+   ================================================== */
+
+.modal-imagen{
+    display:none;
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    background:rgba(0,0,0,.92);
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:99999;
+}
+
+.modal-imagen img{
+    max-width:95vw;
+    max-height:95vh;
+
+    width:auto;
+    height:auto;
+
+    object-fit:contain;
+
+    border-radius:8px;
+
+    box-shadow:0 0 40px rgba(0,0,0,.5);
+}
+
+.cerrar-imagen{
+    position:absolute;
+
+    top:20px;
+    right:35px;
+
+    color:#fff;
+
+    font-size:42px;
+
+    cursor:pointer;
+}
+
+/* ==================================================
+   ZONA TÉCNICA
+   ================================================== */
+
+.zona-tecnica{
+    margin-top:60px;
+    padding-top:15px;
+
+    border-top:1px solid #eee;
+
+    font-size:.75rem;
+    color:#999;
+}
+
+.zona-tecnica input{
+    margin-top:8px;
+    font-size:.8rem;
+}
+
+/* ==================================================
+   RESPONSIVE
+   ================================================== */
+
+@media (max-width:900px){
+
+    .detalles-libro{
+        grid-template-columns:1fr;
+    }
+
+    .portada-libro{
+        width:220px;
+        margin:0 auto;
+    }
+
+    .grid-detalles{
+        grid-template-columns:1fr;
+    }
+}
+/* ==================================================
+   FOOTER FIO
+   ================================================== */
+
+.footer-fio{
+
+    margin-top:40px;
+
+    background:#212c59;
+
+    color:#ffffff;
+
+    padding:25px 0 20px 0;
+}
+
+.footer-fio h3{
+
+    margin:0 0 15px 0;
+
+    font-size:1.6rem;
+
+    font-weight:600;
+
+    text-align:center;
+}
+
+.footer-fio p{
+
+    text-align:center;
+
+    max-width:800px;
+
+    margin:0 auto 30px auto;
+
+    color:rgba(255,255,255,.85);
+}
+
+.datos-footer{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:30px;
+
+    text-align:center;
+
+    margin-bottom:40px;
+}
+
+.datos-footer div{
+
+    background:none;
+    padding:0;
+}
+
+.galeria-fio{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:20px;
+
+    margin-bottom:30px;
+}
+
+.galeria-fio img{
+
+    width:100%;
+
+    height:120px;
+
+    object-fit:cover;
+
+    border-radius:8px;
+
+    transition:transform .25s ease;
+}
+
+.galeria-fio img:hover{
+
+    transform:scale(1.03);
+}
+
+.copyright-fio{
+
+    text-align:center;
+
+    font-size:.85rem;
+
+    opacity:.75;
+
+    padding-top:20px;
+
+    border-top:1px solid rgba(255,255,255,.15);
+}
+
+@media (max-width:768px){
+
+    .datos-footer{
+
+        grid-template-columns:1fr;
+    }
+
+    .galeria-fio{
+
+        grid-template-columns:1fr;
+    }
+
+    .galeria-fio img{
+
+        height:250px;
+    }
+}

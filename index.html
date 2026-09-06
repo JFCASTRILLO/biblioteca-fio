@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca FIO - Catálogo de Libros</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Cliente Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+    <!-- Cabecera Institucional FIO Real -->
+    <header class="fio-header">
+    <div class="contenedor cabecera-contenido">
+
+        <img src="Logo_FIO.png"
+             alt="Fundación Infante de Orleans"
+             class="logo-fio">
+
+        <div class="titulos-fio">
+            <h1>Fundación Infante de Orleans</h1>
+            <h2>Biblioteca FIO</h2>
+        </div>
+
+    </div>
+    </header>
+    <main class="contenedor">
+        <!-- Panel Informativo de la Biblioteca -->
+        <section class="panel-informativo">
+            <p><strong>La biblioteca FIO</strong>, ubicada en nuestras oficinas en Cuatro Vientos (Carretera de la Fortuna 14, Edificio Real Aeroclub, 28054 Madrid), está abierta al público en general para consultas in situ. Únicamente aquellas personas que sean socios/as de la FIO tendrán la posibilidad de llevarse libros en préstamo (<strong>durante un periodo máximo de 15 días</strong>), siempre que la fecha de publicación sea posterior a 1950 (los ejemplares más antiguos sólo podrán ser consultados en la sala).</p>
+            
+            <h3 style="margin: 20px 0 10px 0; color: #2a2a2a; font-size: 1.1rem; font-weight: 600;">Catálogo disponible</h3>
+            
+            <p style="margin-top: 0;">Nuestro fondo bibliográfico se compone actualmente de temas aeronáuticos, incluyendo libros de consulta, monografías de aviones, manuales técnicos y textos históricos, disponibles para consultas in situ y préstamos para socios de la FIO.</p>
+        </section>
+        
+        <!-- Barra de Herramientas: Búsqueda, Filtrado y CRUD -->
+        <section class="panel-controles">
+            <div class="grupo-input">
+                <div class="caja-busqueda">
+                    <label for="buscador" class="etiqueta-input">Consulta nuestro catálogo</label>
+                    <input type="text" id="buscador" oninput="filtrarLibros()" placeholder="Introduzca los términos de busqueda" disabled>
+                </div>
+
+                <div class="caja-filtro">
+                    <label for="filtro-estado" class="etiqueta-input">Filtrar por Estado</label>
+                    <select id="filtro-estado" onchange="filtrarLibros()" disabled>
+                        <option value="todos">-- Todos los Estados --</option>
+                        <option value="disponible">Disponible</option>
+                        <option value="prestado">Prestado</option>
+                        <option value="reservado">Reservado</option>
+                    </select>
+                </div>
+
+            </div>
+            <div id="contador">Conectando con el catálogo de la fundación...</div>
+        </section>
+
+        <!-- Tabla de Registros Minimalista -->
+        <section class="contenedor-tabla" id="bloque-tabla">
+            <table>
+                <thead id="tabla-cabecera"></thead>
+                <tbody id="tabla-cuerpo"></tbody>
+            </table>
+        </section>
+    </main>
+
+    <!-- Modal de Detalles -->
+    <!-- Modal de Detalles -->
+<div id="modal-detalles" class="modal">
+
+    <div class="contenido-modal">
+
+        <span class="boton-cerrar" onclick="cerrarModal()">&times;</span>
+
+        <!-- CABECERA: PORTADA + DATOS -->
+        <div class="detalles-libro">
+
+            <!-- PORTADA -->
+            <div class="portada-libro">
+
+                <div id="loader-portada" class="loader-portada"></div>
+
+                <img id="modal-portada"
+                     src="Portadas/NoDisponible.jpg"
+                     alt="Portada del libro">
+
+            </div>
+
+            <!-- INFORMACIÓN -->
+            <div class="info-tecnica">
+
+                <h2 id="modal-titulo">Título</h2>
+
+                <h3 id="modal-autor">Autor</h3>
+
+                <div class="grid-detalles">
+
+                    <p><strong>ID Registro:</strong> <span id="modal-id">-</span></p>
+
+                    <p><strong>Editorial:</strong> <span id="modal-editorial">-</span></p>
+
+                    <p><strong>Género:</strong> <span id="modal-genero">-</span></p>
+
+                    <p><strong>Idioma:</strong> <span id="modal-idioma">-</span></p>
+
+                    <p><strong>Estado:</strong> <span id="modal-estado" class="estado-badge">-</span></p>
+
+                    <p><strong>Clave:</strong> <span id="modal-clave">-</span></p>
+
+                    <p><strong>Nº Páginas:</strong> <span id="modal-paginas">-</span></p>
+
+                    <p><strong>Formato:</strong> <span id="modal-formato">-</span></p>
+
+                    <p><strong>Ubicación Física:</strong> <span id="modal-ubicacion">-</span></p>
+
+                    <p><strong>Código ISBN:</strong> <span id="modal-isbn">-</span></p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- SINOPSIS -->
+        <div class="sinopsis-completa">
+
+            <h4>
+                Sinopsis / Reseña Histórica
+            </h4>
+
+            <div id="modal-sinopsis">
+                Cargando datos...
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+    <div id="modal-imagen" class="modal-imagen">
+
+        <span class="cerrar-imagen">&times;</span>
+
+        <img id="imagen-ampliada">
+
+    </div>
+
+    <script src="script.js"></script>
+
+
+<footer class="footer-fio">
+
+    <div class="contenedor">
+
+        <div class="datos-footer">
+
+            <div>
+                <strong>Horario de apertura</strong><br>
+                Lunes, miércoles y viernes, de 10:30 a 13:30.<br>
+                Carretera de la Fortuna 14, Edificio Real Aeroclub, Madrid<br>
+            </div>
+
+            <div>
+                <strong>Contacto</strong><br>
+                info@fio.es<br>
+                www.fio.es
+            </div>
+
+        </div>
+
+        <div class="galeria-fio">
+
+            <img src="Instalaciones/fio1.jpg" alt="Biblioteca FIO">
+            <img src="Instalaciones/fio2.jpg" alt="Instalaciones FIO">
+            <img src="Instalaciones/fio3.jpg" alt="Archivo histórico FIO">
+
+        </div>
+
+        <div class="copyright-fio">
+            Fundación Infante de Orleans © 2026
+        </div>
+
+    </div>
+
+</footer>
+
+
+</body>
+</html>
+
+

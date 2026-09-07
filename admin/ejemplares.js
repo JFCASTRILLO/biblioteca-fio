@@ -36,6 +36,50 @@ const cuerpoTabla =
 const contador =
     document.getElementById("contador-ejemplares");
 
+const modalEjemplar =
+    document.getElementById("modal-ejemplar");
+
+const btnCerrarFicha =
+    document.getElementById("cerrar-ficha-ejemplar");
+
+const fichaTitulo =
+    document.getElementById("ficha-titulo");
+
+const fichaAutor =
+    document.getElementById("ficha-autor");
+
+const fichaEstado =
+    document.getElementById("ficha-estado");
+
+const fichaId =
+    document.getElementById("ficha-id");
+
+const fichaClave =
+    document.getElementById("ficha-clave");
+
+const fichaEditorial =
+    document.getElementById("ficha-editorial");
+
+const fichaPaginas =
+    document.getElementById("ficha-paginas");
+
+const fichaGenero =
+    document.getElementById("ficha-genero");
+
+const fichaFormato =
+    document.getElementById("ficha-formato");
+
+const fichaIdioma =
+    document.getElementById("ficha-idioma");
+
+const fichaUbicacion =
+    document.getElementById("ficha-ubicacion");
+
+const fichaIsbn =
+    document.getElementById("ficha-isbn");
+
+const fichaSinopsis =
+    document.getElementById("ficha-sinopsis");
 
 /* ==========================================================
    DATOS
@@ -152,8 +196,13 @@ async function cargarEjemplares() {
                     titulo,
                     autor,
                     editorial,
+                    paginas,
                     genero,
+                    formato,
+                    idioma,
+                    ubicacion,
                     estado,
+                    sinopsis,
                     isbn
                 `)
                 .order("id", {
@@ -253,6 +302,19 @@ function mostrarEjemplares() {
         const fila =
             document.createElement("tr");
 
+        fila.classList.add(
+            "fila-ejemplar-admin"
+        );
+
+        fila.addEventListener(
+            "click",
+            function () {
+
+                abrirFichaEjemplar(
+                    ejemplar
+                );
+            }
+        );
 
         fila.innerHTML = `
             <td>${ejemplar.id ?? ""}</td>
@@ -279,6 +341,143 @@ function mostrarEjemplares() {
         filtrados.length +
         " ejemplares mostrados";
 }
+
+    /* ==========================================================
+   FICHA DEL EJEMPLAR
+   ========================================================== */
+
+function valorFicha(valor) {
+
+    if (
+        valor === null ||
+        valor === undefined ||
+        String(valor).trim() === ""
+    ) {
+        return "—";
+    }
+
+    return valor;
+}
+
+
+function abrirFichaEjemplar(ejemplar) {
+
+    fichaTitulo.textContent =
+        valorFicha(ejemplar.titulo);
+
+    fichaAutor.textContent =
+        valorFicha(ejemplar.autor);
+
+    fichaId.textContent =
+        valorFicha(ejemplar.id);
+
+    fichaClave.textContent =
+        valorFicha(ejemplar.clave);
+
+    fichaEditorial.textContent =
+        valorFicha(ejemplar.editorial);
+
+    fichaPaginas.textContent =
+        valorFicha(ejemplar.paginas);
+
+    fichaGenero.textContent =
+        valorFicha(ejemplar.genero);
+
+    fichaFormato.textContent =
+        valorFicha(ejemplar.formato);
+
+    fichaIdioma.textContent =
+        valorFicha(ejemplar.idioma);
+
+    fichaUbicacion.textContent =
+        valorFicha(ejemplar.ubicacion);
+
+    fichaIsbn.textContent =
+        valorFicha(ejemplar.isbn);
+
+    fichaSinopsis.textContent =
+        valorFicha(ejemplar.sinopsis);
+
+
+    const estado =
+        valorFicha(ejemplar.estado);
+
+    fichaEstado.textContent =
+        estado;
+
+    fichaEstado.className =
+        "estado-admin";
+
+    if (
+        ejemplar.estado
+    ) {
+
+        fichaEstado.classList.add(
+            "estado-" +
+            ejemplar.estado.toLowerCase()
+        );
+    }
+
+
+    modalEjemplar.classList.add(
+        "visible"
+    );
+
+    document.body.classList.add(
+        "modal-abierto"
+    );
+}
+
+
+/* ==========================================================
+   CERRAR FICHA
+   ========================================================== */
+
+function cerrarFichaEjemplar() {
+
+    modalEjemplar.classList.remove(
+        "visible"
+    );
+
+    document.body.classList.remove(
+        "modal-abierto"
+    );
+}
+
+
+btnCerrarFicha.addEventListener(
+    "click",
+    cerrarFichaEjemplar
+);
+
+
+modalEjemplar.addEventListener(
+    "click",
+    function (event) {
+
+        if (
+            event.target === modalEjemplar
+        ) {
+
+            cerrarFichaEjemplar();
+        }
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (
+            event.key === "Escape" &&
+            modalEjemplar.classList.contains("visible")
+        ) {
+
+            cerrarFichaEjemplar();
+        }
+    }
+);
 
 
 /* ==========================================================

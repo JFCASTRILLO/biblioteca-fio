@@ -130,8 +130,107 @@
 
     </main>
 
+    <!-- =========================================================
+     FICHA DEL EJEMPLAR
+     ========================================================= -->
 
-    <script src="ejemplares.js"></script>
+<div id="modal-ejemplar" class="modal-ejemplar-admin">
+
+    <div class="ficha-ejemplar-admin">
+
+        <button
+            type="button"
+            id="cerrar-ficha-ejemplar"
+            class="cerrar-ficha-ejemplar"
+            aria-label="Cerrar"
+        >
+            &times;
+        </button>
+
+        <div class="cabecera-ficha-ejemplar">
+
+            <div>
+                <span class="etiqueta-ficha-admin">
+                    Ejemplar
+                </span>
+
+                <h2 id="ficha-titulo"></h2>
+
+                <p id="ficha-autor" class="ficha-autor"></p>
+            </div>
+
+            <span
+                id="ficha-estado"
+                class="estado-admin"
+            ></span>
+
+        </div>
+
+
+        <div class="grid-ficha-ejemplar">
+
+            <div>
+                <span>ID</span>
+                <strong id="ficha-id"></strong>
+            </div>
+
+            <div>
+                <span>Clave</span>
+                <strong id="ficha-clave"></strong>
+            </div>
+
+            <div>
+                <span>Editorial</span>
+                <strong id="ficha-editorial"></strong>
+            </div>
+
+            <div>
+                <span>Páginas</span>
+                <strong id="ficha-paginas"></strong>
+            </div>
+
+            <div>
+                <span>Género</span>
+                <strong id="ficha-genero"></strong>
+            </div>
+
+            <div>
+                <span>Formato</span>
+                <strong id="ficha-formato"></strong>
+            </div>
+
+            <div>
+                <span>Idioma</span>
+                <strong id="ficha-idioma"></strong>
+            </div>
+
+            <div>
+                <span>Ubicación</span>
+                <strong id="ficha-ubicacion"></strong>
+            </div>
+
+            <div>
+                <span>ISBN</span>
+                <strong id="ficha-isbn"></strong>
+            </div>
+
+        </div>
+
+
+        <div class="sinopsis-ficha-admin">
+
+            <span>Sinopsis</span>
+
+            <p id="ficha-sinopsis"></p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="ejemplares.js"></script>
 
 </body>
 

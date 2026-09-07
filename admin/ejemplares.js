@@ -81,6 +81,9 @@ const fichaIsbn =
 const fichaSinopsis =
     document.getElementById("ficha-sinopsis");
 
+const btnEditarEjemplar =
+    document.getElementById("btn-editar-ejemplar");
+
 /* ==========================================================
    DATOS
    ========================================================== */
@@ -428,6 +431,20 @@ function abrirFichaEjemplar(ejemplar) {
     );
 }
 
+    /* ==========================================================
+   ACTIVAR EDICIÓN DEL EJEMPLAR
+   ========================================================== */
+
+    btnEditarEjemplar.addEventListener(
+        "click",
+        function () {
+
+            alert(
+                "El modo edición se añadirá en el siguiente paso."
+            );
+
+        }
+    );
 
 /* ==========================================================
    CERRAR FICHA

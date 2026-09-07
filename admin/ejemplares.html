@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ejemplares - Biblioteca FIO</title>
+
+    <link rel="stylesheet" href="admin.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body class="body-panel">
+
+    <header class="cabecera-admin">
+
+        <div class="cabecera-admin-contenido">
+
+            <div class="marca-admin">
+
+                <img
+                    src="../Logo_FIO.png"
+                    alt="Fundación Infante de Orleans"
+                    class="logo-panel"
+                >
+
+                <div>
+                    <h1>Biblioteca FIO</h1>
+                    <p>Gestión de ejemplares</p>
+                </div>
+
+            </div>
+
+            <div class="usuario-admin">
+
+                <span id="nombre-admin">
+                    Comprobando usuario...
+                </span>
+
+                <button id="btn-cerrar-sesion">
+                    Cerrar sesión
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <main class="panel-contenedor">
+
+        <div class="barra-superior-ejemplares">
+
+            <div>
+                <h2>Ejemplares</h2>
+                <p>
+                    Consulta del catálogo completo de la Biblioteca FIO.
+                </p>
+            </div>
+
+            <a href="panel.html" class="btn-volver-panel">
+                ← Volver al panel
+            </a>
+
+        </div>
+
+
+        <section class="filtros-ejemplares">
+
+            <div class="campo-filtro-ejemplares">
+                <label for="buscar-ejemplar">
+                    Buscar
+                </label>
+
+                <input
+                    type="text"
+                    id="buscar-ejemplar"
+                    placeholder="Título, autor, clave o ISBN..."
+                >
+            </div>
+
+
+            <div class="campo-filtro-ejemplares">
+                <label for="filtro-estado">
+                    Estado
+                </label>
+
+                <select id="filtro-estado">
+                    <option value="">Todos</option>
+                    <option value="DISPONIBLE">Disponible</option>
+                    <option value="PRESTADO">Prestado</option>
+                    <option value="RESERVADO">Reservado</option>
+                    <option value="INACTIVO">Inactivo</option>
+                </select>
+            </div>
+
+        </section>
+
+
+        <p id="contador-ejemplares" class="contador-ejemplares">
+            Cargando ejemplares...
+        </p>
+
+
+        <section class="tabla-admin-contenedor">
+
+            <table class="tabla-admin">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Clave</th>
+                        <th>Título</th>
+                        <th>Autor</th>
+                        <th>Editorial</th>
+                        <th>Género</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tabla-ejemplares-body">
+                </tbody>
+
+            </table>
+
+        </section>
+
+    </main>
+
+
+    <script src="ejemplares.js"></script>
+
+</body>
+
+</html>

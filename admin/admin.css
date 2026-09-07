@@ -357,3 +357,198 @@ body {
         grid-template-columns:1fr;
     }
 }
+
+/* ==========================================================
+   GESTIÓN DE EJEMPLARES
+   ========================================================== */
+
+.enlace-tarjeta-admin{
+    text-decoration:none;
+    color:inherit;
+    display:block;
+}
+
+
+.barra-superior-ejemplares{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+
+    margin-bottom:25px;
+}
+
+
+.barra-superior-ejemplares h2{
+    margin:0 0 5px 0;
+}
+
+
+.barra-superior-ejemplares p{
+    margin:0;
+    color:#666;
+}
+
+
+.btn-volver-panel{
+    color:#212c59;
+    text-decoration:none;
+    font-weight:600;
+}
+
+
+.filtros-ejemplares{
+    display:grid;
+
+    grid-template-columns:
+        minmax(300px, 1fr)
+        220px;
+
+    gap:20px;
+
+    background:#fff;
+
+    padding:20px;
+
+    border:1px solid #e2e2e2;
+    border-radius:8px;
+
+    margin-bottom:15px;
+}
+
+
+.campo-filtro-ejemplares label{
+    display:block;
+
+    font-size:.8rem;
+    font-weight:700;
+
+    margin-bottom:7px;
+
+    color:#555;
+}
+
+
+.campo-filtro-ejemplares input,
+.campo-filtro-ejemplares select{
+    width:100%;
+    height:42px;
+
+    padding:0 12px;
+
+    box-sizing:border-box;
+
+    border:1px solid #ccc;
+    border-radius:4px;
+
+    background:#fff;
+
+    font:inherit;
+}
+
+
+.contador-ejemplares{
+    color:#666;
+    font-size:.9rem;
+}
+
+
+.tabla-admin-contenedor{
+    overflow:auto;
+
+    max-height:600px;
+
+    background:#fff;
+
+    border:1px solid #e2e2e2;
+    border-radius:8px;
+}
+
+
+.tabla-admin{
+    width:100%;
+    border-collapse:collapse;
+}
+
+
+.tabla-admin th{
+    position:sticky;
+    top:0;
+
+    background:#f5f6f8;
+
+    padding:12px;
+
+    text-align:left;
+
+    font-size:.78rem;
+
+    text-transform:uppercase;
+
+    border-bottom:1px solid #ddd;
+}
+
+
+.tabla-admin td{
+    padding:11px 12px;
+
+    border-bottom:1px solid #eee;
+
+    font-size:.88rem;
+
+    white-space:nowrap;
+}
+
+
+.tabla-admin tbody tr:hover{
+    background:#fafafa;
+}
+
+
+.estado-admin{
+    display:inline-block;
+
+    padding:3px 8px;
+
+    border-radius:4px;
+
+    font-size:.72rem;
+    font-weight:700;
+}
+
+
+.estado-disponible{
+    background:#e2f0d9;
+    color:#385723;
+}
+
+
+.estado-prestado{
+    background:#fce4d6;
+    color:#c65911;
+}
+
+
+.estado-reservado{
+    background:#fff2cc;
+    color:#7f6000;
+}
+
+
+.estado-inactivo{
+    background:#e5e5e5;
+    color:#666;
+}
+
+
+@media (max-width:700px){
+
+    .barra-superior-ejemplares{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .filtros-ejemplares{
+        grid-template-columns:1fr;
+    }
+}

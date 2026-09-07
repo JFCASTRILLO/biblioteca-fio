@@ -184,18 +184,18 @@ async function comprobarAdministrador() {
     }
 
         mostrarMensaje(
-        "Acceso autorizado. Bienvenido, " +
-        perfil.nombre + ".",
-        "correcto"
+    "Acceso autorizado. Bienvenido, " +
+    perfil.nombre + ".",
+    "correcto"
     );
 
-        setTimeout(
-            function () {
+    setTimeout(
+        function () {
 
-                window.location.href =
-                    "panel.html";
-            },
-            700
+            window.location.href =
+                "panel.html";
+        },
+        700
     );
 }
 /* ==========================================================

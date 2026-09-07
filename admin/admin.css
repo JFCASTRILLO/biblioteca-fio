@@ -178,3 +178,182 @@ body {
 .recuperar-password a:hover{
     text-decoration:underline;
 }
+/* ==========================================================
+   PANEL DE ADMINISTRACIÓN
+   ========================================================== */
+
+.body-panel{
+    margin:0;
+    background:#f5f6f8;
+    font-family:Arial, Helvetica, sans-serif;
+    color:#2a2a2a;
+}
+
+
+.cabecera-admin{
+    background:#212c59;
+    color:#fff;
+    padding:18px 30px;
+}
+
+
+.cabecera-admin-contenido{
+    max-width:1200px;
+    margin:0 auto;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+
+.marca-admin{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+
+.logo-panel{
+    width:65px;
+    height:auto;
+}
+
+
+.marca-admin h1{
+    margin:0;
+    font-size:1.5rem;
+}
+
+
+.marca-admin p{
+    margin:3px 0 0 0;
+    opacity:.8;
+}
+
+
+.usuario-admin{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+
+#btn-cerrar-sesion{
+    background:#fff;
+    color:#212c59;
+
+    border:none;
+    padding:10px 18px;
+
+    cursor:pointer;
+
+    border-radius:4px;
+
+    font-weight:600;
+}
+
+
+.panel-contenedor{
+    max-width:1200px;
+    margin:40px auto;
+    padding:0 20px;
+}
+
+
+.bienvenida-admin{
+    margin-bottom:30px;
+}
+
+
+.bienvenida-admin h2{
+    margin-bottom:5px;
+}
+
+
+.menu-admin{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap:25px;
+}
+
+
+.tarjeta-admin{
+    background:#fff;
+
+    padding:30px;
+
+    border-radius:8px;
+
+    border:1px solid #e2e2e2;
+
+    box-shadow:
+        0 4px 15px rgba(0,0,0,.05);
+
+    cursor:pointer;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+
+.tarjeta-admin:hover{
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.10);
+}
+
+
+.tarjeta-admin h3{
+    margin-top:0;
+
+    color:#212c59;
+
+    font-size:1.3rem;
+}
+
+
+.tarjeta-admin p{
+    margin-bottom:0;
+    color:#666;
+}
+
+
+.volver-panel{
+    margin-top:35px;
+}
+
+
+.volver-panel a{
+    color:#212c59;
+    text-decoration:none;
+}
+
+
+.volver-panel a:hover{
+    text-decoration:underline;
+}
+
+
+@media (max-width:700px){
+
+    .cabecera-admin-contenido{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:20px;
+    }
+
+    .usuario-admin{
+        width:100%;
+        justify-content:space-between;
+    }
+
+    .menu-admin{
+        grid-template-columns:1fr;
+    }
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Panel de administración - Biblioteca FIO</title>
+
+    <link rel="stylesheet" href="admin.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body class="body-panel">
+
+    <header class="cabecera-admin">
+
+        <div class="cabecera-admin-contenido">
+
+            <div class="marca-admin">
+
+                <img
+                    src="../Logo_FIO.png"
+                    alt="Fundación Infante de Orleans"
+                    class="logo-panel"
+                >
+
+                <div>
+                    <h1>Biblioteca FIO</h1>
+                    <p>Panel de administración</p>
+                </div>
+
+            </div>
+
+            <div class="usuario-admin">
+
+                <span id="nombre-admin">
+                    Comprobando usuario...
+                </span>
+
+                <button id="btn-cerrar-sesion">
+                    Cerrar sesión
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <main class="panel-contenedor">
+
+        <section class="bienvenida-admin">
+
+            <h2 id="saludo-admin">
+                Bienvenido
+            </h2>
+
+            <p>
+                Seleccione una de las áreas de gestión de la Biblioteca FIO.
+            </p>
+
+        </section>
+
+
+        <section class="menu-admin">
+
+            <div class="tarjeta-admin">
+                <h3>Ejemplares</h3>
+                <p>
+                    Consulta y gestión de los ejemplares del catálogo.
+                </p>
+            </div>
+
+
+            <div class="tarjeta-admin">
+                <h3>Usuarios</h3>
+                <p>
+                    Gestión de socios y usuarios de la biblioteca.
+                </p>
+            </div>
+
+
+            <div class="tarjeta-admin">
+                <h3>Reservas</h3>
+                <p>
+                    Consulta y gestión de reservas.
+                </p>
+            </div>
+
+
+            <div class="tarjeta-admin">
+                <h3>Préstamos</h3>
+                <p>
+                    Gestión de préstamos y devoluciones.
+                </p>
+            </div>
+
+        </section>
+
+
+        <div class="volver-panel">
+
+            <a href="../index.html">
+                ← Volver al catálogo público
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <script src="panel.js"></script>
+
+</body>
+
+</html>

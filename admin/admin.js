@@ -183,15 +183,19 @@ async function comprobarAdministrador() {
         return;
     }
 
-    mostrarMensaje(
+        mostrarMensaje(
         "Acceso autorizado. Bienvenido, " +
         perfil.nombre + ".",
         "correcto"
     );
 
-    console.log(
-        "Administrador autenticado:",
-        perfil
+        setTimeout(
+            function () {
+
+                window.location.href =
+                    "panel.html";
+            },
+            700
     );
 }
 /* ==========================================================

@@ -163,3 +163,18 @@ body {
 .volver-catalogo:hover {
     text-decoration: underline;
 }
+
+.recuperar-password{
+    margin-top:18px;
+    text-align:center;
+}
+
+.recuperar-password a{
+    color:#212c59;
+    text-decoration:none;
+    font-size:.9rem;
+}
+
+.recuperar-password a:hover{
+    text-decoration:underline;
+}

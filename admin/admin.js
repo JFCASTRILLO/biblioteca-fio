@@ -33,6 +33,8 @@ const btnLogin =
 const mensaje =
     document.getElementById("mensaje-login");
 
+const enlaceRecuperar =
+    document.getElementById("enlace-recuperar");
 
 /* ==========================================================
    MOSTRAR MENSAJES
@@ -192,3 +194,71 @@ async function comprobarAdministrador() {
         perfil
     );
 }
+/* ==========================================================
+   RECUPERAR CONTRASEÑA
+   ========================================================== */
+
+enlaceRecuperar.addEventListener(
+    "click",
+    async function (event) {
+
+        event.preventDefault();
+
+        const email =
+            txtEmail.value.trim();
+
+        if (!email) {
+
+            mostrarMensaje(
+                "Introduce primero tu correo electrónico.",
+                "error"
+            );
+
+            txtEmail.focus();
+
+            return;
+        }
+
+
+        mostrarMensaje(
+            "Enviando correo de recuperación..."
+        );
+
+
+        try {
+
+            const { error } =
+                await clienteSupabase.auth
+                    .resetPasswordForEmail(
+                        email,
+                        {
+                            redirectTo:
+                                "https://jfcastrillo.github.io/biblioteca-fio/admin/cambiar-password.html"
+                        }
+                    );
+
+            if (error) {
+                throw error;
+            }
+
+
+            mostrarMensaje(
+                "Te hemos enviado un correo para cambiar tu contraseña.",
+                "correcto"
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Error recuperando contraseña:",
+                error
+            );
+
+            mostrarMensaje(
+                "No se ha podido enviar el correo de recuperación.",
+                "error"
+            );
+        }
+    }
+);

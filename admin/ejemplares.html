@@ -156,7 +156,19 @@
 
                 <h2 id="ficha-titulo"></h2>
 
+                <input
+                    type="text"
+                    id="editar-titulo"
+                    class="campo-edicion-ejemplar campo-edicion-titulo"
+                >
+
                 <p id="ficha-autor" class="ficha-autor"></p>
+
+                <input
+                    type="text"
+                    id="editar-autor"
+                    class="campo-edicion-ejemplar campo-edicion-autor"
+                >
             </div>
 
             <span
@@ -169,52 +181,101 @@
 
         <div class="grid-ficha-ejemplar">
 
-            <div>
-                <span>ID</span>
-                <strong id="ficha-id"></strong>
-            </div>
-
-            <div>
-                <span>Clave</span>
-                <strong id="ficha-clave"></strong>
-            </div>
-
-            <div>
-                <span>Editorial</span>
-                <strong id="ficha-editorial"></strong>
-            </div>
-
-            <div>
-                <span>Páginas</span>
-                <strong id="ficha-paginas"></strong>
-            </div>
-
-            <div>
-                <span>Género</span>
-                <strong id="ficha-genero"></strong>
-            </div>
-
-            <div>
-                <span>Formato</span>
-                <strong id="ficha-formato"></strong>
-            </div>
-
-            <div>
-                <span>Idioma</span>
-                <strong id="ficha-idioma"></strong>
-            </div>
-
-            <div>
-                <span>Ubicación</span>
-                <strong id="ficha-ubicacion"></strong>
-            </div>
-
-            <div>
-                <span>ISBN</span>
-                <strong id="ficha-isbn"></strong>
-            </div>
-
+        <div>
+            <span>ID</span>
+            <strong id="ficha-id"></strong>
         </div>
+
+        <div>
+            <span>Clave</span>
+            <strong id="ficha-clave"></strong>
+
+            <input
+                type="text"
+                id="editar-clave"
+                class="campo-edicion-ejemplar"
+            >
+        </div>
+
+        <div>
+            <span>Editorial</span>
+            <strong id="ficha-editorial"></strong>
+
+            <input
+                type="text"
+                id="editar-editorial"
+                class="campo-edicion-ejemplar"
+            >
+        </div>
+
+        <div>
+            <span>Páginas</span>
+            <strong id="ficha-paginas"></strong>
+
+            <input
+                type="number"
+                id="editar-paginas"
+                class="campo-edicion-ejemplar"
+                min="0"
+            >
+        </div>
+
+        <div>
+            <span>Género</span>
+            <strong id="ficha-genero"></strong>
+
+            <input
+                type="text"
+                id="editar-genero"
+                class="campo-edicion-ejemplar"
+            >
+        </div>
+
+        <div>
+            <span>Formato</span>
+            <strong id="ficha-formato"></strong>
+
+            <input
+                type="text"
+                id="editar-formato"
+                class="campo-edicion-ejemplar"
+            >
+        </div>
+
+        <div>
+            <span>Idioma</span>
+            <strong id="ficha-idioma"></strong>
+
+            <input
+                type="text"
+                id="editar-idioma"
+                class="campo-edicion-ejemplar"
+            >
+        </div>
+
+        <div>
+            <span>Ubicación</span>
+            <strong id="ficha-ubicacion"></strong>
+
+            <input
+                type="text"
+                id="editar-ubicacion"
+                class="campo-edicion-ejemplar"
+            >
+        </div>
+
+        <div>
+            <span>ISBN</span>
+            <strong id="ficha-isbn"></strong>
+
+            <input
+                type="text"
+                id="editar-isbn"
+                class="campo-edicion-ejemplar"
+            >
+        </div>
+
+</div>
 
 
         <div class="sinopsis-ficha-admin">
@@ -222,6 +283,12 @@
             <span>Sinopsis</span>
 
             <p id="ficha-sinopsis"></p>
+
+            <textarea
+                id="editar-sinopsis"
+                class="campo-edicion-ejemplar campo-edicion-sinopsis"
+                rows="8"
+            ></textarea>
 
         </div>
 

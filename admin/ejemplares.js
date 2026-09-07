@@ -84,6 +84,44 @@ const fichaSinopsis =
 const btnEditarEjemplar =
     document.getElementById("btn-editar-ejemplar");
 
+const fichaEjemplar =
+    document.querySelector(".ficha-ejemplar-admin");
+
+const editarTitulo =
+    document.getElementById("editar-titulo");
+
+const editarAutor =
+    document.getElementById("editar-autor");
+
+const editarClave =
+    document.getElementById("editar-clave");
+
+const editarEditorial =
+    document.getElementById("editar-editorial");
+
+const editarPaginas =
+    document.getElementById("editar-paginas");
+
+const editarGenero =
+    document.getElementById("editar-genero");
+
+const editarFormato =
+    document.getElementById("editar-formato");
+
+const editarIdioma =
+    document.getElementById("editar-idioma");
+
+const editarUbicacion =
+    document.getElementById("editar-ubicacion");
+
+const editarIsbn =
+    document.getElementById("editar-isbn");
+
+const editarSinopsis =
+    document.getElementById("editar-sinopsis");
+
+
+
 /* ==========================================================
    DATOS
    ========================================================== */
@@ -439,9 +477,71 @@ function abrirFichaEjemplar(ejemplar) {
         "click",
         function () {
 
-            alert(
-                "El modo edición se añadirá en el siguiente paso."
-            );
+            btnEditarEjemplar.addEventListener(
+    "click",
+    function () {
+
+        editarTitulo.value =
+            fichaTitulo.textContent === "—"
+                ? ""
+                : fichaTitulo.textContent;
+
+        editarAutor.value =
+            fichaAutor.textContent === "—"
+                ? ""
+                : fichaAutor.textContent;
+
+        editarClave.value =
+            fichaClave.textContent === "—"
+                ? ""
+                : fichaClave.textContent;
+
+        editarEditorial.value =
+            fichaEditorial.textContent === "—"
+                ? ""
+                : fichaEditorial.textContent;
+
+        editarPaginas.value =
+            fichaPaginas.textContent === "—"
+                ? ""
+                : fichaPaginas.textContent;
+
+        editarGenero.value =
+            fichaGenero.textContent === "—"
+                ? ""
+                : fichaGenero.textContent;
+
+        editarFormato.value =
+            fichaFormato.textContent === "—"
+                ? ""
+                : fichaFormato.textContent;
+
+        editarIdioma.value =
+            fichaIdioma.textContent === "—"
+                ? ""
+                : fichaIdioma.textContent;
+
+        editarUbicacion.value =
+            fichaUbicacion.textContent === "—"
+                ? ""
+                : fichaUbicacion.textContent;
+
+        editarIsbn.value =
+            fichaIsbn.textContent === "—"
+                ? ""
+                : fichaIsbn.textContent;
+
+        editarSinopsis.value =
+            fichaSinopsis.textContent === "—"
+                ? ""
+                : fichaSinopsis.textContent;
+
+
+        fichaEjemplar.classList.add(
+            "modo-edicion"
+        );
+    }
+);
 
         }
     );

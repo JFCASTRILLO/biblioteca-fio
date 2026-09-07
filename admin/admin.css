@@ -818,3 +818,97 @@ body {
         grid-template-columns:1fr;
     }
 }
+
+/* ==========================================================
+   MODO EDICIÓN DE EJEMPLAR
+   ========================================================== */
+
+.campo-edicion-ejemplar{
+    display:none;
+
+    width:100%;
+    box-sizing:border-box;
+
+    margin-top:6px;
+
+    padding:9px 10px;
+
+    border:1px solid #c9c9c9;
+    border-radius:4px;
+
+    font:inherit;
+
+    background:#fff;
+}
+
+
+.campo-edicion-ejemplar:focus{
+    outline:none;
+
+    border-color:#212c59;
+
+    box-shadow:
+        0 0 0 2px rgba(33,44,89,.10);
+}
+
+
+.campo-edicion-titulo{
+    font-size:1.35rem;
+    font-weight:700;
+}
+
+
+.campo-edicion-autor{
+    font-size:1rem;
+}
+
+
+.campo-edicion-sinopsis{
+    min-height:160px;
+
+    resize:vertical;
+
+    line-height:1.5;
+}
+
+
+.ficha-ejemplar-admin.modo-edicion
+.campo-edicion-ejemplar{
+    display:block;
+}
+
+
+.ficha-ejemplar-admin.modo-edicion
+#ficha-titulo,
+
+.ficha-ejemplar-admin.modo-edicion
+#ficha-autor,
+
+.ficha-ejemplar-admin.modo-edicion
+#ficha-clave,
+
+.ficha-ejemplar-admin.modo-edicion
+#ficha-editorial,
+
+.ficha-ejemplar-admin.modo-edicion
+#ficha-paginas,
+
+.ficha-ejemplar-admin.modo-edicion
+#ficha-genero,
+
+.ficha-ejemplar-admin.modo-edicion
+#ficha-formato,
+
+.ficha-ejemplar-admin.modo-edicion
+#ficha-idioma,
+
+.ficha-ejemplar-admin.modo-edicion
+#ficha-ubicacion,
+
+.ficha-ejemplar-admin.modo-edicion
+#ficha-isbn,
+
+.ficha-ejemplar-admin.modo-edicion
+#ficha-sinopsis{
+    display:none;
+}

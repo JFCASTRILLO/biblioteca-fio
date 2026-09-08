@@ -426,8 +426,7 @@ function abrirFichaEjemplar(ejemplar) {
 
     ejemplarActual = ejemplar;
 
-    fichaPortada.src = "";
-
+    
     /* ==========================================================
    PORTADA
    ========================================================== */

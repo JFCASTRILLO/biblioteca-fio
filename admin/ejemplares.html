@@ -2,17 +2,36 @@
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Ejemplares - Biblioteca FIO</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <link rel="stylesheet" href="admin.css">
+    <title>
+        Ejemplares - Biblioteca FIO
+    </title>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link
+        rel="stylesheet"
+        href="admin.css"
+    >
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
 </head>
 
+
 <body class="body-panel">
+
+
+    <!-- =====================================================
+         CABECERA
+         ===================================================== -->
 
     <header class="cabecera-admin">
 
@@ -27,11 +46,19 @@
                 >
 
                 <div>
-                    <h1>Biblioteca FIO</h1>
-                    <p>Gestión de ejemplares</p>
+
+                    <h1>
+                        Biblioteca FIO
+                    </h1>
+
+                    <p>
+                        Gestión de ejemplares
+                    </p>
+
                 </div>
 
             </div>
+
 
             <div class="usuario-admin">
 
@@ -50,27 +77,49 @@
     </header>
 
 
+
+    <!-- =====================================================
+         CONTENIDO PRINCIPAL
+         ===================================================== -->
+
     <main class="panel-contenedor">
+
 
         <div class="barra-superior-ejemplares">
 
             <div>
-                <h2>Ejemplares</h2>
+
+                <h2>
+                    Ejemplares
+                </h2>
+
                 <p>
                     Consulta del catálogo completo de la Biblioteca FIO.
                 </p>
+
             </div>
 
-            <a href="panel.html" class="btn-volver-panel">
+
+            <a
+                href="panel.html"
+                class="btn-volver-panel"
+            >
                 ← Volver al panel
             </a>
 
         </div>
 
 
+
+        <!-- =================================================
+             FILTROS
+             ================================================= -->
+
         <section class="filtros-ejemplares">
 
+
             <div class="campo-filtro-ejemplares">
+
                 <label for="buscar-ejemplar">
                     Buscar
                 </label>
@@ -80,46 +129,85 @@
                     id="buscar-ejemplar"
                     placeholder="Título, autor, clave o ISBN..."
                 >
+
             </div>
 
 
             <div class="campo-filtro-ejemplares">
+
                 <label for="filtro-estado">
                     Estado
                 </label>
 
                 <select id="filtro-estado">
-                    <option value="">Todos</option>
-                    <option value="DISPONIBLE">Disponible</option>
-                    <option value="PRESTADO">Prestado</option>
-                    <option value="RESERVADO">Reservado</option>
-                    <option value="INACTIVO">Inactivo</option>
+
+                    <option value="">
+                        Todos
+                    </option>
+
+                    <option value="DISPONIBLE">
+                        Disponible
+                    </option>
+
+                    <option value="PRESTADO">
+                        Prestado
+                    </option>
+
+                    <option value="RESERVADO">
+                        Reservado
+                    </option>
+
+                    <option value="INACTIVO">
+                        Inactivo
+                    </option>
+
                 </select>
+
             </div>
 
         </section>
 
 
-        <p id="contador-ejemplares" class="contador-ejemplares">
+
+        <p
+            id="contador-ejemplares"
+            class="contador-ejemplares"
+        >
             Cargando ejemplares...
         </p>
 
+
+
+        <!-- =================================================
+             TABLA DE EJEMPLARES
+             ================================================= -->
 
         <section class="tabla-admin-contenedor">
 
             <table class="tabla-admin">
 
                 <thead>
+
                     <tr>
+
                         <th>ID</th>
+
                         <th>Clave</th>
+
                         <th>Título</th>
+
                         <th>Autor</th>
+
                         <th>Editorial</th>
+
                         <th>Género</th>
+
                         <th>Estado</th>
+
                     </tr>
+
                 </thead>
+
 
                 <tbody id="tabla-ejemplares-body">
                 </tbody>
@@ -128,282 +216,406 @@
 
         </section>
 
+
     </main>
 
-<!-- =====================================================
-     DATOS DEL EJEMPLAR
-     ===================================================== -->
 
-<div class="zona-datos-ficha-admin">
 
-    <div class="cabecera-ficha-ejemplar">
-
-        <div>
-
-            <span class="etiqueta-ficha-admin">
-                Ejemplar
-            </span>
-
-            <h2 id="ficha-titulo"></h2>
-
-            <input
-                type="text"
-                id="editar-titulo"
-                class="campo-edicion-ejemplar campo-edicion-titulo"
-            >
-
-            <p
-                id="ficha-autor"
-                class="ficha-autor"
-            ></p>
-
-            <input
-                type="text"
-                id="editar-autor"
-                class="campo-edicion-ejemplar campo-edicion-autor"
-            >
-
-        </div>
-
-        <span
-            id="ficha-estado"
-            class="estado-admin"
-        ></span>
-
-    </div>
-
-
-    <div class="grid-ficha-ejemplar">
-
-        <div>
-            <span>ID</span>
-            <strong id="ficha-id"></strong>
-        </div>
-
-
-        <div>
-            <span>Clave</span>
-
-            <strong id="ficha-clave"></strong>
-
-            <input
-                type="text"
-                id="editar-clave"
-                class="campo-edicion-ejemplar"
-            >
-        </div>
-
-
-        <div>
-            <span>Editorial</span>
-
-            <strong id="ficha-editorial"></strong>
-
-            <input
-                type="text"
-                id="editar-editorial"
-                class="campo-edicion-ejemplar"
-            >
-        </div>
-
-
-        <div>
-            <span>Páginas</span>
-
-            <strong id="ficha-paginas"></strong>
-
-            <input
-                type="number"
-                id="editar-paginas"
-                class="campo-edicion-ejemplar"
-                min="0"
-            >
-        </div>
-
-
-        <div>
-            <span>Género</span>
-
-            <strong id="ficha-genero"></strong>
-
-            <input
-                type="text"
-                id="editar-genero"
-                class="campo-edicion-ejemplar"
-            >
-        </div>
-
-
-        <div>
-            <span>Formato</span>
-
-            <strong id="ficha-formato"></strong>
-
-            <input
-                type="text"
-                id="editar-formato"
-                class="campo-edicion-ejemplar"
-            >
-        </div>
-
-
-        <div>
-            <span>Idioma</span>
-
-            <strong id="ficha-idioma"></strong>
-
-            <input
-                type="text"
-                id="editar-idioma"
-                class="campo-edicion-ejemplar"
-            >
-        </div>
-
-
-        <div>
-            <span>Estado físico</span>
-
-            <strong id="ficha-estado-fisico"></strong>
-
-            <select
-                id="editar-estado-fisico"
-                class="campo-edicion-ejemplar"
-            >
-
-                <option value="BUENO">
-                    BUENO
-                </option>
-
-                <option value="DETERIORADO">
-                    DETERIORADO
-                </option>
-
-                <option value="EN_REPARACION">
-                    EN REPARACIÓN
-                </option>
-
-                <option value="PERDIDO">
-                    PERDIDO
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <div>
-            <span>Ubicación</span>
-
-            <strong id="ficha-ubicacion"></strong>
-
-            <input
-                type="text"
-                id="editar-ubicacion"
-                class="campo-edicion-ejemplar"
-            >
-        </div>
-
-
-        <div>
-            <span>ISBN</span>
-
-            <strong id="ficha-isbn"></strong>
-
-            <input
-                type="text"
-                id="editar-isbn"
-                class="campo-edicion-ejemplar"
-            >
-        </div>
-
-    </div>
-
-</div>
-<!-- FIN zona-datos-ficha-admin -->
-
-
-<!-- =====================================================
-     SINOPSIS
-     Ocupa todo el ancho de la ficha
-     ===================================================== -->
-
-<div class="sinopsis-ficha-admin">
-
-    <span>Sinopsis</span>
-
-    <p id="ficha-sinopsis"></p>
-
-    <textarea
-        id="editar-sinopsis"
-        class="campo-edicion-ejemplar campo-edicion-sinopsis"
-        rows="8"
-    ></textarea>
-
-</div>
-
-
-<!-- =====================================================
-     BOTONES
-     Ocupan todo el ancho inferior
-     ===================================================== -->
-
-<div class="acciones-ficha-ejemplar">
-
-    <button
-        type="button"
-        id="btn-editar-ejemplar"
-        class="btn-editar-ejemplar"
-    >
-        Editar ejemplar
-    </button>
-
+    <!-- =====================================================
+         MODAL - FICHA DEL EJEMPLAR
+         ===================================================== -->
 
     <div
-        id="acciones-edicion-ejemplar"
-        class="acciones-edicion-ejemplar"
+        id="modal-ejemplar"
+        class="modal-ejemplar-admin"
     >
 
-        <button
-            type="button"
-            id="btn-guardar-ejemplar"
-            class="btn-guardar-ejemplar"
-        >
-            Guardar cambios
-        </button>
 
-        <button
-            type="button"
-            id="btn-cancelar-edicion"
-            class="btn-cancelar-edicion"
-        >
-            Cancelar
-        </button>
+        <div class="ficha-ejemplar-admin">
+
+
+            <!-- BOTÓN CERRAR -->
+
+            <button
+                type="button"
+                id="cerrar-ficha-ejemplar"
+                class="cerrar-ficha-ejemplar"
+                aria-label="Cerrar"
+            >
+                &times;
+            </button>
+
+
+
+            <!-- =================================================
+                 CONTENIDO: PORTADA + DATOS
+                 ================================================= -->
+
+            <div class="contenido-ficha-ejemplar">
+
+
+                <!-- =============================================
+                     PORTADA
+                     ============================================= -->
+
+                <div class="zona-portada-admin">
+
+                    <img
+                        id="ficha-portada"
+                        class="portada-ficha-admin"
+                        src="../Portadas/NoDisponible.jpg"
+                        alt="Portada del ejemplar"
+                    >
+
+                </div>
+
+
+
+                <!-- =============================================
+                     DATOS DEL EJEMPLAR
+                     ============================================= -->
+
+                <div class="zona-datos-ficha-admin">
+
+
+                    <div class="cabecera-ficha-ejemplar">
+
+
+                        <div>
+
+                            <span class="etiqueta-ficha-admin">
+                                Ejemplar
+                            </span>
+
+
+                            <h2 id="ficha-titulo"></h2>
+
+
+                            <input
+                                type="text"
+                                id="editar-titulo"
+                                class="campo-edicion-ejemplar campo-edicion-titulo"
+                            >
+
+
+                            <p
+                                id="ficha-autor"
+                                class="ficha-autor"
+                            ></p>
+
+
+                            <input
+                                type="text"
+                                id="editar-autor"
+                                class="campo-edicion-ejemplar campo-edicion-autor"
+                            >
+
+                        </div>
+
+
+                        <span
+                            id="ficha-estado"
+                            class="estado-admin"
+                        ></span>
+
+                    </div>
+
+
+
+                    <!-- =========================================
+                         GRID DE DATOS
+                         ========================================= -->
+
+                    <div class="grid-ficha-ejemplar">
+
+
+                        <div>
+
+                            <span>
+                                ID
+                            </span>
+
+                            <strong id="ficha-id"></strong>
+
+                        </div>
+
+
+
+                        <div>
+
+                            <span>
+                                Clave
+                            </span>
+
+                            <strong id="ficha-clave"></strong>
+
+                            <input
+                                type="text"
+                                id="editar-clave"
+                                class="campo-edicion-ejemplar"
+                            >
+
+                        </div>
+
+
+
+                        <div>
+
+                            <span>
+                                Editorial
+                            </span>
+
+                            <strong id="ficha-editorial"></strong>
+
+                            <input
+                                type="text"
+                                id="editar-editorial"
+                                class="campo-edicion-ejemplar"
+                            >
+
+                        </div>
+
+
+
+                        <div>
+
+                            <span>
+                                Páginas
+                            </span>
+
+                            <strong id="ficha-paginas"></strong>
+
+                            <input
+                                type="number"
+                                id="editar-paginas"
+                                class="campo-edicion-ejemplar"
+                                min="0"
+                            >
+
+                        </div>
+
+
+
+                        <div>
+
+                            <span>
+                                Género
+                            </span>
+
+                            <strong id="ficha-genero"></strong>
+
+                            <input
+                                type="text"
+                                id="editar-genero"
+                                class="campo-edicion-ejemplar"
+                            >
+
+                        </div>
+
+
+
+                        <div>
+
+                            <span>
+                                Formato
+                            </span>
+
+                            <strong id="ficha-formato"></strong>
+
+                            <input
+                                type="text"
+                                id="editar-formato"
+                                class="campo-edicion-ejemplar"
+                            >
+
+                        </div>
+
+
+
+                        <div>
+
+                            <span>
+                                Idioma
+                            </span>
+
+                            <strong id="ficha-idioma"></strong>
+
+                            <input
+                                type="text"
+                                id="editar-idioma"
+                                class="campo-edicion-ejemplar"
+                            >
+
+                        </div>
+
+
+
+                        <div>
+
+                            <span>
+                                Estado físico
+                            </span>
+
+                            <strong
+                                id="ficha-estado-fisico"
+                            ></strong>
+
+
+                            <select
+                                id="editar-estado-fisico"
+                                class="campo-edicion-ejemplar"
+                            >
+
+                                <option value="BUENO">
+                                    BUENO
+                                </option>
+
+                                <option value="DETERIORADO">
+                                    DETERIORADO
+                                </option>
+
+                                <option value="EN_REPARACION">
+                                    EN REPARACIÓN
+                                </option>
+
+                                <option value="PERDIDO">
+                                    PERDIDO
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <div>
+
+                            <span>
+                                Ubicación
+                            </span>
+
+                            <strong
+                                id="ficha-ubicacion"
+                            ></strong>
+
+                            <input
+                                type="text"
+                                id="editar-ubicacion"
+                                class="campo-edicion-ejemplar"
+                            >
+
+                        </div>
+
+
+
+                        <div>
+
+                            <span>
+                                ISBN
+                            </span>
+
+                            <strong id="ficha-isbn"></strong>
+
+                            <input
+                                type="text"
+                                id="editar-isbn"
+                                class="campo-edicion-ejemplar"
+                            >
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =============================================
+                     SINOPSIS
+                     OCUPA TODO EL ANCHO
+                     ============================================= -->
+
+                <div class="sinopsis-ficha-admin">
+
+                    <span>
+                        Sinopsis
+                    </span>
+
+                    <p id="ficha-sinopsis"></p>
+
+
+                    <textarea
+                        id="editar-sinopsis"
+                        class="campo-edicion-ejemplar campo-edicion-sinopsis"
+                        rows="8"
+                    ></textarea>
+
+                </div>
+
+
+
+                <!-- =============================================
+                     BOTONES
+                     ============================================= -->
+
+                <div class="acciones-ficha-ejemplar">
+
+
+                    <button
+                        type="button"
+                        id="btn-editar-ejemplar"
+                        class="btn-editar-ejemplar"
+                    >
+                        Editar ejemplar
+                    </button>
+
+
+
+                    <div
+                        id="acciones-edicion-ejemplar"
+                        class="acciones-edicion-ejemplar"
+                    >
+
+
+                        <button
+                            type="button"
+                            id="btn-guardar-ejemplar"
+                            class="btn-guardar-ejemplar"
+                        >
+                            Guardar cambios
+                        </button>
+
+
+                        <button
+                            type="button"
+                            id="btn-cancelar-edicion"
+                            class="btn-cancelar-edicion"
+                        >
+                            Cancelar
+                        </button>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+            <!-- FIN contenido-ficha-ejemplar -->
+
+
+        </div>
+        <!-- FIN ficha-ejemplar-admin -->
+
 
     </div>
-
-</div>
-
-
-</div>
-<!-- FIN contenido-ficha-ejemplar -->
+    <!-- FIN modal-ejemplar -->
 
 
-</div>
-<!-- FIN ficha-ejemplar-admin -->
 
+    <script src="ejemplares.js"></script>
 
-</div>
-<!-- FIN modal-ejemplar -->
-
-
-<script src="ejemplares.js"></script>
-
-</body>
-
-</html>
-
-
-<script src="ejemplares.js"></script>
 
 </body>
 

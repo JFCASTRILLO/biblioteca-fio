@@ -552,44 +552,165 @@ function abrirFichaEjemplar(ejemplar) {
         }
     );
 
-    archivoPortada.addEventListener(
-    "change",
-    function () {
+        archivoPortada.addEventListener(
+        "change",
+        async function () {
 
-        const archivo =
-            archivoPortada.files[0];
+            const archivo =
+                archivoPortada.files[0];
 
-        if (!archivo) {
-            return;
-        }
+            if (!archivo) {
+                return;
+            }
 
-        /* Comprobar que realmente es una imagen */
 
-        const tiposPermitidos = [
-            "image/jpeg",
-            "image/png",
-            "image/webp"
-        ];
+            /* -----------------------------------------
+            COMPROBAR QUE HAY UN EJEMPLAR ABIERTO
+            ----------------------------------------- */
 
-        if (!tiposPermitidos.includes(archivo.type)) {
+            if (!ejemplarActual) {
 
-            alert(
-                "Selecciona una imagen JPG, PNG o WEBP."
-            );
+                alert(
+                    "No se ha podido identificar el ejemplar."
+                );
+
+                archivoPortada.value = "";
+
+                return;
+            }
+
+
+            /* -----------------------------------------
+            VALIDAR TIPO DE IMAGEN
+            ----------------------------------------- */
+
+            const tiposPermitidos = [
+                "image/jpeg",
+                "image/png",
+                "image/webp"
+            ];
+
+            if (!tiposPermitidos.includes(archivo.type)) {
+
+                alert(
+                    "Selecciona una imagen JPG, PNG o WEBP."
+                );
+
+                archivoPortada.value = "";
+
+                return;
+            }
+
+
+            /* -----------------------------------------
+            CONFIRMACIÓN
+            ----------------------------------------- */
+
+            const confirmar =
+                confirm(
+                    "¿Quieres guardar esta imagen como portada del ejemplar?"
+                );
+
+            if (!confirmar) {
+
+                archivoPortada.value = "";
+
+                return;
+            }
+
+
+            /* -----------------------------------------
+            NOMBRE DE LA PORTADA
+            ----------------------------------------- */
+
+            const nombrePortada =
+                `${ejemplarActual.id}.jpg`;
+
+
+            /* -----------------------------------------
+            SUBIR / REEMPLAZAR EN SUPABASE
+            ----------------------------------------- */
+
+            btnCambiarPortada.disabled = true;
+            btnCambiarPortada.textContent =
+                "Guardando...";
+
+            const { error } =
+                await clienteSupabase
+                    .storage
+                    .from("portadas")
+                    .upload(
+                        nombrePortada,
+                        archivo,
+                        {
+                            upsert: true,
+                            contentType: archivo.type,
+                            cacheControl: "3600"
+                        }
+                    );
+
+
+            if (error) {
+
+                console.error(
+                    "Error al guardar portada:",
+                    error
+                );
+
+                alert(
+                    "No se ha podido guardar la portada."
+                );
+
+                btnCambiarPortada.disabled = false;
+                btnCambiarPortada.textContent =
+                    "Cambiar portada";
+
+                archivoPortada.value = "";
+
+                return;
+            }
+
+
+            /* -----------------------------------------
+            OBTENER URL PÚBLICA
+            ----------------------------------------- */
+
+            const { data: datosPortada } =
+                clienteSupabase
+                    .storage
+                    .from("portadas")
+                    .getPublicUrl(
+                        nombrePortada
+                    );
+
+
+            /*
+            * Añadimos un valor variable a la URL.
+            * Así evitamos que el navegador muestre
+            * una portada antigua almacenada en caché.
+            */
+
+            fichaPortada.src =
+                datosPortada.publicUrl +
+                "?v=" +
+                Date.now();
+
+
+            /* -----------------------------------------
+            FINALIZAR
+            ----------------------------------------- */
+
+            btnCambiarPortada.disabled = false;
+
+            btnCambiarPortada.textContent =
+                "Cambiar portada";
 
             archivoPortada.value = "";
 
-            return;
-        }
 
-
-        /* Crear una vista previa temporal */
-
-        const urlTemporal =
-            URL.createObjectURL(archivo);
-
-        fichaPortada.src =
-            urlTemporal;
+            alert(
+                "La portada se ha guardado correctamente."
+            );
 
         }
     );

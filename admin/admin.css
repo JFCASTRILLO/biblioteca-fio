@@ -1061,4 +1061,15 @@ body {
         max-width:220px;
     }
 
-}
+    }
+
+    .sinopsis-ficha-admin{
+        grid-column:1 / -1;
+
+        margin-top:5px;
+    }
+
+
+    .acciones-ficha-ejemplar{
+        grid-column:1 / -1;
+    }

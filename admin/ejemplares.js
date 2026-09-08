@@ -1195,11 +1195,11 @@ btnLimpiarBusqueda.addEventListener(
     "click",
     function () {
 
-        buscarEjemplar.value = "";
+        txtBuscar.value = "";
 
         aplicarFiltros();
 
-        buscarEjemplar.focus();
+        txtBuscar.focus();
 
     }
 );

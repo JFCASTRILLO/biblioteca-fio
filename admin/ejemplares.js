@@ -426,6 +426,8 @@ function abrirFichaEjemplar(ejemplar) {
 
     ejemplarActual = ejemplar;
 
+    fichaPortada.src = "";
+
     /* ==========================================================
    PORTADA
    ========================================================== */
@@ -439,10 +441,9 @@ function abrirFichaEjemplar(ejemplar) {
         );
 
     const rutaPortada =
-        datosPortada.publicUrl;
-
-    const imagenPrueba =
-        new Image();
+        datosPortada.publicUrl +
+        "?v=" +
+        Date.now();
 
     imagenPrueba.onload =
         function () {
@@ -552,15 +553,106 @@ function abrirFichaEjemplar(ejemplar) {
         }
     );
 
+    async function prepararPortada(archivo) {
+
+    const imagen =
+        await createImageBitmap(archivo);
+
+    const anchoMaximo = 1200;
+    const altoMaximo = 1800;
+
+    let ancho = imagen.width;
+    let alto = imagen.height;
+
+    const escala = Math.min(
+        1,
+        anchoMaximo / ancho,
+        altoMaximo / alto
+    );
+
+    ancho =
+        Math.round(ancho * escala);
+
+    alto =
+        Math.round(alto * escala);
+
+
+    const canvas =
+        document.createElement("canvas");
+
+    canvas.width = ancho;
+    canvas.height = alto;
+
+
+    const contexto =
+        canvas.getContext("2d");
+
+    /*
+     * Fondo blanco.
+     * Es importante para imágenes PNG
+     * que puedan tener transparencia.
+     */
+
+    contexto.fillStyle = "#ffffff";
+
+    contexto.fillRect(
+        0,
+        0,
+        ancho,
+        alto
+    );
+
+
+    contexto.drawImage(
+        imagen,
+        0,
+        0,
+        ancho,
+        alto
+    );
+
+
+    imagen.close();
+
+
+    return new Promise(
+        function (resolve, reject) {
+
+            canvas.toBlob(
+                function (blob) {
+
+                    if (!blob) {
+
+                        reject(
+                            new Error(
+                                "No se pudo convertir la imagen."
+                            )
+                        );
+
+                        return;
+                    }
+
+                    resolve(blob);
+
+                },
+                "image/jpeg",
+                0.88
+            );
+
+        }
+    );
+}
+
+
+
+
         archivoPortada.addEventListener(
         "change",
         async function () {
 
             const archivo =
                 archivoPortada.files[0];
-
-                alert("PRUEBA PORTADA NUEVA");
-
+                
             if (!archivo) {
                 return;
             }
@@ -637,16 +729,45 @@ function abrirFichaEjemplar(ejemplar) {
             btnCambiarPortada.textContent =
                 "Guardando...";
 
+            let archivoPreparado;
+
+            try {
+
+                archivoPreparado =
+                    await prepararPortada(archivo);
+
+            } catch (error) {
+
+                console.error(
+                    "Error al preparar la portada:",
+                    error
+                );
+
+                alert(
+                    "No se ha podido preparar la imagen seleccionada."
+                );
+
+                btnCambiarPortada.disabled = false;
+
+                btnCambiarPortada.textContent =
+                    "Cambiar portada";
+
+                archivoPortada.value = "";
+
+                return;
+            }
+
+
             const { error } =
                 await clienteSupabase
                     .storage
                     .from("portadas")
                     .upload(
                         nombrePortada,
-                        archivo,
+                        archivoPreparado,
                         {
                             upsert: true,
-                            contentType: archivo.type,
+                            contentType: "image/jpeg",
                             cacheControl: "3600"
                         }
                     );

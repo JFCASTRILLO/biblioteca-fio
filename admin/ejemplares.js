@@ -424,25 +424,34 @@ function valorFicha(valor) {
 
 function abrirFichaEjemplar(ejemplar) {
 
+    fichaEjemplar.classList.remove(
+        "modo-edicion"
+    );
+
     ejemplarActual = ejemplar;
 
-    
+
     /* ==========================================================
-   PORTADA
-   ========================================================== */
+       PORTADA
+       ========================================================== */
 
     const { data: datosPortada } =
-    clienteSupabase
-        .storage
-        .from("portadas")
-        .getPublicUrl(
-            `${ejemplar.id}.jpg`
-        );
+        clienteSupabase
+            .storage
+            .from("portadas")
+            .getPublicUrl(
+                `${ejemplar.id}.jpg`
+            );
 
     const rutaPortada =
         datosPortada.publicUrl +
         "?v=" +
         Date.now();
+
+
+    const imagenPrueba =
+        new Image();
+
 
     imagenPrueba.onload =
         function () {
@@ -451,6 +460,7 @@ function abrirFichaEjemplar(ejemplar) {
                 rutaPortada;
 
         };
+
 
     imagenPrueba.onerror =
         function () {
@@ -464,13 +474,20 @@ function abrirFichaEjemplar(ejemplar) {
                     );
 
             fichaPortada.src =
-                datosNoDisponible.publicUrl + "?v=2";
+                datosNoDisponible.publicUrl +
+                "?v=" +
+                Date.now();
 
         };
+
 
     imagenPrueba.src =
         rutaPortada;
 
+
+    /* ==========================================================
+       DATOS DEL EJEMPLAR
+       ========================================================== */
 
     fichaTitulo.textContent =
         valorFicha(ejemplar.titulo);
@@ -500,7 +517,7 @@ function abrirFichaEjemplar(ejemplar) {
         valorFicha(ejemplar.idioma);
 
     fichaEstadoFisico.textContent =
-    valorFicha(ejemplar.estado_fisico);
+        valorFicha(ejemplar.estado_fisico);
 
     fichaUbicacion.textContent =
         valorFicha(ejemplar.ubicacion);
@@ -512,6 +529,10 @@ function abrirFichaEjemplar(ejemplar) {
         valorFicha(ejemplar.sinopsis);
 
 
+    /* ==========================================================
+       ESTADO OPERATIVO
+       ========================================================== */
+
     const estado =
         valorFicha(ejemplar.estado);
 
@@ -521,16 +542,20 @@ function abrirFichaEjemplar(ejemplar) {
     fichaEstado.className =
         "estado-admin";
 
-    if (
-        ejemplar.estado
-    ) {
+
+    if (ejemplar.estado) {
 
         fichaEstado.classList.add(
             "estado-" +
             ejemplar.estado.toLowerCase()
         );
+
     }
 
+
+    /* ==========================================================
+       MOSTRAR MODAL
+       ========================================================== */
 
     modalEjemplar.classList.add(
         "visible"
@@ -539,6 +564,7 @@ function abrirFichaEjemplar(ejemplar) {
     document.body.classList.add(
         "modal-abierto"
     );
+
 }
 
    /* ==========================================================

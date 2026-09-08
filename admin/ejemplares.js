@@ -84,6 +84,12 @@ const fichaSinopsis =
 const btnEditarEjemplar =
     document.getElementById("btn-editar-ejemplar");
 
+const btnGuardarEjemplar =
+    document.getElementById("btn-guardar-ejemplar");
+
+const btnCancelarEdicion =
+    document.getElementById("btn-cancelar-edicion");
+
 const fichaEjemplar =
     document.querySelector(".ficha-ejemplar-admin");
 
@@ -469,7 +475,7 @@ function abrirFichaEjemplar(ejemplar) {
     );
 }
 
-    /* ==========================================================
+   /* ==========================================================
    ACTIVAR EDICIÓN DEL EJEMPLAR
    ========================================================== */
 
@@ -545,6 +551,21 @@ function abrirFichaEjemplar(ejemplar) {
 
         }
     );
+
+/* ==========================================================
+   CANCELAR EDICIÓN
+   ========================================================== */
+
+btnCancelarEdicion.addEventListener(
+    "click",
+    function () {
+
+        fichaEjemplar.classList.remove(
+            "modo-edicion"
+        );
+
+    }
+);
 
 /* ==========================================================
    CERRAR FICHA

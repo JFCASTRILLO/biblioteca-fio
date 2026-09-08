@@ -912,3 +912,75 @@ body {
 #ficha-sinopsis{
     display:none;
 }
+
+/* ==========================================================
+   BOTONES MODO EDICIÓN
+   ========================================================== */
+
+.acciones-ficha-ejemplar{
+    margin-top:25px;
+
+    display:flex;
+    justify-content:flex-end;
+
+    gap:12px;
+}
+
+
+.acciones-edicion-ejemplar{
+    display:none;
+
+    gap:12px;
+}
+
+
+.ficha-ejemplar-admin.modo-edicion
+#btn-editar-ejemplar{
+    display:none;
+}
+
+
+.ficha-ejemplar-admin.modo-edicion
+.acciones-edicion-ejemplar{
+    display:flex;
+}
+
+
+.btn-editar-ejemplar,
+.btn-guardar-ejemplar,
+.btn-cancelar-edicion{
+    border:none;
+
+    padding:10px 18px;
+
+    border-radius:4px;
+
+    font:inherit;
+    font-weight:600;
+
+    cursor:pointer;
+}
+
+
+.btn-editar-ejemplar,
+.btn-guardar-ejemplar{
+    background:#212c59;
+    color:#fff;
+}
+
+
+.btn-editar-ejemplar:hover,
+.btn-guardar-ejemplar:hover{
+    background:#182044;
+}
+
+
+.btn-cancelar-edicion{
+    background:#e8e8e8;
+    color:#333;
+}
+
+
+.btn-cancelar-edicion:hover{
+    background:#dcdcdc;
+}

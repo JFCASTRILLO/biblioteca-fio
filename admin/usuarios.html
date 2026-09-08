@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Usuarios - Biblioteca FIO
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="admin.css"
+    >
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+</head>
+
+
+<body class="body-panel">
+
+
+    <!-- =====================================================
+         CABECERA
+         ===================================================== -->
+
+    <header class="cabecera-admin">
+
+        <div class="cabecera-admin-contenido">
+
+            <div class="marca-admin">
+
+                <img
+                    src="../Logo_FIO.png"
+                    alt="Fundación Infante de Orleans"
+                    class="logo-panel"
+                >
+
+                <div>
+
+                    <h1>
+                        Biblioteca FIO
+                    </h1>
+
+                    <p>
+                        Gestión de usuarios
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="usuario-admin">
+
+                <span id="nombre-admin">
+                    Comprobando usuario...
+                </span>
+
+                <button id="btn-cerrar-sesion">
+                    Cerrar sesión
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         CONTENIDO PRINCIPAL
+         ===================================================== -->
+
+    <main class="panel-contenedor">
+
+
+        <div class="barra-superior-ejemplares">
+
+            <div>
+
+                <h2>
+                    Usuarios
+                </h2>
+
+                <p>
+                    Gestión de usuarios de la Biblioteca FIO.
+                </p>
+
+            </div>
+
+
+            <a
+                href="panel.html"
+                class="btn-volver-panel"
+            >
+                ← Volver al panel
+            </a>
+
+        </div>
+
+
+
+        <!-- =================================================
+             FILTROS
+             ================================================= -->
+
+        <section class="filtros-ejemplares">
+
+
+            <div class="campo-filtro-ejemplares">
+
+                <label for="buscar-usuario">
+                    Buscar
+                </label>
+
+                <input
+                    type="text"
+                    id="buscar-usuario"
+                    placeholder="Nº de socio, nombre o apellidos..."
+                >
+
+                <button
+                    type="button"
+                    id="btn-limpiar-busqueda"
+                    class="btn-limpiar-busqueda"
+                    title="Limpiar búsqueda"
+                >
+                    Limpiar
+                </button>
+
+            </div>
+
+
+            <div class="campo-filtro-ejemplares">
+
+                <label for="filtro-socio">
+                    Socio FIO
+                </label>
+
+                <select id="filtro-socio">
+
+                    <option value="">
+                        Todos
+                    </option>
+
+                    <option value="activo">
+                        Activos
+                    </option>
+
+                    <option value="inactivo">
+                        No activos
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="campo-filtro-ejemplares">
+
+                <label for="filtro-cuenta">
+                    Cuenta Biblioteca
+                </label>
+
+                <select id="filtro-cuenta">
+
+                    <option value="">
+                        Todas
+                    </option>
+
+                    <option value="activo">
+                        Habilitadas
+                    </option>
+
+                    <option value="inactivo">
+                        Deshabilitadas
+                    </option>
+
+                </select>
+
+            </div>
+
+        </section>
+
+
+
+        <p
+            id="contador-usuarios"
+            class="contador-ejemplares"
+        >
+            Cargando usuarios...
+        </p>
+
+
+
+        <!-- =================================================
+             TABLA DE USUARIOS
+             ================================================= -->
+
+        <section class="tabla-admin-contenedor">
+
+            <table class="tabla-admin">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Nº socio</th>
+
+                        <th>Nombre</th>
+
+                        <th>Apellidos</th>
+
+                        <th>Socio FIO</th>
+
+                        <th>Cuenta Biblioteca</th>
+
+                        <th>Rol</th>
+
+                        <th>Validación</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="tabla-usuarios-body">
+                </tbody>
+
+            </table>
+
+        </section>
+
+
+    </main>
+
+
+    <script src="usuarios.js"></script>
+
+
+</body>
+
+</html>

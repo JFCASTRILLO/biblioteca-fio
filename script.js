@@ -327,7 +327,7 @@ loader.style.display = "block";
                     );
 
             portada.src =
-                datosNoDisponible.publicUrl;
+                datosNoDisponible.publicUrl + "?v=2";
 
             loader.style.display =
                 "none";

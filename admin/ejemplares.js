@@ -464,7 +464,7 @@ function abrirFichaEjemplar(ejemplar) {
                     );
 
             fichaPortada.src =
-                datosNoDisponible.publicUrl;
+                datosNoDisponible.publicUrl + "?v=2";
 
         };
 

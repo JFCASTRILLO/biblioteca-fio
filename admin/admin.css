@@ -1073,3 +1073,31 @@ body {
     .acciones-ficha-ejemplar{
         grid-column:1 / -1;
     }
+
+    /* ==================================================
+   GESTIÓN DE PORTADA
+   ================================================== */
+
+.btn-cambiar-portada{
+    display:block;
+    width:100%;
+    max-width:260px;
+    margin-top:14px;
+    padding:10px 14px;
+
+    border:1px solid #212c59;
+    border-radius:4px;
+
+    background:#ffffff;
+    color:#212c59;
+
+    font:inherit;
+    font-weight:600;
+
+    cursor:pointer;
+}
+
+.btn-cambiar-portada:hover{
+    background:#212c59;
+    color:#ffffff;
+}

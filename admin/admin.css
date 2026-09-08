@@ -903,6 +903,9 @@ body {
 #ficha-idioma,
 
 .ficha-ejemplar-admin.modo-edicion
+#ficha-estado-fisico,
+
+.ficha-ejemplar-admin.modo-edicion
 #ficha-ubicacion,
 
 .ficha-ejemplar-admin.modo-edicion
@@ -918,7 +921,17 @@ body {
    ========================================================== */
 
 .acciones-ficha-ejemplar{
-    margin-top:25px;
+    position:sticky;
+    bottom:-30px;
+
+    margin:25px -30px -30px -30px;
+    padding:15px 30px;
+
+    background:#fff;
+
+    border-top:1px solid #e5e5e5;
+
+    z-index:5;
 
     display:flex;
     justify-content:flex-end;
@@ -984,3 +997,4 @@ body {
 .btn-cancelar-edicion:hover{
     background:#dcdcdc;
 }
+

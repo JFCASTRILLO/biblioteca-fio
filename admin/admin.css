@@ -998,3 +998,67 @@ body {
     background:#dcdcdc;
 }
 
+/* ==========================================================
+   DISTRIBUCIÓN PORTADA + DATOS EN FICHA ADMIN
+   ========================================================== */
+
+.contenido-ficha-ejemplar{
+    display:grid;
+
+    grid-template-columns:260px 1fr;
+
+    gap:30px;
+
+    align-items:start;
+}
+
+
+.zona-portada-admin{
+    width:100%;
+}
+
+
+.portada-ficha-admin{
+    display:block;
+
+    width:100%;
+    max-width:260px;
+
+    height:auto;
+
+    object-fit:contain;
+
+    border-radius:6px;
+
+    box-shadow:
+        0 4px 14px rgba(0,0,0,.12);
+}
+
+
+.zona-datos-ficha-admin{
+    min-width:0;
+}
+
+
+/* ==========================================================
+   RESPONSIVE FICHA ADMIN
+   ========================================================== */
+
+@media (max-width:800px){
+
+    .contenido-ficha-ejemplar{
+        grid-template-columns:1fr;
+    }
+
+
+    .zona-portada-admin{
+        display:flex;
+        justify-content:center;
+    }
+
+
+    .portada-ficha-admin{
+        max-width:220px;
+    }
+
+}

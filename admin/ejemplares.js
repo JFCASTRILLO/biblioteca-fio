@@ -538,19 +538,40 @@ function abrirFichaEjemplar(ejemplar) {
     "change",
     function () {
 
-            const archivo =
-                archivoPortada.files[0];
+        const archivo =
+            archivoPortada.files[0];
 
-            if (!archivo) {
-                return;
-            }
+        if (!archivo) {
+            return;
+        }
 
-            console.log(
-                "Archivo seleccionado:",
-                archivo.name,
-                archivo.type,
-                archivo.size
+        /* Comprobar que realmente es una imagen */
+
+        const tiposPermitidos = [
+            "image/jpeg",
+            "image/png",
+            "image/webp"
+        ];
+
+        if (!tiposPermitidos.includes(archivo.type)) {
+
+            alert(
+                "Selecciona una imagen JPG, PNG o WEBP."
             );
+
+            archivoPortada.value = "";
+
+            return;
+        }
+
+
+        /* Crear una vista previa temporal */
+
+        const urlTemporal =
+            URL.createObjectURL(archivo);
+
+        fichaPortada.src =
+            urlTemporal;
 
         }
     );

@@ -133,6 +133,7 @@ const editarSinopsis =
    ========================================================== */
 
 let ejemplares = [];
+let ejemplarActual = null;
 
 
 /* ==========================================================
@@ -409,6 +410,8 @@ function valorFicha(valor) {
 
 function abrirFichaEjemplar(ejemplar) {
 
+    ejemplarActual = ejemplar;
+
     fichaTitulo.textContent =
         valorFicha(ejemplar.titulo);
 
@@ -566,6 +569,234 @@ btnCancelarEdicion.addEventListener(
 
     }
 );
+
+/* ==========================================================
+   GUARDAR CAMBIOS DEL EJEMPLAR
+   ========================================================== */
+
+btnGuardarEjemplar.addEventListener(
+    "click",
+    async function () {
+
+        if (!ejemplarActual) {
+            return;
+        }
+
+
+        const titulo =
+            editarTitulo.value.trim();
+
+        const autor =
+            editarAutor.value.trim();
+
+        const clave =
+            editarClave.value.trim();
+
+
+        if (!titulo) {
+
+            alert(
+                "El título no puede quedar vacío."
+            );
+
+            editarTitulo.focus();
+
+            return;
+        }
+
+
+        if (!autor) {
+
+            alert(
+                "El autor no puede quedar vacío."
+            );
+
+            editarAutor.focus();
+
+            return;
+        }
+
+
+        if (!clave) {
+
+            alert(
+                "La clave no puede quedar vacía."
+            );
+
+            editarClave.focus();
+
+            return;
+        }
+
+
+        let paginas = null;
+
+        if (
+            editarPaginas.value.trim() !== ""
+        ) {
+
+            paginas =
+                Number(editarPaginas.value);
+
+            if (
+                !Number.isInteger(paginas) ||
+                paginas < 0
+            ) {
+
+                alert(
+                    "El número de páginas no es válido."
+                );
+
+                editarPaginas.focus();
+
+                return;
+            }
+        }
+
+
+        const cambios = {
+
+            titulo: titulo,
+
+            autor: autor,
+
+            clave: clave,
+
+            editorial:
+                editarEditorial.value.trim() || null,
+
+            paginas: paginas,
+
+            genero:
+                editarGenero.value.trim() || null,
+
+            formato:
+                editarFormato.value.trim() || null,
+
+            idioma:
+                editarIdioma.value.trim() || null,
+
+            ubicacion:
+                editarUbicacion.value.trim() || null,
+
+            isbn:
+                editarIsbn.value.trim() || null,
+
+            sinopsis:
+                editarSinopsis.value.trim() || null,
+
+            updated_at:
+                new Date().toISOString()
+        };
+
+
+        btnGuardarEjemplar.disabled = true;
+        btnGuardarEjemplar.textContent =
+            "Guardando...";
+
+
+        const { data, error } =
+            await clienteSupabase
+                .from("ejemplares")
+                .update(cambios)
+                .eq("id", ejemplarActual.id)
+                .select()
+                .single();
+
+
+        btnGuardarEjemplar.disabled = false;
+        btnGuardarEjemplar.textContent =
+            "Guardar cambios";
+
+
+        if (error) {
+
+            console.error(
+                "Error al actualizar ejemplar:",
+                error
+            );
+
+            alert(
+                "No se han podido guardar los cambios."
+            );
+
+            return;
+        }
+
+
+        /*
+         * Actualizamos el ejemplar que tenemos
+         * cargado en memoria.
+         */
+
+        Object.assign(
+            ejemplarActual,
+            data
+        );
+
+
+        /*
+         * Actualizamos la ficha de consulta.
+         */
+
+        fichaTitulo.textContent =
+            valorFicha(data.titulo);
+
+        fichaAutor.textContent =
+            valorFicha(data.autor);
+
+        fichaClave.textContent =
+            valorFicha(data.clave);
+
+        fichaEditorial.textContent =
+            valorFicha(data.editorial);
+
+        fichaPaginas.textContent =
+            valorFicha(data.paginas);
+
+        fichaGenero.textContent =
+            valorFicha(data.genero);
+
+        fichaFormato.textContent =
+            valorFicha(data.formato);
+
+        fichaIdioma.textContent =
+            valorFicha(data.idioma);
+
+        fichaUbicacion.textContent =
+            valorFicha(data.ubicacion);
+
+        fichaIsbn.textContent =
+            valorFicha(data.isbn);
+
+        fichaSinopsis.textContent =
+            valorFicha(data.sinopsis);
+
+
+        /*
+         * Salimos del modo edición.
+         */
+
+        fichaEjemplar.classList.remove(
+            "modo-edicion"
+        );
+
+
+        /*
+         * Volvemos a dibujar la tabla para que
+         * los cambios aparezcan inmediatamente.
+         */
+
+        aplicarFiltros();
+
+
+        alert(
+            "Los cambios se han guardado correctamente."
+        );
+
+    }
+);
+
 
 /* ==========================================================
    CERRAR FICHA

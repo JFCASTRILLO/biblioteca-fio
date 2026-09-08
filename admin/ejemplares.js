@@ -790,7 +790,7 @@ btnGuardarEjemplar.addEventListener(
 
 
         alert(
-            "Los cambios se han guardado correctamente."
+            "Los datos se han guardado correctamente."
         );
 
         aplicarFiltros();

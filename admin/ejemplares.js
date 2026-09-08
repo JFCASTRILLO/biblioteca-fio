@@ -84,6 +84,9 @@ const fichaIsbn =
 const fichaSinopsis =
     document.getElementById("ficha-sinopsis");
 
+const fichaPortada =
+    document.getElementById("ficha-portada");
+
 const btnEditarEjemplar =
     document.getElementById("btn-editar-ejemplar");
 
@@ -418,6 +421,26 @@ function valorFicha(valor) {
 function abrirFichaEjemplar(ejemplar) {
 
     ejemplarActual = ejemplar;
+
+    /* ==========================================================
+   PORTADA
+   ========================================================== */
+
+    const rutaPortada =
+        `../Portadas/${ejemplar.clave}.jpg`;
+
+    fichaPortada.src =
+        rutaPortada;
+
+    fichaPortada.onerror =
+        function () {
+
+            fichaPortada.onerror = null;
+
+            fichaPortada.src =
+                "../Portadas/NoDisponible.jpg";
+        };
+
 
     fichaTitulo.textContent =
         valorFicha(ejemplar.titulo);

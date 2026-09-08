@@ -733,11 +733,7 @@ btnGuardarEjemplar.addEventListener(
             ejemplarActual,
             data
         );
-
-        alert(
-          "PRUEBA 1: Supabase ha guardado correctamente."
-        );
-
+        
         /*
          * Actualizamos la ficha de consulta.
          */

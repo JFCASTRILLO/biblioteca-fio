@@ -427,19 +427,27 @@ function abrirFichaEjemplar(ejemplar) {
    ========================================================== */
 
     const rutaPortada =
-        `../Portadas/${ejemplar.clave}.jpg`;
+        `../Portadas/${ejemplar.id}.jpg`;
 
-    fichaPortada.src =
-        rutaPortada;
+    const imagenPrueba =
+        new Image();
 
-    fichaPortada.onerror =
+    imagenPrueba.onload =
         function () {
 
-            fichaPortada.onerror = null;
+            fichaPortada.src =
+                rutaPortada;
+        };
+
+    imagenPrueba.onerror =
+        function () {
 
             fichaPortada.src =
                 "../Portadas/NoDisponible.jpg";
         };
+
+    imagenPrueba.src =
+        rutaPortada;
 
 
     fichaTitulo.textContent =

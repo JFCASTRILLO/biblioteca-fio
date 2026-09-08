@@ -1118,13 +1118,13 @@ body {
 
 .btn-limpiar-busqueda{
     margin-top:8px;
-    padding:7px 14px;
+    padding:7px 16px;
 
-    border:1px solid #c9c9c9;
+    border:1px solid #212c59;
     border-radius:4px;
 
     background:#ffffff;
-    color:#444;
+    color:#212c59;
 
     font:inherit;
     font-size:.9rem;
@@ -1134,10 +1134,12 @@ body {
 
     transition:
         background-color .2s ease,
-        border-color .2s ease;
+        color .2s ease,
+        box-shadow .2s ease;
 }
 
 .btn-limpiar-busqueda:hover{
-    background:#f1f1f1;
-    border-color:#999;
+    background:#212c59;
+    color:#ffffff;
+    box-shadow:0 2px 6px rgba(33,44,89,.22);
 }

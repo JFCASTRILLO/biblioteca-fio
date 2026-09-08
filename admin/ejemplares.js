@@ -430,8 +430,16 @@ function abrirFichaEjemplar(ejemplar) {
    PORTADA
    ========================================================== */
 
+    const { data: datosPortada } =
+    clienteSupabase
+        .storage
+        .from("portadas")
+        .getPublicUrl(
+            `${ejemplar.id}.jpg`
+        );
+
     const rutaPortada =
-        `../Portadas/${ejemplar.id}.jpg`;
+        datosPortada.publicUrl;
 
     const imagenPrueba =
         new Image();
@@ -441,13 +449,23 @@ function abrirFichaEjemplar(ejemplar) {
 
             fichaPortada.src =
                 rutaPortada;
+
         };
 
     imagenPrueba.onerror =
         function () {
 
+            const { data: datosNoDisponible } =
+                clienteSupabase
+                    .storage
+                    .from("portadas")
+                    .getPublicUrl(
+                        "NoDisponible.jpg"
+                    );
+
             fichaPortada.src =
-                "../Portadas/NoDisponible.jpg";
+                datosNoDisponible.publicUrl;
+
         };
 
     imagenPrueba.src =

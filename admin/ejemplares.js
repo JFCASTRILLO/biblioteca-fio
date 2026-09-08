@@ -181,21 +181,22 @@ async function comprobarAcceso() {
         datosUsuario.user.id;
 
 
-    const {
-        data: perfil,
-        error: errorPerfil
-    } =
-        await clienteSupabase
-            .from("usuarios")
-            .select(`
-                id,
-                nombre,
-                apellidos,
-                rol,
-                activo
-            `)
-            .eq("id", uid)
-            .single();
+   const {
+    data: perfil,
+    error: errorPerfil
+} =
+    await clienteSupabase
+        .from("usuarios")
+        .select(`
+            id,
+            auth_user_id,
+            nombre,
+            apellidos,
+            rol,
+            activo
+        `)
+        .eq("auth_user_id", uid)
+        .single();
 
 
     if (

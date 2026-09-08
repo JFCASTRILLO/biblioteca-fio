@@ -67,12 +67,13 @@ async function comprobarAcceso() {
                 .from("usuarios")
                 .select(`
                     id,
+                    auth_user_id,
                     nombre,
                     apellidos,
                     rol,
                     activo
                 `)
-                .eq("id", uid)
+                .eq("auth_user_id", uid)
                 .single();
 
 

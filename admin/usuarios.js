@@ -98,16 +98,16 @@ async function comprobarAdministrador() {
 
 
     const {
-        data: perfil,
-        error: errorPerfil
-    } =
-        await clienteSupabase
-            .from("usuarios")
-            .select(
-                "id,nombre,apellidos,rol,activo"
-            )
-            .eq("id", user.id)
-            .single();
+    data: perfil,
+    error: errorPerfil
+} =
+    await clienteSupabase
+        .from("usuarios")
+        .select(
+            "id,auth_user_id,nombre,apellidos,rol,activo"
+        )
+        .eq("auth_user_id", user.id)
+        .single();
 
 
     if (

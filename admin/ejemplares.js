@@ -72,6 +72,9 @@ const fichaFormato =
 const fichaIdioma =
     document.getElementById("ficha-idioma");
 
+const fichaEstadoFisico =
+    document.getElementById("ficha-estado-fisico");
+
 const fichaUbicacion =
     document.getElementById("ficha-ubicacion");
 
@@ -116,6 +119,9 @@ const editarFormato =
 
 const editarIdioma =
     document.getElementById("editar-idioma");
+
+const editarEstadoFisico =
+    document.getElementById("editar-estado-fisico");
 
 const editarUbicacion =
     document.getElementById("editar-ubicacion");
@@ -248,6 +254,7 @@ async function cargarEjemplares() {
                     genero,
                     formato,
                     idioma,
+                    estado_fisico,
                     ubicacion,
                     estado,
                     sinopsis,
@@ -439,6 +446,9 @@ function abrirFichaEjemplar(ejemplar) {
     fichaIdioma.textContent =
         valorFicha(ejemplar.idioma);
 
+    fichaEstadoFisico.textContent =
+    valorFicha(ejemplar.estado_fisico);
+
     fichaUbicacion.textContent =
         valorFicha(ejemplar.ubicacion);
 
@@ -529,6 +539,9 @@ function abrirFichaEjemplar(ejemplar) {
             fichaIdioma.textContent === "—"
                 ? ""
                 : fichaIdioma.textContent;
+
+        editarEstadoFisico.value =
+            ejemplarActual.estado_fisico || "BUENO";
 
         editarUbicacion.value =
             fichaUbicacion.textContent === "—"
@@ -676,6 +689,9 @@ btnGuardarEjemplar.addEventListener(
             idioma:
                 editarIdioma.value.trim() || null,
 
+            estado_fisico:
+                editarEstadoFisico.value,
+
             ubicacion:
                 editarUbicacion.value.trim() || null,
 
@@ -761,6 +777,9 @@ btnGuardarEjemplar.addEventListener(
 
         fichaIdioma.textContent =
             valorFicha(data.idioma);
+
+        fichaEstadoFisico.textContent =
+            valorFicha(data.estado_fisico);
 
         fichaUbicacion.textContent =
             valorFicha(data.ubicacion);

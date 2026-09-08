@@ -805,6 +805,20 @@ btnGuardarEjemplar.addEventListener(
 
 function cerrarFichaEjemplar() {
 
+    /*
+     * Si la ficha estaba en modo edición,
+     * salimos de ese modo.
+     */
+
+    fichaEjemplar.classList.remove(
+        "modo-edicion"
+    );
+
+
+    /*
+     * Cerramos la ventana.
+     */
+
     modalEjemplar.classList.remove(
         "visible"
     );
@@ -812,6 +826,13 @@ function cerrarFichaEjemplar() {
     document.body.classList.remove(
         "modal-abierto"
     );
+
+
+    /*
+     * Dejamos de tener un ejemplar activo.
+     */
+
+    ejemplarActual = null;
 }
 
 

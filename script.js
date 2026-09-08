@@ -291,21 +291,50 @@ elEstado.className =
 
 loader.style.display = "block";
 
-const rutaPortada = `Portadas/${libro.id}.jpg`;
+    const { data: datosPortada } =
+        clienteSupabase
+            .storage
+            .from("portadas")
+            .getPublicUrl(
+                `${libro.id}.jpg`
+            );
 
-const imagenPrueba = new Image();
+    const rutaPortada =
+        datosPortada.publicUrl;
 
-imagenPrueba.onload = function(){
-    portada.src = rutaPortada;
-    loader.style.display = "none";
-};
+    const imagenPrueba =
+        new Image();
 
-imagenPrueba.onerror = function(){
-    portada.src = "Portadas/NoDisponible.jpg";
-    loader.style.display = "none";
-};
+    imagenPrueba.onload =
+        function () {
 
-imagenPrueba.src = rutaPortada;
+            portada.src =
+                rutaPortada;
+
+            loader.style.display =
+                "none";
+        };
+
+    imagenPrueba.onerror =
+        function () {
+
+            const { data: datosNoDisponible } =
+                clienteSupabase
+                    .storage
+                    .from("portadas")
+                    .getPublicUrl(
+                        "NoDisponible.jpg"
+                    );
+
+            portada.src =
+                datosNoDisponible.publicUrl;
+
+            loader.style.display =
+                "none";
+        };
+
+    imagenPrueba.src =
+        rutaPortada;
     
 
 

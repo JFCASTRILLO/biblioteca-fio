@@ -559,6 +559,8 @@ function abrirFichaEjemplar(ejemplar) {
             const archivo =
                 archivoPortada.files[0];
 
+                alert("PRUEBA PORTADA NUEVA");
+
             if (!archivo) {
                 return;
             }

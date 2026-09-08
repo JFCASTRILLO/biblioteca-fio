@@ -1111,3 +1111,33 @@ body {
         background:#212c59;
         color:#ffffff;
     }
+
+    /* ==================================================
+   LIMPIAR BÚSQUEDA DE EJEMPLARES
+   ================================================== */
+
+.btn-limpiar-busqueda{
+    margin-top:8px;
+    padding:7px 14px;
+
+    border:1px solid #c9c9c9;
+    border-radius:4px;
+
+    background:#ffffff;
+    color:#444;
+
+    font:inherit;
+    font-size:.9rem;
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:
+        background-color .2s ease,
+        border-color .2s ease;
+}
+
+.btn-limpiar-busqueda:hover{
+    background:#f1f1f1;
+    border-color:#999;
+}

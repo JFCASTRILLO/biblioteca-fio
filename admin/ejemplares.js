@@ -141,6 +141,9 @@ const btnCambiarPortada =
 const archivoPortada =
     document.getElementById("archivo-portada");
 
+const btnLimpiarBusqueda =
+    document.getElementById("btn-limpiar-busqueda");
+
 /* ==========================================================
    DATOS
    ========================================================== */
@@ -1184,6 +1187,19 @@ btnGuardarEjemplar.addEventListener(
         );
 
         aplicarFiltros();
+
+    }
+);
+
+btnLimpiarBusqueda.addEventListener(
+    "click",
+    function () {
+
+        buscarEjemplar.value = "";
+
+        aplicarFiltros();
+
+        buscarEjemplar.focus();
 
     }
 );

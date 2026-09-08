@@ -1191,18 +1191,18 @@ btnGuardarEjemplar.addEventListener(
     }
 );
 
-btnLimpiarBusqueda.addEventListener(
-    "click",
-    function () {
+    btnLimpiarBusqueda.addEventListener(
+        "click",
+        function () {
 
-        txtBuscar.value = "";
+            txtBuscar.value = "";
 
-        aplicarFiltros();
+            aplicarFiltros();
 
-        txtBuscar.focus();
+            txtBuscar.focus();
 
-    }
-);
+        }
+    );
 
 
 /* ==========================================================

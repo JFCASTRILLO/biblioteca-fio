@@ -794,6 +794,8 @@ btnGuardarEjemplar.addEventListener(
             "Los cambios se han guardado correctamente."
         );
 
+        aplicarFiltros();
+
     }
 );
 

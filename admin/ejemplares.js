@@ -135,7 +135,11 @@ const editarIsbn =
 const editarSinopsis =
     document.getElementById("editar-sinopsis");
 
+const btnCambiarPortada =
+    document.getElementById("btn-cambiar-portada");
 
+const archivoPortada =
+    document.getElementById("archivo-portada");
 
 /* ==========================================================
    DATOS
@@ -522,6 +526,34 @@ function abrirFichaEjemplar(ejemplar) {
    /* ==========================================================
    ACTIVAR EDICIÓN DEL EJEMPLAR
    ========================================================== */
+
+    btnCambiarPortada.addEventListener(
+        "click",
+        function () {
+            archivoPortada.click();
+        }
+    );
+
+    archivoPortada.addEventListener(
+    "change",
+    function () {
+
+            const archivo =
+                archivoPortada.files[0];
+
+            if (!archivo) {
+                return;
+            }
+
+            console.log(
+                "Archivo seleccionado:",
+                archivo.name,
+                archivo.type,
+                archivo.size
+            );
+
+        }
+    );
 
     btnEditarEjemplar.addEventListener(
         "click",

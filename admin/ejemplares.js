@@ -1197,7 +1197,7 @@ btnGuardarEjemplar.addEventListener(
 
             txtBuscar.value = "";
 
-            aplicarFiltros();
+             mostrarEjemplares();
 
             txtBuscar.focus();
 

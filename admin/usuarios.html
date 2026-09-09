@@ -290,37 +290,94 @@
 
             <div>
                 <span>Nº de socio</span>
+
                 <strong id="ficha-numero-socio"></strong>
+
+                <input
+                    type="text"
+                    id="editar-numero-socio"
+                    class="campo-edicion-ejemplar"
+                >
             </div>
 
             <div>
                 <span>Nombre</span>
+
                 <strong id="ficha-nombre"></strong>
+
+                <input
+                    type="text"
+                    id="editar-nombre"
+                    class="campo-edicion-ejemplar"
+                >
             </div>
 
             <div>
                 <span>Apellidos</span>
+
                 <strong id="ficha-apellidos"></strong>
+
+                <input
+                    type="text"
+                    id="editar-apellidos"
+                    class="campo-edicion-ejemplar"
+                >
             </div>
 
             <div>
                 <span>Socio FIO</span>
+
                 <strong id="ficha-socio-activo"></strong>
+
+                <select
+                    id="editar-socio-activo"
+                    class="campo-edicion-ejemplar"
+                >
+                    <option value="true">ACTIVO</option>
+                    <option value="false">NO ACTIVO</option>
+                </select>
             </div>
 
             <div>
                 <span>Cuenta Biblioteca</span>
+
                 <strong id="ficha-cuenta-activa"></strong>
+
+                <select
+                    id="editar-cuenta-activa"
+                    class="campo-edicion-ejemplar"
+                >
+                    <option value="true">HABILITADA</option>
+                    <option value="false">DESHABILITADA</option>
+                </select>
             </div>
 
             <div>
                 <span>Rol</span>
+
                 <strong id="ficha-rol"></strong>
+
+                <select
+                    id="editar-rol"
+                    class="campo-edicion-ejemplar"
+                >
+                    <option value="socio">SOCIO</option>
+                    <option value="admin">ADMIN</option>
+                </select>
             </div>
 
             <div>
                 <span>Última validación</span>
+
                 <strong id="ficha-validacion"></strong>
+
+                <input
+                    type="number"
+                    id="editar-validacion"
+                    class="campo-edicion-ejemplar"
+                    min="2000"
+                    max="2100"
+                >
             </div>
 
             <div>
@@ -343,6 +400,42 @@
             </p>
 
         </div>
+
+        <div class="acciones-ficha-ejemplar">
+
+            <button
+                type="button"
+                id="btn-editar-usuario"
+                class="btn-editar-ejemplar"
+            >
+                Editar usuario
+            </button>
+
+            <div
+                id="acciones-edicion-usuario"
+                class="acciones-edicion-ejemplar"
+            >
+
+                <button
+                    type="button"
+                    id="btn-guardar-usuario"
+                    class="btn-guardar-ejemplar"
+                >
+                    Guardar cambios
+                </button>
+
+                <button
+                    type="button"
+                    id="btn-cancelar-usuario"
+                    class="btn-cancelar-edicion"
+                >
+                    Cancelar
+                </button>
+
+            </div>
+
+        </div>
+
 
     </div>
 

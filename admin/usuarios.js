@@ -107,10 +107,58 @@ const fichaCuentaWeb =
         "ficha-cuenta-web"
     );
 
+const btnEditarUsuario =
+    document.getElementById(
+        "btn-editar-usuario"
+    );
 
+const btnGuardarUsuario =
+    document.getElementById(
+        "btn-guardar-usuario"
+    );
+
+const btnCancelarUsuario =
+    document.getElementById(
+        "btn-cancelar-usuario"
+    );
+
+const editarNumeroSocio =
+    document.getElementById(
+        "editar-numero-socio"
+    );
+
+const editarNombre =
+    document.getElementById(
+        "editar-nombre"
+    );
+
+const editarApellidos =
+    document.getElementById(
+        "editar-apellidos"
+    );
+
+const editarSocioActivo =
+    document.getElementById(
+        "editar-socio-activo"
+    );
+
+const editarCuentaActiva =
+    document.getElementById(
+        "editar-cuenta-activa"
+    );
+
+const editarRol =
+    document.getElementById(
+        "editar-rol"
+    );
+
+const editarValidacion =
+    document.getElementById(
+        "editar-validacion"
+    );
 
 let usuarios = [];
-
+let usuarioActual = null;
 
 /* ==========================================================
    INICIO
@@ -452,6 +500,8 @@ function valorFichaUsuario(valor) {
 
 function abrirFichaUsuario(usuario) {
 
+    usuarioActual = usuario;
+
     const nombreCompleto =
         [
             usuario.nombre,
@@ -518,6 +568,20 @@ function abrirFichaUsuario(usuario) {
             ? "SÍ"
             : "NO";
 
+    
+    /*
+     * Cada vez que abrimos una ficha,
+     * debe comenzar en modo consulta.
+     */
+
+    modalUsuario.classList.remove(
+        "modo-edicion"
+    );
+
+
+    /*
+     * Mostrar la ficha.
+     */
 
     modalUsuario.classList.add(
         "visible"
@@ -532,13 +596,40 @@ function abrirFichaUsuario(usuario) {
 
 function cerrarFichaUsuario() {
 
+    /*
+     * Si el usuario estaba editando,
+     * abandonamos el modo edición.
+     */
+
+    modalUsuario.classList.remove(
+        "modo-edicion"
+    );
+
+
+    /*
+     * Cerramos la ficha.
+     */
+
     modalUsuario.classList.remove(
         "visible"
     );
 
+
+    /*
+     * Permitimos de nuevo el desplazamiento
+     * de la página principal.
+     */
+
     document.body.classList.remove(
         "modal-abierto"
     );
+
+
+    /*
+     * Ya no hay ningún usuario seleccionado.
+     */
+
+    usuarioActual = null;
 
 }
 
@@ -614,6 +705,248 @@ btnLimpiarBusqueda.addEventListener(
 
     }
 );
+
+
+/* ==========================================================
+   EDITAR USUARIO
+   ========================================================== */
+
+btnEditarUsuario.addEventListener(
+    "click",
+    function () {
+
+        if (!usuarioActual) {
+            return;
+        }
+
+        editarNumeroSocio.value =
+            usuarioActual.numero_socio || "";
+
+        editarNombre.value =
+            usuarioActual.nombre || "";
+
+        editarApellidos.value =
+            usuarioActual.apellidos || "";
+
+        editarSocioActivo.value =
+            String(
+                usuarioActual.socio_activo
+            );
+
+        editarCuentaActiva.value =
+            String(
+                usuarioActual.activo
+            );
+
+        editarRol.value =
+            usuarioActual.rol || "socio";
+
+        editarValidacion.value =
+            usuarioActual.ultima_validacion_socio || "";
+
+        modalUsuario.classList.add(
+            "modo-edicion"
+        );
+
+    }
+);
+
+
+/* ==========================================================
+   CANCELAR EDICIÓN
+   ========================================================== */
+
+btnCancelarUsuario.addEventListener(
+    "click",
+    function () {
+
+        modalUsuario.classList.remove(
+            "modo-edicion"
+        );
+
+    }
+);
+
+
+/* ==========================================================
+   GUARDAR USUARIO
+   ========================================================== */
+
+btnGuardarUsuario.addEventListener(
+    "click",
+    async function () {
+
+        if (!usuarioActual) {
+            return;
+        }
+
+        const numeroSocio =
+            editarNumeroSocio.value.trim();
+
+        const nombre =
+            editarNombre.value.trim();
+
+        const apellidos =
+            editarApellidos.value.trim();
+
+        if (!numeroSocio) {
+
+            alert(
+                "El número de socio no puede quedar vacío."
+            );
+
+            editarNumeroSocio.focus();
+
+            return;
+        }
+
+        if (!nombre) {
+
+            alert(
+                "El nombre no puede quedar vacío."
+            );
+
+            editarNombre.focus();
+
+            return;
+        }
+
+        const validacion =
+            editarValidacion.value.trim() === ""
+                ? null
+                : Number(
+                    editarValidacion.value
+                );
+
+        const cambios = {
+
+            numero_socio:
+                numeroSocio,
+
+            nombre:
+                nombre,
+
+            apellidos:
+                apellidos || null,
+
+            socio_activo:
+                editarSocioActivo.value === "true",
+
+            activo:
+                editarCuentaActiva.value === "true",
+
+            rol:
+                editarRol.value,
+
+            ultima_validacion_socio:
+                validacion
+
+        };
+
+        btnGuardarUsuario.disabled = true;
+
+        btnGuardarUsuario.textContent =
+            "Guardando...";
+
+        const {
+            data,
+            error
+        } =
+            await clienteSupabase
+                .from("usuarios")
+                .update(cambios)
+                .eq(
+                    "id",
+                    usuarioActual.id
+                )
+                .select()
+                .single();
+
+        btnGuardarUsuario.disabled = false;
+
+        btnGuardarUsuario.textContent =
+            "Guardar cambios";
+
+        if (error) {
+
+            console.error(
+                "Error al actualizar usuario:",
+                error
+            );
+
+            alert(
+                "No se han podido guardar los cambios."
+            );
+
+            return;
+        }
+
+        Object.assign(
+            usuarioActual,
+            data
+        );
+
+        fichaNumeroSocio.textContent =
+            valorFichaUsuario(
+                data.numero_socio
+            );
+
+        fichaNombre.textContent =
+            valorFichaUsuario(
+                data.nombre
+            );
+
+        fichaApellidos.textContent =
+            valorFichaUsuario(
+                data.apellidos
+            );
+
+        fichaSocioActivo.textContent =
+            data.socio_activo
+                ? "ACTIVO"
+                : "NO ACTIVO";
+
+        fichaCuentaActiva.textContent =
+            data.activo
+                ? "HABILITADA"
+                : "DESHABILITADA";
+
+        fichaRol.textContent =
+            data.rol
+                ? data.rol.toUpperCase()
+                : "—";
+
+        fichaValidacion.textContent =
+            valorFichaUsuario(
+                data.ultima_validacion_socio
+            );
+
+        fichaUsuarioNombre.textContent =
+            [
+                data.nombre,
+                data.apellidos
+            ]
+                .filter(Boolean)
+                .join(" ");
+
+        fichaUsuarioSocio.textContent =
+            data.numero_socio
+                ? "Socio " + data.numero_socio
+                : "Sin número de socio";
+
+        modalUsuario.classList.remove(
+            "modo-edicion"
+        );
+
+        mostrarUsuarios();
+
+        alert(
+            "Los datos del usuario se han guardado correctamente."
+        );
+
+    }
+);
+
 
 
 /* ==========================================================

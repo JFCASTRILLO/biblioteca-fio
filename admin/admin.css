@@ -1144,3 +1144,56 @@ body {
     box-shadow:0 2px 6px rgba(33,44,89,.22);
 }
 
+/* ==========================================================
+   EDICIÓN DE USUARIOS
+   ========================================================== */
+
+/* En modo consulta no se ven los controles de edición */
+#modal-usuario .campo-edicion-ejemplar {
+    display: none;
+}
+
+
+/* En modo consulta no se ven Guardar / Cancelar */
+#modal-usuario .acciones-edicion-ejemplar {
+    display: none;
+}
+
+
+/* ==========================================================
+   MODO EDICIÓN
+   ========================================================== */
+
+/* Ocultar los valores de consulta */
+#modal-usuario
+.ficha-ejemplar-admin.modo-edicion
+.grid-ficha-ejemplar strong {
+    display: none;
+}
+
+
+/* Mostrar inputs y selects */
+#modal-usuario
+.ficha-ejemplar-admin.modo-edicion
+.campo-edicion-ejemplar {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+/* Ocultar el botón Editar usuario */
+#modal-usuario
+.ficha-ejemplar-admin.modo-edicion
+#btn-editar-usuario {
+    display: none;
+}
+
+
+/* Mostrar Guardar cambios y Cancelar */
+#modal-usuario
+.ficha-ejemplar-admin.modo-edicion
+.acciones-edicion-ejemplar {
+    display: flex;
+    gap: 12px;
+}

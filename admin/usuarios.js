@@ -49,6 +49,65 @@ const cuerpoTabla =
 const contador =
     document.getElementById("contador-usuarios");
 
+const modalUsuario =
+    document.getElementById("modal-usuario");
+
+const btnCerrarFichaUsuario =
+    document.getElementById(
+        "cerrar-ficha-usuario"
+    );
+
+const fichaUsuarioNombre =
+    document.getElementById(
+        "ficha-usuario-nombre"
+    );
+
+const fichaUsuarioSocio =
+    document.getElementById(
+        "ficha-usuario-socio"
+    );
+
+const fichaNumeroSocio =
+    document.getElementById(
+        "ficha-numero-socio"
+    );
+
+const fichaNombre =
+    document.getElementById(
+        "ficha-nombre"
+    );
+
+const fichaApellidos =
+    document.getElementById(
+        "ficha-apellidos"
+    );
+
+const fichaSocioActivo =
+    document.getElementById(
+        "ficha-socio-activo"
+    );
+
+const fichaCuentaActiva =
+    document.getElementById(
+        "ficha-cuenta-activa"
+    );
+
+const fichaRol =
+    document.getElementById(
+        "ficha-rol"
+    );
+
+const fichaValidacion =
+    document.getElementById(
+        "ficha-validacion"
+    );
+
+const fichaCuentaWeb =
+    document.getElementById(
+        "ficha-cuenta-web"
+    );
+
+
 
 let usuarios = [];
 
@@ -156,6 +215,7 @@ async function cargarUsuarios() {
             .from("usuarios")
             .select(`
                 id,
+                auth_user_id,
                 numero_socio,
                 nombre,
                 apellidos,
@@ -291,6 +351,22 @@ function pintarTabla(lista) {
             const fila =
                 document.createElement("tr");
 
+                fila.classList.add(
+                    "fila-ejemplar-admin"
+                );
+
+                fila.addEventListener(
+                    "click",
+                    function () {
+
+                        abrirFichaUsuario(
+                            usuario
+                        );
+
+                    }
+                );
+
+
 
             fila.innerHTML = `
                 <td>${escaparHTML(usuario.numero_socio)}</td>
@@ -355,6 +431,153 @@ function pintarTabla(lista) {
             : `${lista.length} usuarios`;
 
 }
+
+/* ==========================================================
+   FICHA DEL USUARIO
+   ========================================================== */
+
+function valorFichaUsuario(valor) {
+
+    if (
+        valor === null ||
+        valor === undefined ||
+        String(valor).trim() === ""
+    ) {
+        return "—";
+    }
+
+    return valor;
+}
+
+
+function abrirFichaUsuario(usuario) {
+
+    const nombreCompleto =
+        [
+            usuario.nombre,
+            usuario.apellidos
+        ]
+            .filter(Boolean)
+            .join(" ");
+
+
+    fichaUsuarioNombre.textContent =
+        nombreCompleto || "Usuario";
+
+
+    fichaUsuarioSocio.textContent =
+        usuario.numero_socio
+            ? "Socio " + usuario.numero_socio
+            : "Sin número de socio";
+
+
+    fichaNumeroSocio.textContent =
+        valorFichaUsuario(
+            usuario.numero_socio
+        );
+
+
+    fichaNombre.textContent =
+        valorFichaUsuario(
+            usuario.nombre
+        );
+
+
+    fichaApellidos.textContent =
+        valorFichaUsuario(
+            usuario.apellidos
+        );
+
+
+    fichaSocioActivo.textContent =
+        usuario.socio_activo
+            ? "ACTIVO"
+            : "NO ACTIVO";
+
+
+    fichaCuentaActiva.textContent =
+        usuario.activo
+            ? "HABILITADA"
+            : "DESHABILITADA";
+
+
+    fichaRol.textContent =
+        usuario.rol
+            ? usuario.rol.toUpperCase()
+            : "—";
+
+
+    fichaValidacion.textContent =
+        valorFichaUsuario(
+            usuario.ultima_validacion_socio
+        );
+
+
+    fichaCuentaWeb.textContent =
+        usuario.auth_user_id
+            ? "SÍ"
+            : "NO";
+
+
+    modalUsuario.classList.add(
+        "visible"
+    );
+
+    document.body.classList.add(
+        "modal-abierto"
+    );
+
+}
+
+
+function cerrarFichaUsuario() {
+
+    modalUsuario.classList.remove(
+        "visible"
+    );
+
+    document.body.classList.remove(
+        "modal-abierto"
+    );
+
+}
+
+
+btnCerrarFichaUsuario.addEventListener(
+    "click",
+    cerrarFichaUsuario
+);
+
+
+modalUsuario.addEventListener(
+    "click",
+    function (event) {
+
+        if (
+            event.target === modalUsuario
+        ) {
+            cerrarFichaUsuario();
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (
+            event.key === "Escape" &&
+            modalUsuario.classList.contains(
+                "visible"
+            )
+        ) {
+            cerrarFichaUsuario();
+        }
+
+    }
+);
 
 
 /* ==========================================================

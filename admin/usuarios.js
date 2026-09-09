@@ -52,6 +52,11 @@ const contador =
 const modalUsuario =
     document.getElementById("modal-usuario");
 
+const fichaUsuario =
+    modalUsuario.querySelector(
+        ".ficha-ejemplar-admin"
+    );
+
 const btnCerrarFichaUsuario =
     document.getElementById(
         "cerrar-ficha-usuario"
@@ -574,7 +579,7 @@ function abrirFichaUsuario(usuario) {
      * debe comenzar en modo consulta.
      */
 
-    modalUsuario.classList.remove(
+    fichaUsuario.classList.remove(
         "modo-edicion"
     );
 
@@ -601,7 +606,7 @@ function cerrarFichaUsuario() {
      * abandonamos el modo edición.
      */
 
-    modalUsuario.classList.remove(
+    fichaUsuario.classList.remove(
         "modo-edicion"
     );
 
@@ -744,7 +749,7 @@ btnEditarUsuario.addEventListener(
         editarValidacion.value =
             usuarioActual.ultima_validacion_socio || "";
 
-        modalUsuario.classList.add(
+        fichaUsuario.classList.add(
             "modo-edicion"
         );
 
@@ -760,7 +765,7 @@ btnCancelarUsuario.addEventListener(
     "click",
     function () {
 
-        modalUsuario.classList.remove(
+        fichaUsuario.classList.remove(
             "modo-edicion"
         );
 
@@ -934,7 +939,7 @@ btnGuardarUsuario.addEventListener(
                 ? "Socio " + data.numero_socio
                 : "Sin número de socio";
 
-        modalUsuario.classList.remove(
+        fichaUsuario.classList.remove(
             "modo-edicion"
         );
 

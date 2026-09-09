@@ -868,10 +868,6 @@ function abrirFichaEjemplar(ejemplar) {
     );
 
     btnEditarEjemplar.addEventListener(
-        "click",
-        function () {
-
-            btnEditarEjemplar.addEventListener(
     "click",
     function () {
 
@@ -933,15 +929,12 @@ function abrirFichaEjemplar(ejemplar) {
                 ? ""
                 : fichaSinopsis.textContent;
 
-
         fichaEjemplar.classList.add(
             "modo-edicion"
         );
+
     }
 );
-
-        }
-    );
 
 /* ==========================================================
    CANCELAR EDICIÓN
@@ -1180,17 +1173,14 @@ btnGuardarEjemplar.addEventListener(
          * los cambios aparezcan inmediatamente.
          */
 
-        aplicarFiltros();
-
+        mostrarEjemplares();
 
         alert(
             "Los datos se han guardado correctamente."
         );
 
-        aplicarFiltros();
-
-    }
-);
+            }
+        );
 
     btnLimpiarBusqueda.addEventListener(
         "click",
@@ -1308,6 +1298,7 @@ btnCerrarSesion.addEventListener(
             "index.html";
     }
 );
+
 
 
 /* ==========================================================

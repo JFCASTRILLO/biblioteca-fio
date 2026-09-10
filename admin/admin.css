@@ -1244,6 +1244,13 @@ body {
 
 .fila-resumen-importacion strong {
     white-space: nowrap;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+#imp-formato-telefono {
+    max-width: 160px;
+    line-height: 1.25;
 }
 
 .aviso-importacion-socios {

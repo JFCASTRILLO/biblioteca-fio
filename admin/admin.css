@@ -1243,13 +1243,21 @@ body {
 }
 
 .fila-resumen-importacion strong {
-    white-space: nowrap;
+    white-space: normal;
     text-align: right;
     overflow-wrap: anywhere;
 }
 
+#modal-importacion-socios
 #imp-formato-telefono {
+    flex: 0 1 160px;
+    min-width: 0;
     max-width: 160px;
+
+    white-space: normal;
+    overflow-wrap: break-word;
+
+    text-align: right;
     line-height: 1.25;
 }
 

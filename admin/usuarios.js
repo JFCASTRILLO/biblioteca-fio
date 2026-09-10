@@ -1191,8 +1191,7 @@ archivoSocios.addEventListener(
             ) {
 
                 formatoTelefono =
-                    "telefono1 + telefono2 " +
-                    "(compatibilidad histórica 2026)";
+                "Doble columna (histórico 2026)";
 
             }
 

@@ -1025,6 +1025,10 @@ archivoSocios.addEventListener(
 
         try {
 
+            /* ==============================================
+               LEER EL ARCHIVO
+               ============================================== */
+
             const datos =
                 await archivo.arrayBuffer();
 
@@ -1037,7 +1041,7 @@ archivoSocios.addEventListener(
             const hoja =
                 libro.Sheets[nombreHoja];
 
-            const filas =
+            const filasOriginales =
                 XLSX.utils.sheet_to_json(
                     hoja,
                     {
@@ -1045,62 +1049,544 @@ archivoSocios.addEventListener(
                     }
                 );
 
-            if (filas.length === 0) {
+
+            if (filasOriginales.length === 0) {
 
                 alert(
                     "El archivo no contiene registros."
                 );
 
-                archivoSocios.value = "";
+                return;
+            }
+
+
+            /* ==============================================
+               NORMALIZAR LAS FILAS
+               ============================================== */
+
+            const filas =
+                filasOriginales.map(
+                    normalizarFilaExcel
+                );
+
+
+            /*
+             * Detectamos el formato del teléfono.
+             *
+             * FORMATO ACTUAL Y FUTURO:
+             * una única columna "telefono".
+             *
+             * COMPATIBILIDAD HISTÓRICA 2026:
+             * telefono1 + telefono2.
+             */
+
+            const primeraFila =
+                filas[0];
+
+            const tieneTelefonoUnico =
+                Object.prototype.hasOwnProperty.call(
+                    primeraFila,
+                    "telefono"
+                );
+
+            const tieneTelefono1 =
+                Object.prototype.hasOwnProperty.call(
+                    primeraFila,
+                    "telefono1"
+                );
+
+            const tieneTelefono2 =
+                Object.prototype.hasOwnProperty.call(
+                    primeraFila,
+                    "telefono2"
+                );
+
+
+            let formatoTelefono =
+                "Sin columna de teléfono";
+
+            if (tieneTelefonoUnico) {
+
+                formatoTelefono =
+                    "telefono";
+
+            } else if (
+                tieneTelefono1 ||
+                tieneTelefono2
+            ) {
+
+                formatoTelefono =
+                    "telefono1 + telefono2 " +
+                    "(compatibilidad histórica 2026)";
+
+            }
+
+
+            /* ==============================================
+               COMPROBAR COLUMNAS OBLIGATORIAS
+               ============================================== */
+
+            const columnasObligatorias = [
+                "numero_socio",
+                "nombre",
+                "apellidos",
+                "socio_activo",
+                "ultima_validacion_socio"
+            ];
+
+
+            const columnasFaltantes =
+                columnasObligatorias.filter(
+                    function (columna) {
+
+                        return !Object.prototype
+                            .hasOwnProperty.call(
+                                primeraFila,
+                                columna
+                            );
+
+                    }
+                );
+
+
+            if (columnasFaltantes.length > 0) {
+
+                alert(
+                    "No se puede analizar el archivo.\n\n" +
+                    "Faltan estas columnas obligatorias:\n\n" +
+                    columnasFaltantes.join("\n")
+                );
 
                 return;
             }
 
-            const columnas =
-                Object.keys(
-                    filas[0]
+
+            /* ==============================================
+               PREPARAR Y DEPURAR SOCIOS
+               ============================================== */
+
+            const sociosUnicos =
+                new Map();
+
+            let duplicados = 0;
+            let filasSinNumeroSocio = 0;
+
+
+            filas.forEach(
+                function (fila) {
+
+                    const numeroSocio =
+                        String(
+                            fila.numero_socio || ""
+                        )
+                            .trim()
+                            .toUpperCase();
+
+
+                    if (!numeroSocio) {
+
+                        filasSinNumeroSocio++;
+
+                        return;
+                    }
+
+
+                    if (
+                        sociosUnicos.has(
+                            numeroSocio
+                        )
+                    ) {
+
+                        duplicados++;
+
+                        /*
+                         * Conservamos la primera aparición.
+                         */
+
+                        return;
+                    }
+
+
+                    const telefono =
+                        obtenerTelefonoSocio(
+                            fila
+                        );
+
+
+                    const socioActivoTexto =
+                        String(
+                            fila.socio_activo || ""
+                        )
+                            .trim()
+                            .toLowerCase()
+                            .normalize("NFD")
+                            .replace(
+                                /[\u0300-\u036f]/g,
+                                ""
+                            );
+
+
+                    const socioActivo =
+                        [
+                            "si",
+                            "true",
+                            "1",
+                            "activo"
+                        ].includes(
+                            socioActivoTexto
+                        );
+
+
+                    const validacionTexto =
+                        String(
+                            fila.ultima_validacion_socio || ""
+                        ).trim();
+
+
+                    const validacion =
+                        validacionTexto === ""
+                            ? null
+                            : Number(
+                                validacionTexto
+                            );
+
+
+                    sociosUnicos.set(
+                        numeroSocio,
+                        {
+                            numero_socio:
+                                numeroSocio,
+
+                            nombre:
+                                String(
+                                    fila.nombre || ""
+                                ).trim(),
+
+                            apellidos:
+                                String(
+                                    fila.apellidos || ""
+                                ).trim(),
+
+                            email:
+                                String(
+                                    fila.email || ""
+                                ).trim(),
+
+                            telefono:
+                                telefono,
+
+                            socio_activo:
+                                socioActivo,
+
+                            ultima_validacion_socio:
+                                Number.isFinite(
+                                    validacion
+                                )
+                                    ? validacion
+                                    : null
+                        }
+                    );
+
+                }
+            );
+
+
+            const socios =
+                Array.from(
+                    sociosUnicos.values()
                 );
 
-            console.log(
-                "Hoja:",
-                nombreHoja
-            );
 
-            console.log(
-                "Registros:",
-                filas.length
-            );
+            /* ==============================================
+               CONTADORES
+               ============================================== */
 
-            console.log(
-                "Columnas detectadas:",
-                columnas
-            );
+            const sociosActivos =
+                socios.filter(
+                    socio =>
+                        socio.socio_activo
+                ).length;
 
-            alert(
-                "Archivo leído correctamente.\n\n" +
+
+            const sociosNoActivos =
+                socios.length -
+                sociosActivos;
+
+
+            const conTelefono =
+                socios.filter(
+                    socio =>
+                        socio.telefono !== ""
+                ).length;
+
+
+            const sinTelefono =
+                socios.length -
+                conTelefono;
+
+
+            /*
+             * Consideramos teléfono a revisar aquel
+             * que no tenga 9 cifras después de
+             * la normalización.
+             */
+
+            const telefonosRevisar =
+                socios.filter(
+                    function (socio) {
+
+                        if (!socio.telefono) {
+                            return false;
+                        }
+
+                        return !/^[0-9]{9}$/.test(
+                            socio.telefono
+                        );
+
+                    }
+                ).length;
+
+
+            const conEmail =
+                socios.filter(
+                    socio =>
+                        socio.email !== ""
+                ).length;
+
+
+            const sinEmail =
+                socios.length -
+                conEmail;
+
+
+            /*
+             * Validación básica.
+             * No corregimos automáticamente
+             * ninguna dirección.
+             */
+
+            const emailsRevisar =
+                socios.filter(
+                    function (socio) {
+
+                        if (!socio.email) {
+                            return false;
+                        }
+
+                        return !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
+                            .test(
+                                socio.email
+                            );
+
+                    }
+                ).length;
+
+
+            /* ==============================================
+               COMPARAR CON USUARIOS DE BIBLIOTECA
+               ============================================== */
+
+            const numerosExistentes =
+                new Set(
+                    usuarios.map(
+                        function (usuario) {
+
+                            return String(
+                                usuario.numero_socio || ""
+                            )
+                                .trim()
+                                .toUpperCase();
+
+                        }
+                    )
+                );
+
+
+            const yaExistentes =
+                socios.filter(
+                    socio =>
+                        numerosExistentes.has(
+                            socio.numero_socio
+                        )
+                ).length;
+
+
+            const nuevos =
+                socios.length -
+                yaExistentes;
+
+
+            /* ==============================================
+               AÑOS DE VALIDACIÓN DETECTADOS
+               ============================================== */
+
+            const anosValidacion =
+                [
+                    ...new Set(
+                        socios
+                            .map(
+                                socio =>
+                                    socio.ultima_validacion_socio
+                            )
+                            .filter(
+                                valor =>
+                                    valor !== null
+                            )
+                    )
+                ]
+                    .sort(
+                        (a, b) => a - b
+                    );
+
+
+            const textoValidacion =
+                anosValidacion.length > 0
+                    ? anosValidacion.join(", ")
+                    : "Sin año";
+
+
+            /* ==============================================
+               INFORME PREVIO
+               ============================================== */
+
+            const informe =
+                "ANÁLISIS DEL ARCHIVO DE SOCIOS\n\n" +
+
+                "Archivo: " +
+                archivo.name +
+                "\n" +
+
                 "Hoja: " +
                 nombreHoja +
-                "\n" +
-                "Registros: " +
-                filas.length +
                 "\n\n" +
-                "Revisa la consola para ver las columnas detectadas."
+
+                "Registros leídos: " +
+                filasOriginales.length +
+                "\n" +
+
+                "Socios únicos: " +
+                socios.length +
+                "\n" +
+
+                "Duplicados: " +
+                duplicados +
+                "\n" +
+
+                "Filas sin nº de socio: " +
+                filasSinNumeroSocio +
+                "\n\n" +
+
+                "Socios FIO activos: " +
+                sociosActivos +
+                "\n" +
+
+                "Socios FIO no activos: " +
+                sociosNoActivos +
+                "\n\n" +
+
+                "Nuevos en Biblioteca: " +
+                nuevos +
+                "\n" +
+
+                "Ya existentes: " +
+                yaExistentes +
+                "\n\n" +
+
+                "Formato teléfono: " +
+                formatoTelefono +
+                "\n" +
+
+                "Con teléfono: " +
+                conTelefono +
+                "\n" +
+
+                "Sin teléfono: " +
+                sinTelefono +
+                "\n" +
+
+                "Teléfonos a revisar: " +
+                telefonosRevisar +
+                "\n\n" +
+
+                "Emails informados: " +
+                conEmail +
+                "\n" +
+
+                "Sin email: " +
+                sinEmail +
+                "\n" +
+
+                "Emails a revisar: " +
+                emailsRevisar +
+                "\n\n" +
+
+                "Validación detectada: " +
+                textoValidacion +
+                "\n\n" +
+
+                "NO se ha modificado ningún dato.";
+
+
+            console.log(
+                "Análisis de socios:",
+                {
+                    registros:
+                        filasOriginales.length,
+
+                    sociosUnicos:
+                        socios.length,
+
+                    duplicados:
+                        duplicados,
+
+                    nuevos:
+                        nuevos,
+
+                    existentes:
+                        yaExistentes,
+
+                    formatoTelefono:
+                        formatoTelefono,
+
+                    telefonosRevisar:
+                        telefonosRevisar,
+
+                    emailsRevisar:
+                        emailsRevisar,
+
+                    anosValidacion:
+                        anosValidacion
+                }
             );
+
+
+            alert(
+                informe
+            );
+
 
         } catch (error) {
 
             console.error(
-                "Error al leer el Excel:",
+                "Error al analizar el Excel:",
                 error
             );
 
             alert(
-                "No se ha podido leer el archivo Excel."
+                "No se ha podido analizar el archivo Excel."
             );
 
-        }
+        } finally {
 
-        archivoSocios.value = "";
+            /*
+             * Limpiamos el selector para que
+             * pueda seleccionarse de nuevo
+             * el mismo fichero.
+             */
+
+            archivoSocios.value = "";
+
+        }
 
     }
 );

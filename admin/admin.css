@@ -1206,3 +1206,67 @@ body {
 #btn-editar-usuario {
     display: none;
 }
+
+/* ==========================================================
+   IMPORTACIÓN DE SOCIOS
+   ========================================================== */
+
+.ficha-importacion-socios {
+    max-width: 900px;
+}
+
+.grid-importacion-socios {
+    display: grid;
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 24px;
+}
+
+.grid-importacion-socios section {
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    padding: 16px;
+    background: #ffffff;
+}
+
+.grid-importacion-socios h3 {
+    margin: 0 0 12px 0;
+    font-size: 1rem;
+}
+
+.fila-resumen-importacion {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 6px 0;
+}
+
+.fila-resumen-importacion strong {
+    white-space: nowrap;
+}
+
+.aviso-importacion-socios {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 20px;
+    padding: 14px 16px;
+    border-radius: 8px;
+    background: #f1f5f1;
+}
+
+.acciones-importacion {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+@media (max-width: 800px) {
+
+    .grid-importacion-socios {
+        grid-template-columns: 1fr;
+    }
+
+}

@@ -505,6 +505,204 @@
 
 </div>
 
+    <!-- =====================================================
+     MODAL ANÁLISIS / IMPORTACIÓN DE SOCIOS
+     ===================================================== -->
+
+<div
+    id="modal-importacion-socios"
+    class="modal-detalles"
+>
+
+    <div class="ficha-ejemplar-admin ficha-importacion-socios">
+
+        <button
+            type="button"
+            id="cerrar-importacion-socios"
+            class="cerrar-modal-admin"
+            aria-label="Cerrar"
+        >
+            &times;
+        </button>
+
+
+        <div class="cabecera-ficha-ejemplar">
+
+            <div>
+
+                <h2>
+                    Análisis de socios FIO
+                </h2>
+
+                <p id="importacion-archivo">
+                    Archivo Excel
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="grid-importacion-socios">
+
+            <section>
+
+                <h3>Registros</h3>
+
+                <div class="fila-resumen-importacion">
+                    <span>Registros leídos</span>
+                    <strong id="imp-registros">0</strong>
+                </div>
+
+                <div class="fila-resumen-importacion">
+                    <span>Socios únicos</span>
+                    <strong id="imp-unicos">0</strong>
+                </div>
+
+                <div class="fila-resumen-importacion">
+                    <span>Duplicados</span>
+                    <strong id="imp-duplicados">0</strong>
+                </div>
+
+            </section>
+
+
+            <section>
+
+                <h3>Estado FIO</h3>
+
+                <div class="fila-resumen-importacion">
+                    <span>Socios activos</span>
+                    <strong id="imp-activos">0</strong>
+                </div>
+
+                <div class="fila-resumen-importacion">
+                    <span>No activos</span>
+                    <strong id="imp-no-activos">0</strong>
+                </div>
+
+            </section>
+
+
+            <section>
+
+                <h3>Biblioteca</h3>
+
+                <div class="fila-resumen-importacion">
+                    <span>Nuevos</span>
+                    <strong id="imp-nuevos">0</strong>
+                </div>
+
+                <div class="fila-resumen-importacion">
+                    <span>Ya existentes</span>
+                    <strong id="imp-existentes">0</strong>
+                </div>
+
+            </section>
+
+
+            <section>
+
+                <h3>Teléfono</h3>
+
+                <div class="fila-resumen-importacion">
+                    <span>Con teléfono</span>
+                    <strong id="imp-con-telefono">0</strong>
+                </div>
+
+                <div class="fila-resumen-importacion">
+                    <span>Sin teléfono</span>
+                    <strong id="imp-sin-telefono">0</strong>
+                </div>
+
+                <div class="fila-resumen-importacion">
+                    <span>A revisar</span>
+                    <strong id="imp-telefonos-revisar">0</strong>
+                </div>
+
+            </section>
+
+
+            <section>
+
+                <h3>Email</h3>
+
+                <div class="fila-resumen-importacion">
+                    <span>Informados</span>
+                    <strong id="imp-con-email">0</strong>
+                </div>
+
+                <div class="fila-resumen-importacion">
+                    <span>Sin email</span>
+                    <strong id="imp-sin-email">0</strong>
+                </div>
+
+                <div class="fila-resumen-importacion">
+                    <span>A revisar</span>
+                    <strong id="imp-emails-revisar">0</strong>
+                </div>
+
+            </section>
+
+
+            <section>
+
+                <h3>Validación</h3>
+
+                <div class="fila-resumen-importacion">
+                    <span>Año detectado</span>
+                    <strong id="imp-validacion">—</strong>
+                </div>
+
+                <div class="fila-resumen-importacion">
+                    <span>Formato teléfono</span>
+                    <strong id="imp-formato-telefono">—</strong>
+                </div>
+
+            </section>
+
+        </div>
+
+
+        <div class="aviso-importacion-socios">
+
+            <strong>
+                Análisis completado
+            </strong>
+
+            <span>
+                Todavía no se ha modificado ningún dato.
+            </span>
+
+        </div>
+
+
+        <div class="acciones-edicion-ejemplar acciones-importacion">
+
+            <button
+                type="button"
+                id="btn-cancelar-importacion"
+                class="btn-cancelar-edicion"
+            >
+                Cancelar
+            </button>
+
+            <button
+                type="button"
+                id="btn-confirmar-importacion"
+                class="btn-guardar-ejemplar"
+                disabled
+            >
+                Importar socios
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script src="usuarios.js"></script>
 

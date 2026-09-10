@@ -900,7 +900,7 @@ btnGuardarUsuario.addEventListener(
                 editarRol.value,
 
             ultima_validacion_socio:
-                validacion
+                validacion,
 
             email:
                 editarEmail.value.trim() || null,

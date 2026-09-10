@@ -192,8 +192,14 @@ const editarValidacion =
         "editar-validacion"
     );
 
+const btnNuevoUsuario =
+    document.getElementById(
+        "btn-nuevo-usuario"
+    );
+
 let usuarios = [];
 let usuarioActual = null;
+let modoNuevoUsuario = false;
 
 /* ==========================================================
    INICIO
@@ -681,6 +687,13 @@ function cerrarFichaUsuario() {
      * Ya no hay ningún usuario seleccionado.
      */
 
+    modalUsuario.classList.remove(
+    "nuevo-usuario"
+    );
+
+    modoNuevoUsuario = false;
+
+
     usuarioActual = null;
 
 }
@@ -754,6 +767,105 @@ btnLimpiarBusqueda.addEventListener(
         mostrarUsuarios();
 
         txtBuscar.focus();
+
+    }
+);
+
+/* ==========================================================
+   NUEVO USUARIO
+   ========================================================== */
+
+btnNuevoUsuario.addEventListener(
+    "click",
+    function () {
+
+        /*
+         * Estamos creando un usuario nuevo.
+         */
+
+        modoNuevoUsuario = true;
+        usuarioActual = null;
+
+
+        /*
+         * Cabecera de la ficha.
+         */
+
+        fichaUsuarioNombre.textContent =
+            "Nuevo usuario";
+
+        fichaUsuarioSocio.textContent =
+            "Alta manual en Biblioteca";
+
+
+        /*
+         * Limpiar los campos editables.
+         */
+
+        editarNumeroSocio.value = "";
+        editarNombre.value = "";
+        editarApellidos.value = "";
+
+        editarEmail.value = "";
+        editarTelefono.value = "";
+        editarObservaciones.value = "";
+
+
+        /*
+         * Valores predeterminados.
+         */
+
+        editarSocioActivo.value =
+            "true";
+
+        editarCuentaActiva.value =
+            "true";
+
+        editarRol.value =
+            "socio";
+
+        editarValidacion.value =
+            new Date().getFullYear();
+
+
+        /*
+         * Cuenta web.
+         *
+         * Un usuario nuevo de Biblioteca
+         * no recibe automáticamente
+         * una cuenta de acceso web.
+         */
+
+        fichaCuentaWeb.textContent =
+            "NO";
+
+
+        /*
+         * Abrir directamente en modo edición.
+         */
+
+        modalUsuario.classList.add(
+            "nuevo-usuario"
+        );
+
+        fichaUsuario.classList.add(
+            "modo-edicion"
+        );
+
+        modalUsuario.classList.add(
+            "visible"
+        );
+
+        document.body.classList.add(
+            "modal-abierto"
+        );
+
+
+        /*
+         * Empezar por el número de socio.
+         */
+
+        editarNumeroSocio.focus();
 
     }
 );

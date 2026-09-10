@@ -1197,3 +1197,12 @@ body {
     display: flex;
     gap: 12px;
 }
+
+/* ==========================================================
+   NUEVO USUARIO
+   ========================================================== */
+
+#modal-usuario.nuevo-usuario
+#btn-editar-usuario {
+    display: none;
+}

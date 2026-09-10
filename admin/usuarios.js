@@ -206,6 +206,7 @@ const btnNuevoUsuario =
 let usuarios = [];
 let usuarioActual = null;
 let modoNuevoUsuario = false;
+let administradorActual = null;
 
 /* ==========================================================
    INICIO
@@ -216,10 +217,10 @@ iniciar();
 
 async function iniciar() {
 
-    const usuarioAdmin =
-        await comprobarAdministrador();
+    administradorActual =
+    await comprobarAdministrador();
 
-    if (!usuarioAdmin) {
+    if (!administradorActual) {
         return;
     }
 
@@ -849,6 +850,9 @@ btnNuevoUsuario.addEventListener(
         editarRol.value =
             "socio";
 
+        editarCuentaActiva.disabled = false;
+        editarRol.disabled = false;
+
         editarValidacion.value =
             new Date().getFullYear();
 
@@ -941,6 +945,23 @@ btnEditarUsuario.addEventListener(
 
         editarRol.value =
             usuarioActual.rol || "socio";
+
+        /*
+        * Protección del administrador conectado.
+        * No puede deshabilitarse ni quitarse
+        * accidentalmente el rol ADMIN.
+        */
+
+        const esAdministradorActual =
+            administradorActual &&
+            usuarioActual.id ===
+                administradorActual.id;
+
+        editarCuentaActiva.disabled =
+            esAdministradorActual;
+
+        editarRol.disabled =
+            esAdministradorActual;
 
         editarValidacion.value =
             usuarioActual.ultima_validacion_socio || "";

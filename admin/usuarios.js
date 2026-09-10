@@ -800,6 +800,209 @@ btnLimpiarBusqueda.addEventListener(
    IMPORTAR SOCIOS DESDE EXCEL
    ========================================================== */
 
+   /*
+ * Normaliza los nombres de las columnas del Excel.
+ *
+ * Ejemplos:
+ * "Teléfono"  -> "telefono"
+ * "Nº Socio"  -> "n_socio"
+ * "SOCIO ACTIVO" -> "socio_activo"
+ */
+
+function normalizarNombreColumna(nombre) {
+
+    return String(nombre || "")
+        .trim()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s+/g, "_")
+        .replace(/[^a-z0-9_]/g, "");
+
+}
+
+
+/*
+ * Convierte una fila del Excel para que
+ * podamos trabajar siempre con nombres
+ * de columnas normalizados.
+ */
+
+function normalizarFilaExcel(fila) {
+
+    const resultado = {};
+
+    Object.keys(fila).forEach(
+        function (columna) {
+
+            const nombreNormalizado =
+                normalizarNombreColumna(
+                    columna
+                );
+
+            /*
+             * Ignoramos columnas completamente
+             * vacías generadas por Excel.
+             */
+
+            if (
+                !nombreNormalizado ||
+                nombreNormalizado.startsWith(
+                    "__empty"
+                )
+            ) {
+                return;
+            }
+
+            resultado[nombreNormalizado] =
+                fila[columna];
+
+        }
+    );
+
+    return resultado;
+}
+
+
+/*
+ * Normaliza un teléfono sin inventar
+ * ni corregir números.
+ */
+
+function normalizarTelefono(valor) {
+
+    if (
+        valor === null ||
+        valor === undefined ||
+        String(valor).trim() === ""
+    ) {
+        return "";
+    }
+
+    let telefono =
+        String(valor)
+            .trim()
+            .replace(/[.\s()-]/g, "");
+
+    /*
+     * Eliminamos únicamente el prefijo
+     * internacional español.
+     */
+
+    if (telefono.startsWith("+34")) {
+
+        telefono =
+            telefono.substring(3);
+
+    } else if (
+        telefono.startsWith("0034")
+    ) {
+
+        telefono =
+            telefono.substring(4);
+
+    }
+
+    return telefono;
+}
+
+
+/*
+ * Comprueba si parece un móvil español.
+ *
+ * Debe tener 9 cifras y comenzar
+ * por 6 o por 7.
+ */
+
+function esMovilEspanol(telefono) {
+
+    return /^[67][0-9]{8}$/.test(
+        telefono
+    );
+
+}
+
+/*
+ * Obtiene el teléfono que guardaremos.
+ *
+ * FORMATO FUTURO:
+ * Si existe una columna "telefono",
+ * se utiliza directamente.
+ *
+ * FORMATO ANTIGUO:
+ * Si existen telefono1 / telefono2,
+ * elegimos automáticamente el más
+ * adecuado.
+ */
+
+function obtenerTelefonoSocio(fila) {
+
+    /*
+     * Formato nuevo:
+     * una única columna telefono.
+     */
+
+    if (
+        Object.prototype.hasOwnProperty.call(
+            fila,
+            "telefono"
+        )
+    ) {
+
+        return normalizarTelefono(
+            fila.telefono
+        );
+
+    }
+
+
+    /*
+     * Formato antiguo:
+     * telefono1 y telefono2.
+     */
+
+    const telefono1 =
+        normalizarTelefono(
+            fila.telefono1
+        );
+
+    const telefono2 =
+        normalizarTelefono(
+            fila.telefono2
+        );
+
+
+    /*
+     * Preferimos un móvil.
+     */
+
+    if (esMovilEspanol(telefono2)) {
+        return telefono2;
+    }
+
+    if (esMovilEspanol(telefono1)) {
+        return telefono1;
+    }
+
+
+    /*
+     * Si ninguno es móvil, conservamos
+     * un teléfono disponible.
+     */
+
+    if (telefono2) {
+        return telefono2;
+    }
+
+    if (telefono1) {
+        return telefono1;
+    }
+
+
+    return "";
+
+}
+
 btnImportarSocios.addEventListener(
     "click",
     function () {

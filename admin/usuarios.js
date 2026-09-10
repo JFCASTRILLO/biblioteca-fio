@@ -947,6 +947,25 @@ btnEditarUsuario.addEventListener(
             usuarioActual.rol || "socio";
 
         /*
+        * PROTECCIÓN DEL ADMINISTRADOR CONECTADO
+        *
+        * Si está editando su propia ficha:
+        * - no puede deshabilitar su cuenta
+        * - no puede quitarse el rol ADMIN
+        */
+
+        const esAdministradorActual =
+            administradorActual &&
+            usuarioActual.id ===
+                administradorActual.id;
+
+        editarCuentaActiva.disabled =
+            esAdministradorActual;
+
+        editarRol.disabled =
+            esAdministradorActual;
+
+        /*
         * Protección del administrador conectado.
         * No puede deshabilitarse ni quitarse
         * accidentalmente el rol ADMIN.

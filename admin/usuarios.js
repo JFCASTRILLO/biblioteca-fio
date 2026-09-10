@@ -623,6 +623,8 @@ function abrirFichaUsuario(usuario) {
             ? "SÍ"
             : "NO";
 
+    bloqueCuentaWeb.style.display = "";
+
     fichaEmail.textContent =
     valorFichaUsuario(
         usuario.email
@@ -638,10 +640,6 @@ function abrirFichaUsuario(usuario) {
             usuario.observaciones
         );
 
-    fichaCuentaWeb.textContent =
-    usuario.auth_user_id
-        ? "SÍ"
-        : "NO";
 
 
     /*

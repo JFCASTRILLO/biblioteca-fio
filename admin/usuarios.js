@@ -809,6 +809,98 @@ btnImportarSocios.addEventListener(
     }
 );
 
+archivoSocios.addEventListener(
+    "change",
+    async function () {
+
+        const archivo =
+            archivoSocios.files[0];
+
+        if (!archivo) {
+            return;
+        }
+
+        try {
+
+            const datos =
+                await archivo.arrayBuffer();
+
+            const libro =
+                XLSX.read(datos);
+
+            const nombreHoja =
+                libro.SheetNames[0];
+
+            const hoja =
+                libro.Sheets[nombreHoja];
+
+            const filas =
+                XLSX.utils.sheet_to_json(
+                    hoja,
+                    {
+                        defval: ""
+                    }
+                );
+
+            if (filas.length === 0) {
+
+                alert(
+                    "El archivo no contiene registros."
+                );
+
+                archivoSocios.value = "";
+
+                return;
+            }
+
+            const columnas =
+                Object.keys(
+                    filas[0]
+                );
+
+            console.log(
+                "Hoja:",
+                nombreHoja
+            );
+
+            console.log(
+                "Registros:",
+                filas.length
+            );
+
+            console.log(
+                "Columnas detectadas:",
+                columnas
+            );
+
+            alert(
+                "Archivo leído correctamente.\n\n" +
+                "Hoja: " +
+                nombreHoja +
+                "\n" +
+                "Registros: " +
+                filas.length +
+                "\n\n" +
+                "Revisa la consola para ver las columnas detectadas."
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Error al leer el Excel:",
+                error
+            );
+
+            alert(
+                "No se ha podido leer el archivo Excel."
+            );
+
+        }
+
+        archivoSocios.value = "";
+
+    }
+);
 
 /* ==========================================================
    NUEVO USUARIO

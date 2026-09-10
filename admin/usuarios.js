@@ -808,6 +808,13 @@ btnNuevoUsuario.addEventListener(
         fichaUsuarioSocio.textContent =
             "Alta manual en Biblioteca";
 
+        /*
+        * En un alta nueva no mostramos Cuenta web.
+        * La vinculación web se gestionará aparte.
+        */
+
+        bloqueCuentaWeb.style.display =
+            "none";
 
         /*
          * Limpiar los campos editables.

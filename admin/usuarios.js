@@ -202,6 +202,16 @@ const btnNuevoUsuario =
         "btn-nuevo-usuario"
     );
 
+const btnImportarSocios =
+    document.getElementById(
+        "btn-importar-socios"
+    );
+
+const archivoSocios =
+    document.getElementById(
+        "archivo-socios"
+    );
+
 
 let usuarios = [];
 let usuarioActual = null;
@@ -785,6 +795,20 @@ btnLimpiarBusqueda.addEventListener(
 
     }
 );
+
+/* ==========================================================
+   IMPORTAR SOCIOS DESDE EXCEL
+   ========================================================== */
+
+btnImportarSocios.addEventListener(
+    "click",
+    function () {
+
+        archivoSocios.click();
+
+    }
+);
+
 
 /* ==========================================================
    NUEVO USUARIO

@@ -552,6 +552,11 @@ function abrirFichaUsuario(usuario) {
 
     usuarioActual = usuario;
 
+    modoNuevoUsuario = false;
+
+    btnGuardarUsuario.textContent =
+        "Guardar cambios";
+
     const nombreCompleto =
         [
             usuario.nombre,
@@ -797,6 +802,8 @@ btnNuevoUsuario.addEventListener(
         modoNuevoUsuario = true;
         usuarioActual = null;
 
+        btnGuardarUsuario.textContent =
+        "Crear usuario";
 
         /*
          * Cabecera de la ficha.
@@ -897,7 +904,10 @@ btnEditarUsuario.addEventListener(
     "click",
     function () {
 
-        if (!usuarioActual) {
+        if (
+            !modoNuevoUsuario &&
+            !usuarioActual
+        ) {
             return;
         }
 
@@ -967,12 +977,17 @@ btnGuardarUsuario.addEventListener(
     "click",
     async function () {
 
-        if (!usuarioActual) {
+        if (
+            !modoNuevoUsuario &&
+            !usuarioActual
+        ) {
             return;
         }
 
         const numeroSocio =
-            editarNumeroSocio.value.trim();
+            editarNumeroSocio.value
+                .trim()
+                .toUpperCase();
 
         const nombre =
             editarNombre.value.trim();
@@ -1010,7 +1025,7 @@ btnGuardarUsuario.addEventListener(
                 );
 
         const cambios = {
-
+           
             numero_socio:
                 numeroSocio,
 
@@ -1039,9 +1054,102 @@ btnGuardarUsuario.addEventListener(
                 editarTelefono.value.trim() || null,
 
             observaciones:
-                editarObservaciones.value.trim() || null,
-
+                editarObservaciones.value.trim() || null
+                
         };
+
+
+        /* ==================================================
+           ALTA DE NUEVO USUARIO
+           ================================================== */
+
+        if (modoNuevoUsuario) {
+
+            btnGuardarUsuario.disabled = true;
+
+            btnGuardarUsuario.textContent =
+                "Creando...";
+
+            const {
+                data,
+                error
+            } =
+                await clienteSupabase
+                    .from("usuarios")
+                    .insert(cambios)
+                    .select()
+                    .single();
+
+            btnGuardarUsuario.disabled = false;
+
+            btnGuardarUsuario.textContent =
+                "Crear usuario";
+
+
+            if (error) {
+
+                console.error(
+                    "Error al crear usuario:",
+                    error
+                );
+
+
+                if (
+                    error.code === "23505"
+                ) {
+
+                    alert(
+                        "Ya existe un usuario con ese número de socio."
+                    );
+
+                } else {
+
+                    alert(
+                        "No se ha podido crear el usuario."
+                    );
+
+                }
+
+                return;
+            }
+
+
+            usuarios.push(data);
+
+
+            usuarios.sort(
+                function (a, b) {
+
+                    return (
+                        a.numero_socio || ""
+                    ).localeCompare(
+                        b.numero_socio || "",
+                        "es",
+                        {
+                            numeric: true,
+                            sensitivity: "base"
+                        }
+                    );
+
+                }
+            );
+
+            mostrarUsuarios();
+
+
+            alert(
+                "El usuario se ha creado correctamente."
+            );
+
+
+            cerrarFichaUsuario();
+
+            return;
+        }
+
+        /* ==================================================
+           MODIFICACIÓN DE USUARIO EXISTENTE
+           ================================================== */
 
         btnGuardarUsuario.disabled = true;
 

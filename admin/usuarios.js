@@ -142,6 +142,11 @@ const fichaCuentaWeb =
         "ficha-cuenta-web"
     );
 
+const bloqueCuentaWeb =
+    document.getElementById(
+        "bloque-cuenta-web"
+    );
+
 const btnEditarUsuario =
     document.getElementById(
         "btn-editar-usuario"
@@ -196,6 +201,7 @@ const btnNuevoUsuario =
     document.getElementById(
         "btn-nuevo-usuario"
     );
+
 
 let usuarios = [];
 let usuarioActual = null;
@@ -626,7 +632,12 @@ function abrirFichaUsuario(usuario) {
             usuario.observaciones
         );
 
-    
+    fichaCuentaWeb.textContent =
+    usuario.auth_user_id
+        ? "SÍ"
+        : "NO";
+
+
     /*
      * Cada vez que abrimos una ficha,
      * debe comenzar en modo consulta.

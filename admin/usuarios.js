@@ -212,6 +212,81 @@ const archivoSocios =
         "archivo-socios"
     );
 
+const modalImportacionSocios =
+    document.getElementById(
+        "modal-importacion-socios"
+    );
+
+const cerrarImportacionSocios =
+    document.getElementById(
+        "cerrar-importacion-socios"
+    );
+
+const btnCancelarImportacion =
+    document.getElementById(
+        "btn-cancelar-importacion"
+    );
+
+const btnConfirmarImportacion =
+    document.getElementById(
+        "btn-confirmar-importacion"
+    );
+
+const importacionArchivo =
+    document.getElementById(
+        "importacion-archivo"
+    );
+
+const impRegistros =
+    document.getElementById("imp-registros");
+
+const impUnicos =
+    document.getElementById("imp-unicos");
+
+const impDuplicados =
+    document.getElementById("imp-duplicados");
+
+const impActivos =
+    document.getElementById("imp-activos");
+
+const impNoActivos =
+    document.getElementById("imp-no-activos");
+
+const impNuevos =
+    document.getElementById("imp-nuevos");
+
+const impExistentes =
+    document.getElementById("imp-existentes");
+
+const impConTelefono =
+    document.getElementById("imp-con-telefono");
+
+const impSinTelefono =
+    document.getElementById("imp-sin-telefono");
+
+const impTelefonosRevisar =
+    document.getElementById(
+        "imp-telefonos-revisar"
+    );
+
+const impConEmail =
+    document.getElementById("imp-con-email");
+
+const impSinEmail =
+    document.getElementById("imp-sin-email");
+
+const impEmailsRevisar =
+    document.getElementById(
+        "imp-emails-revisar"
+    );
+
+const impValidacion =
+    document.getElementById("imp-validacion");
+
+const impFormatoTelefono =
+    document.getElementById(
+        "imp-formato-telefono"
+    );
 
 let usuarios = [];
 let usuarioActual = null;
@@ -1560,8 +1635,81 @@ archivoSocios.addEventListener(
             );
 
 
-            alert(
-                informe
+            /*
+            * Mostrar el resultado en el modal.
+            */
+
+            importacionArchivo.textContent =
+                archivo.name +
+                " · Hoja " +
+                nombreHoja;
+
+            impRegistros.textContent =
+                filasOriginales.length;
+
+            impUnicos.textContent =
+                socios.length;
+
+            impDuplicados.textContent =
+                duplicados;
+
+            impActivos.textContent =
+                sociosActivos;
+
+            impNoActivos.textContent =
+                sociosNoActivos;
+
+            impNuevos.textContent =
+                nuevos;
+
+            impExistentes.textContent =
+                yaExistentes;
+
+            impConTelefono.textContent =
+                conTelefono;
+
+            impSinTelefono.textContent =
+                sinTelefono;
+
+            impTelefonosRevisar.textContent =
+                telefonosRevisar;
+
+            impConEmail.textContent =
+                conEmail;
+
+            impSinEmail.textContent =
+                sinEmail;
+
+            impEmailsRevisar.textContent =
+                emailsRevisar;
+
+            impValidacion.textContent =
+                textoValidacion;
+
+            impFormatoTelefono.textContent =
+                formatoTelefono;
+
+
+            /*
+            * El botón continúa deshabilitado.
+            * Todavía estamos únicamente
+            * analizando el fichero.
+            */
+
+            btnConfirmarImportacion.disabled =
+                true;
+
+
+            /*
+            * Mostrar modal.
+            */
+
+            modalImportacionSocios.classList.add(
+                "visible"
+            );
+
+            document.body.classList.add(
+                "modal-abierto"
             );
 
 
@@ -1590,6 +1738,48 @@ archivoSocios.addEventListener(
 
     }
 );
+
+    function cerrarModalImportacion() {
+
+    modalImportacionSocios.classList.remove(
+        "visible"
+    );
+
+    document.body.classList.remove(
+        "modal-abierto"
+    );
+
+}
+
+
+cerrarImportacionSocios.addEventListener(
+    "click",
+    cerrarModalImportacion
+);
+
+
+btnCancelarImportacion.addEventListener(
+    "click",
+    cerrarModalImportacion
+);
+
+
+modalImportacionSocios.addEventListener(
+    "click",
+    function (event) {
+
+        if (
+            event.target ===
+            modalImportacionSocios
+        ) {
+
+            cerrarModalImportacion();
+
+        }
+
+    }
+);
+
 
 /* ==========================================================
    NUEVO USUARIO

@@ -87,6 +87,36 @@ const fichaApellidos =
         "ficha-apellidos"
     );
 
+const fichaEmail =
+    document.getElementById(
+        "ficha-email"
+    );
+
+const fichaTelefono =
+    document.getElementById(
+        "ficha-telefono"
+    );
+
+const fichaObservaciones =
+    document.getElementById(
+        "ficha-observaciones"
+    );
+
+const editarEmail =
+    document.getElementById(
+        "editar-email"
+    );
+
+const editarTelefono =
+    document.getElementById(
+        "editar-telefono"
+    );
+
+const editarObservaciones =
+    document.getElementById(
+        "editar-observaciones"
+    );
+
 const fichaSocioActivo =
     document.getElementById(
         "ficha-socio-activo"
@@ -272,6 +302,9 @@ async function cargarUsuarios() {
                 numero_socio,
                 nombre,
                 apellidos,
+                email,
+                telefono,
+                observaciones,
                 rol,
                 activo,
                 socio_activo,
@@ -567,11 +600,25 @@ function abrirFichaUsuario(usuario) {
             usuario.ultima_validacion_socio
         );
 
-
     fichaCuentaWeb.textContent =
         usuario.auth_user_id
             ? "SÍ"
             : "NO";
+
+    fichaEmail.textContent =
+    valorFichaUsuario(
+        usuario.email
+    );
+
+    fichaTelefono.textContent =
+        valorFichaUsuario(
+            usuario.telefono
+        );
+
+    fichaObservaciones.textContent =
+        valorFichaUsuario(
+            usuario.observaciones
+        );
 
     
     /*
@@ -733,6 +780,15 @@ btnEditarUsuario.addEventListener(
         editarApellidos.value =
             usuarioActual.apellidos || "";
 
+        editarEmail.value =
+            usuarioActual.email || "";
+
+        editarTelefono.value =
+            usuarioActual.telefono || "";
+
+        editarObservaciones.value =
+            usuarioActual.observaciones || "";
+
         editarSocioActivo.value =
             String(
                 usuarioActual.socio_activo
@@ -846,6 +902,15 @@ btnGuardarUsuario.addEventListener(
             ultima_validacion_socio:
                 validacion
 
+            email:
+                editarEmail.value.trim() || null,
+
+            telefono:
+                editarTelefono.value.trim() || null,
+
+            observaciones:
+                editarObservaciones.value.trim() || null,
+
         };
 
         btnGuardarUsuario.disabled = true;
@@ -904,6 +969,21 @@ btnGuardarUsuario.addEventListener(
         fichaApellidos.textContent =
             valorFichaUsuario(
                 data.apellidos
+            );
+
+        fichaEmail.textContent =
+            valorFichaUsuario(
+                data.email
+            );
+
+        fichaTelefono.textContent =
+            valorFichaUsuario(
+                data.telefono
+            );
+
+        fichaObservaciones.textContent =
+            valorFichaUsuario(
+                data.observaciones
             );
 
         fichaSocioActivo.textContent =

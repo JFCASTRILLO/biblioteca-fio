@@ -965,23 +965,6 @@ btnEditarUsuario.addEventListener(
         editarRol.disabled =
             esAdministradorActual;
 
-        /*
-        * Protección del administrador conectado.
-        * No puede deshabilitarse ni quitarse
-        * accidentalmente el rol ADMIN.
-        */
-
-        const esAdministradorActual =
-            administradorActual &&
-            usuarioActual.id ===
-                administradorActual.id;
-
-        editarCuentaActiva.disabled =
-            esAdministradorActual;
-
-        editarRol.disabled =
-            esAdministradorActual;
-
         editarValidacion.value =
             usuarioActual.ultima_validacion_socio || "";
 

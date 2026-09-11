@@ -714,6 +714,149 @@
 
 </div>
 
+<!-- =====================================================
+ MODAL - FORMATO DEL FICHERO DE SOCIOS
+ ===================================================== -->
+
+<div
+    id="modal-formato-socios"
+    class="modal-ejemplar-admin"
+>
+
+    <div class="ficha-ejemplar-admin ficha-formato-socios">
+
+        <button
+            type="button"
+            id="cerrar-formato-socios"
+            class="cerrar-ficha-ejemplar"
+            aria-label="Cerrar"
+        >
+            &times;
+        </button>
+
+
+        <div class="cabecera-ficha-ejemplar">
+
+            <div>
+
+                <span class="etiqueta-ficha-admin">
+                    Importación anual
+                </span>
+
+                <h2>
+                    Formato del fichero de socios
+                </h2>
+
+                <p class="ficha-autor">
+                    Estructura recomendada para la actualización
+                    anual de socios FIO.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="bloque-formato-socios">
+
+            <p>
+                El fichero debe contener una fila por socio
+                y las siguientes columnas:
+            </p>
+
+
+            <div class="tabla-formato-contenedor">
+
+                <table class="tabla-formato-socios">
+
+                    <thead>
+
+                        <tr>
+                            <th>Columna</th>
+                            <th>Contenido</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>numero_socio</td>
+                            <td>Número de socio FIO</td>
+                        </tr>
+
+                        <tr>
+                            <td>nombre</td>
+                            <td>Nombre del socio</td>
+                        </tr>
+
+                        <tr>
+                            <td>apellidos</td>
+                            <td>Apellidos del socio</td>
+                        </tr>
+
+                        <tr>
+                            <td>email</td>
+                            <td>Correo electrónico de contacto</td>
+                        </tr>
+
+                        <tr>
+                            <td>telefono</td>
+                            <td>Un único teléfono de contacto</td>
+                        </tr>
+
+                        <tr>
+                            <td>socio_activo</td>
+                            <td>SI / NO</td>
+                        </tr>
+
+                        <tr>
+                            <td>ultima_validacion_socio</td>
+                            <td>
+                                Ejercicio de la actualización,
+                                por ejemplo 2027
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <div class="aviso-formato-socios">
+
+                <strong>Importante</strong>
+
+                <p>
+                    No es necesario incluir DNI.
+                    El sistema no modificará el rol,
+                    la cuenta de biblioteca,
+                    la cuenta web ni las observaciones
+                    del usuario.
+                </p>
+
+            </div>
+
+
+            <div class="aviso-formato-socios aviso-formato-secundario">
+
+                <strong>Actualización anual</strong>
+
+                <p>
+                    Todos los registros del fichero deben
+                    corresponder al mismo ejercicio.
+                    Antes de importar, el sistema analizará
+                    los datos y mostrará un resumen para
+                    confirmar la operación.
+                </p>
+
+            </div>
+
+        </div>
+
+
         <div class="acciones-edicion-ejemplar acciones-formato-socios">
 
             <button

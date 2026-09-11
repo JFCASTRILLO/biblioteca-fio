@@ -337,6 +337,7 @@ let modoNuevoUsuario = false;
 let administradorActual = null;
 let sociosPreparadosImportacion = [];
 let importacionAnualValida = false;
+let usuariosAusentesImportacion = [];
 
 /* ==========================================================
    MODAL - FORMATO DEL FICHERO DE SOCIOS
@@ -1724,6 +1725,8 @@ archivoSocios.addEventListener(
         const ausentes =
             usuariosAusentes.length;
 
+        usuariosAusentesImportacion =
+            usuariosAusentes;
 
             /* ==============================================
                AÑOS DE VALIDACIÓN DETECTADOS
@@ -2175,15 +2178,47 @@ btnConfirmarImportacion.addEventListener(
          * pedimos una última confirmación.
          */
 
+        let mensajeConfirmacion =
+            "Se van a actualizar los datos de " +
+            sociosPreparadosImportacion.length +
+            " socios.\n\n";
+
+
+        if (usuariosAusentesImportacion.length > 0) {
+
+            mensajeConfirmacion +=
+                "ATENCIÓN:\n" +
+                usuariosAusentesImportacion.length +
+                (
+                    usuariosAusentesImportacion.length === 1
+                        ? " usuario de la Biblioteca no figura "
+                        : " usuarios de la Biblioteca no figuran "
+                ) +
+                "en el fichero anual.\n\n" +
+
+                "Al completar la actualización anual, " +
+                (
+                    usuariosAusentesImportacion.length === 1
+                        ? "este usuario será marcado "
+                        : "estos usuarios serán marcados "
+                ) +
+                "como NO ACTIVO en FIO.\n\n";
+        }
+
+
+        mensajeConfirmacion +=
+            "No se modificarán el rol, la cuenta de Biblioteca, " +
+            "la cuenta web ni las observaciones.\n\n" +
+
+            "Confirma únicamente si este fichero contiene " +
+            "el padrón completo de socios del ejercicio.\n\n" +
+
+            "¿Deseas continuar?";
+
+
         const confirmar =
             window.confirm(
-                "Se van a actualizar los datos de " +
-                sociosPreparadosImportacion.length +
-                " socios.\n\n" +
-                "Los usuarios existentes conservarán " +
-                "su rol, su cuenta de Biblioteca y " +
-                "su cuenta web.\n\n" +
-                "¿Deseas continuar?"
+                mensajeConfirmacion
             );
 
 

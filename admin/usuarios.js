@@ -388,49 +388,97 @@ async function cargarUsuarios() {
         "Cargando usuarios...";
 
 
-    const {
-        data,
-        error
-    } =
-        await clienteSupabase
-            .from("usuarios")
-            .select(`
-                id,
-                auth_user_id,
-                numero_socio,
-                nombre,
-                apellidos,
-                email,
-                telefono,
-                observaciones,
-                rol,
-                activo,
-                socio_activo,
-                ultima_validacion_socio
-            `)
-            .order(
-                "numero_socio",
-                { ascending: true }
+    const TAMANO_BLOQUE = 1000;
+
+    let desde = 0;
+
+    let todosLosUsuarios = [];
+
+
+    while (true) {
+
+        const {
+            data,
+            error
+        } =
+            await clienteSupabase
+                .from("usuarios")
+                .select(`
+                    id,
+                    auth_user_id,
+                    numero_socio,
+                    nombre,
+                    apellidos,
+                    email,
+                    telefono,
+                    observaciones,
+                    rol,
+                    activo,
+                    socio_activo,
+                    ultima_validacion_socio
+                `)
+                .order(
+                    "numero_socio",
+                    {
+                        ascending: true
+                    }
+                )
+                .range(
+                    desde,
+                    desde + TAMANO_BLOQUE - 1
+                );
+
+
+        if (error) {
+
+            console.error(
+                "Error al cargar usuarios:",
+                error
+            );
+
+            contador.textContent =
+                "No se han podido cargar los usuarios.";
+
+            return;
+
+        }
+
+
+        if (!data || data.length === 0) {
+
+            break;
+
+        }
+
+
+        todosLosUsuarios =
+            todosLosUsuarios.concat(
+                data
             );
 
 
-    if (error) {
+        /*
+         * Si Supabase devuelve menos de 1000,
+         * ya hemos llegado al último bloque.
+         */
 
-        console.error(
-            "Error al cargar usuarios:",
-            error
-        );
+        if (
+            data.length < TAMANO_BLOQUE
+        ) {
 
-        contador.textContent =
-            "No se han podido cargar los usuarios.";
+            break;
 
-        return;
+        }
+
+
+        desde +=
+            TAMANO_BLOQUE;
 
     }
 
 
     usuarios =
-        data || [];
+        todosLosUsuarios;
 
 
     mostrarUsuarios();

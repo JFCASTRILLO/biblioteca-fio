@@ -1309,6 +1309,21 @@ body {
 }
 
 /* ==========================================================
+   ACCIONES SUPERIORES - USUARIOS
+   ========================================================== */
+
+.acciones-superiores-usuarios {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.acciones-superiores-usuarios .btn-volver-panel {
+    margin-left: 8px;
+}
+
+
+/* ==========================================================
    ENLACE - FORMATO DEL FICHERO DE SOCIOS
    ========================================================== */
 

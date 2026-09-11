@@ -1307,3 +1307,98 @@ body {
 #tabla-usuarios td:nth-child(3) {
     width: 260px;
 }
+
+/* ==========================================================
+   ENLACE - FORMATO DEL FICHERO DE SOCIOS
+   ========================================================== */
+
+.enlace-formato-socios {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    color: #5f6879;
+    font-size: 0.92rem;
+
+    cursor: pointer;
+    user-select: none;
+}
+
+.enlace-formato-socios:hover {
+    color: #26304f;
+    text-decoration: underline;
+}
+
+.enlace-formato-socios:focus {
+    outline: 2px solid #26304f;
+    outline-offset: 4px;
+    border-radius: 3px;
+}
+
+
+/* ==========================================================
+   MODAL - FORMATO DEL FICHERO DE SOCIOS
+   ========================================================== */
+
+.ficha-formato-socios {
+    max-width: 760px;
+}
+
+.bloque-formato-socios {
+    margin-top: 20px;
+}
+
+.tabla-formato-contenedor {
+    margin-top: 18px;
+    overflow-x: auto;
+}
+
+.tabla-formato-socios {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-formato-socios th,
+.tabla-formato-socios td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #dddddd;
+    text-align: left;
+}
+
+.tabla-formato-socios th {
+    background: #f3f5f8;
+    color: #26304f;
+}
+
+.tabla-formato-socios td:first-child {
+    width: 230px;
+    font-family: Consolas, monospace;
+    font-weight: 600;
+}
+
+.aviso-formato-socios {
+    margin-top: 22px;
+    padding: 14px 16px;
+    background: #f1f5f1;
+    border-radius: 8px;
+}
+
+.aviso-formato-socios strong {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.aviso-formato-socios p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.aviso-formato-secundario {
+    background: #f4f6fa;
+}
+
+.acciones-formato-socios {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 22px;
+}

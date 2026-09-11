@@ -288,11 +288,111 @@ const impFormatoTelefono =
         "imp-formato-telefono"
     );
 
+const btnFormatoSocios =
+    document.getElementById(
+        "btn-formato-socios"
+    );
+
+const modalFormatoSocios =
+    document.getElementById(
+        "modal-formato-socios"
+    );
+
+const cerrarFormatoSocios =
+    document.getElementById(
+        "cerrar-formato-socios"
+    );
+
+const btnCerrarFormatoSocios =
+    document.getElementById(
+        "btn-cerrar-formato-socios"
+    );
+
+
+
+
 let usuarios = [];
 let usuarioActual = null;
 let modoNuevoUsuario = false;
 let administradorActual = null;
 let sociosPreparadosImportacion = [];
+
+
+/* ==========================================================
+   MODAL - FORMATO DEL FICHERO DE SOCIOS
+   ========================================================== */
+
+function abrirModalFormatoSocios() {
+
+    modalFormatoSocios.classList.add(
+        "visible"
+    );
+
+}
+
+
+function cerrarModalFormatoSocios() {
+
+    modalFormatoSocios.classList.remove(
+        "visible"
+    );
+
+}
+
+
+btnFormatoSocios.addEventListener(
+    "click",
+    abrirModalFormatoSocios
+);
+
+
+btnFormatoSocios.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (
+            event.key === "Enter" ||
+            event.key === " "
+        ) {
+
+            event.preventDefault();
+
+            abrirModalFormatoSocios();
+
+        }
+
+    }
+);
+
+
+cerrarFormatoSocios.addEventListener(
+    "click",
+    cerrarModalFormatoSocios
+);
+
+
+btnCerrarFormatoSocios.addEventListener(
+    "click",
+    cerrarModalFormatoSocios
+);
+
+
+modalFormatoSocios.addEventListener(
+    "click",
+    function (event) {
+
+        if (
+            event.target ===
+            modalFormatoSocios
+        ) {
+
+            cerrarModalFormatoSocios();
+
+        }
+
+    }
+);
+
 
 /* ==========================================================
    INICIO

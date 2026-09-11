@@ -338,6 +338,7 @@ let administradorActual = null;
 let sociosPreparadosImportacion = [];
 let importacionAnualValida = false;
 let usuariosAusentesImportacion = [];
+let ejercicioImportacionAnual = null;
 
 /* ==========================================================
    MODAL - FORMATO DEL FICHERO DE SOCIOS
@@ -1787,6 +1788,8 @@ archivoSocios.addEventListener(
                         ? anosValidacion[0]
                         : null;
 
+                ejercicioImportacionAnual =
+                    ejercicioDetectado;
 
                 /*
                 * A partir de 2027 exigimos el formato
@@ -2353,6 +2356,56 @@ btnConfirmarImportacion.addEventListener(
             }
 
 
+            /* ==============================================
+               MARCAR COMO NO ACTIVOS LOS AUSENTES
+               ============================================== */
+
+            if (
+                usuariosAusentesImportacion.length > 0
+            ) {
+
+                const idsAusentes =
+                    usuariosAusentesImportacion
+                        .map(
+                            usuario => usuario.id
+                        )
+                        .filter(Boolean);
+
+
+                if (idsAusentes.length > 0) {
+
+                    const {
+                        error: errorAusentes
+                    } =
+                        await clienteSupabase
+                            .from("usuarios")
+                            .update({
+                                socio_activo: false,
+                                ultima_validacion_socio:
+                                    ejercicioImportacionAnual
+                            })
+                            .in(
+                                "id",
+                                idsAusentes
+                            );
+
+
+                    if (errorAusentes) {
+
+                        console.error(
+                            "Error actualizando socios ausentes:",
+                            errorAusentes
+                        );
+
+                        throw errorAusentes;
+
+                    }
+
+                }
+
+            }
+
+
             /*
              * Volvemos a cargar los usuarios
              * directamente desde Supabase.
@@ -2364,7 +2417,12 @@ btnConfirmarImportacion.addEventListener(
             alert(
                 "Importación completada correctamente.\n\n" +
                 "Socios procesados: " +
-                datosImportacion.length
+                datosImportacion.length +
+                "\n" +
+                "Usuarios no presentes en el fichero: " +
+                usuariosAusentesImportacion.length +
+                "\n\n" +
+                "Los ausentes han sido marcados como NO ACTIVO en FIO."
             );
 
 

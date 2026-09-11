@@ -258,6 +258,26 @@ const impNuevos =
 const impExistentes =
     document.getElementById("imp-existentes");
 
+const impAusentes =
+    document.getElementById(
+        "imp-ausentes"
+    );
+
+const avisoEstadoImportacion =
+    document.getElementById(
+        "aviso-estado-importacion"
+    );
+
+const estadoImportacionTitulo =
+    document.getElementById(
+        "estado-importacion-titulo"
+    );
+
+const estadoImportacionTexto =
+    document.getElementById(
+        "estado-importacion-texto"
+    );
+
 const impConTelefono =
     document.getElementById("imp-con-telefono");
 
@@ -316,7 +336,7 @@ let usuarioActual = null;
 let modoNuevoUsuario = false;
 let administradorActual = null;
 let sociosPreparadosImportacion = [];
-
+let importacionAnualValida = false;
 
 /* ==========================================================
    MODAL - FORMATO DEL FICHERO DE SOCIOS
@@ -1348,6 +1368,7 @@ archivoSocios.addEventListener(
                 "numero_socio",
                 "nombre",
                 "apellidos",
+                "email",
                 "socio_activo",
                 "ultima_validacion_socio"
             ];
@@ -1376,6 +1397,34 @@ archivoSocios.addEventListener(
                 );
 
                 return;
+            }
+
+            
+            /*
+            * Debe existir información de teléfono.
+            *
+            * Formato actual:
+            * telefono
+            *
+            * Compatibilidad histórica 2026:
+            * telefono1 / telefono2
+            */
+
+            if (
+                !tieneTelefonoUnico &&
+                !tieneTelefono1 &&
+                !tieneTelefono2
+            ) {
+
+                alert(
+                    "No se puede analizar el archivo.\n\n" +
+                    "Falta la columna obligatoria de teléfono.\n\n" +
+                    "El formato actual utiliza la columna:\n" +
+                    "telefono"
+                );
+
+                return;
+
             }
 
 
@@ -1633,6 +1682,48 @@ archivoSocios.addEventListener(
                 socios.length -
                 yaExistentes;
 
+            
+        /* ==============================================
+        USUARIOS QUE NO FIGURAN EN EL FICHERO
+        ============================================== */
+
+        const numerosDelFichero =
+            new Set(
+                socios.map(
+                    socio =>
+                        socio.numero_socio
+                )
+            );
+
+
+        const usuariosAusentes =
+            usuarios.filter(
+                function (usuario) {
+
+                    const numeroSocio =
+                        String(
+                            usuario.numero_socio || ""
+                        )
+                            .trim()
+                            .toUpperCase();
+
+
+                    if (!numeroSocio) {
+                        return false;
+                    }
+
+
+                    return !numerosDelFichero.has(
+                        numeroSocio
+                    );
+
+                }
+            );
+
+
+        const ausentes =
+            usuariosAusentes.length;
+
 
             /* ==============================================
                AÑOS DE VALIDACIÓN DETECTADOS
@@ -1661,6 +1752,63 @@ archivoSocios.addEventListener(
                 anosValidacion.length > 0
                     ? anosValidacion.join(", ")
                     : "Sin año";
+
+
+                /* ==============================================
+                VALIDAR EJERCICIO DE LA ACTUALIZACIÓN
+                ============================================== */
+
+                const validacionesInvalidas =
+                    socios.filter(
+                        function (socio) {
+
+                            const ano =
+                                socio.ultima_validacion_socio;
+
+                            return (
+                                !Number.isInteger(ano) ||
+                                ano < 2000 ||
+                                ano > 2100
+                            );
+
+                        }
+                    ).length;
+
+
+                const ejercicioUnico =
+                    anosValidacion.length === 1;
+
+
+                const ejercicioDetectado =
+                    ejercicioUnico
+                        ? anosValidacion[0]
+                        : null;
+
+
+                /*
+                * A partir de 2027 exigimos el formato
+                * moderno de una única columna "telefono".
+                *
+                * El formato telefono1 / telefono2 queda
+                * exclusivamente como compatibilidad 2026.
+                */
+
+                const formatoTelefonoValido =
+                    tieneTelefonoUnico ||
+                    (
+                        ejercicioDetectado === 2026 &&
+                        (
+                            tieneTelefono1 ||
+                            tieneTelefono2
+                        )
+                    );
+
+
+                importacionAnualValida =
+                    socios.length > 0 &&
+                    ejercicioUnico &&
+                    validacionesInvalidas === 0 &&
+                    formatoTelefonoValido;        
 
 
             /* ==============================================
@@ -1808,6 +1956,9 @@ archivoSocios.addEventListener(
             impExistentes.textContent =
                 yaExistentes;
 
+            impAusentes.textContent =
+                ausentes;
+
             impConTelefono.textContent =
                 conTelefono;
 
@@ -1848,19 +1999,67 @@ archivoSocios.addEventListener(
                 socios;
 
 
-            /*
-            * Permitimos importar únicamente
-            * si existe al menos un socio válido.
-            */
-
             btnConfirmarImportacion.disabled =
-                sociosPreparadosImportacion.length === 0;
-
+                !importacionAnualValida;
 
             /*
-            * Mostrar modal.
+            * Informamos claramente al administrador.
             */
 
+            if (importacionAnualValida) {
+
+                avisoEstadoImportacion.style.background =
+                    "#f1f5f1";
+
+                estadoImportacionTitulo.textContent =
+                    "Archivo válido para importar";
+
+                estadoImportacionTexto.textContent =
+                    "Ejercicio " +
+                    ejercicioDetectado +
+                    ". Se han detectado " +
+                    ausentes +
+                    (
+                        ausentes === 1
+                            ? " usuario que no figura"
+                            : " usuarios que no figuran"
+                    ) +
+                    " en el fichero. Todavía no se ha modificado ningún dato.";
+
+            } else {
+
+                avisoEstadoImportacion.style.background =
+                    "#fff2cc";
+
+                estadoImportacionTitulo.textContent =
+                    "El archivo necesita revisión";
+
+
+                if (!ejercicioUnico) {
+
+                    estadoImportacionTexto.textContent =
+                        "Debe existir un único ejercicio de validación en todo el fichero.";
+
+                } else if (validacionesInvalidas > 0) {
+
+                    estadoImportacionTexto.textContent =
+                        "Hay " +
+                        validacionesInvalidas +
+                        " registros con un ejercicio de validación vacío o incorrecto.";
+
+                } else if (!formatoTelefonoValido) {
+
+                    estadoImportacionTexto.textContent =
+                        "Para ejercicios posteriores a 2026 debe utilizarse una única columna llamada telefono.";
+
+                } else {
+
+                    estadoImportacionTexto.textContent =
+                        "El archivo no reúne las condiciones necesarias para realizar la actualización.";
+
+                }
+
+            }
             modalImportacionSocios.classList.add(
                 "visible"
             );
@@ -1940,6 +2139,17 @@ modalImportacionSocios.addEventListener(
 /* ==========================================================
    CONFIRMAR IMPORTACIÓN DE SOCIOS
    ========================================================== */
+
+if (!importacionAnualValida) {
+
+    alert(
+        "El archivo no ha superado las comprobaciones necesarias para realizar la importación."
+    );
+
+    return;
+
+}
+
 
 btnConfirmarImportacion.addEventListener(
     "click",

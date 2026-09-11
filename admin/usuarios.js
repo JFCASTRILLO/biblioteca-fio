@@ -2415,14 +2415,32 @@ btnConfirmarImportacion.addEventListener(
 
 
             alert(
-                "Importación completada correctamente.\n\n" +
-                "Socios procesados: " +
+                "Actualización anual completada correctamente.\n\n" +
+
+                "Ejercicio: " +
+                ejercicioImportacionAnual +
+                "\n" +
+
+                "Socios del fichero procesados: " +
                 datosImportacion.length +
                 "\n" +
+
                 "Usuarios no presentes en el fichero: " +
                 usuariosAusentesImportacion.length +
                 "\n\n" +
-                "Los ausentes han sido marcados como NO ACTIVO en FIO."
+
+                (
+                    usuariosAusentesImportacion.length > 0
+                        ? (
+                            usuariosAusentesImportacion.length === 1
+                                ? "El usuario ausente ha sido marcado como NO ACTIVO en FIO."
+                                : "Los usuarios ausentes han sido marcados como NO ACTIVOS en FIO."
+                        )
+                        : "Todos los usuarios de Biblioteca figuran en el fichero anual."
+                ) +
+
+                "\n\nNo se han modificado roles, cuentas de Biblioteca, " +
+                "cuentas web ni observaciones."
             );
 
 

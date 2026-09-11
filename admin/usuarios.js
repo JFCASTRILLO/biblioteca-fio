@@ -2140,20 +2140,20 @@ modalImportacionSocios.addEventListener(
    CONFIRMAR IMPORTACIÓN DE SOCIOS
    ========================================================== */
 
-if (!importacionAnualValida) {
-
-    alert(
-        "El archivo no ha superado las comprobaciones necesarias para realizar la importación."
-    );
-
-    return;
-
-}
-
-
 btnConfirmarImportacion.addEventListener(
     "click",
     async function () {
+
+        if (!importacionAnualValida) {
+
+            alert(
+                "El archivo no ha superado las comprobaciones necesarias para realizar la importación."
+            );
+
+            return;
+
+        }
+
 
         if (
             sociosPreparadosImportacion.length === 0

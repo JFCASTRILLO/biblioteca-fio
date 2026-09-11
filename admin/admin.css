@@ -1290,8 +1290,20 @@ body {
    ANCHOS TABLA DE USUARIOS
    ========================================================== */
 
+#tabla-usuarios th:nth-child(1),
+#tabla-usuarios td:nth-child(1) {
+    width: 95px;
+    min-width: 95px;
+    white-space: nowrap;
+}
+
 #tabla-usuarios th:nth-child(2),
 #tabla-usuarios td:nth-child(2) {
-    width: 180px;
-    min-width: 180px;
+    width: 190px;
+    min-width: 190px;
+}
+
+#tabla-usuarios th:nth-child(3),
+#tabla-usuarios td:nth-child(3) {
+    width: 260px;
 }

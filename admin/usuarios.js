@@ -641,11 +641,7 @@ function pintarTabla(lista) {
                     )}
                 </td>
 
-                <td>
-                    ${escaparHTML(
-                        usuario.ultima_validacion_socio
-                    )}
-                </td>
+                
             `;
 
 

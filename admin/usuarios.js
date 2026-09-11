@@ -292,6 +292,7 @@ let usuarios = [];
 let usuarioActual = null;
 let modoNuevoUsuario = false;
 let administradorActual = null;
+let sociosPreparadosImportacion = [];
 
 /* ==========================================================
    INICIO
@@ -1695,8 +1696,22 @@ archivoSocios.addEventListener(
             * analizando el fichero.
             */
 
+            /*
+            * Conservamos en memoria exactamente
+            * los socios que han superado el análisis.
+            */
+
+            sociosPreparadosImportacion =
+                socios;
+
+
+            /*
+            * Permitimos importar únicamente
+            * si existe al menos un socio válido.
+            */
+
             btnConfirmarImportacion.disabled =
-                true;
+                sociosPreparadosImportacion.length === 0;
 
 
             /*
@@ -1778,6 +1793,223 @@ modalImportacionSocios.addEventListener(
 
     }
 );
+
+/* ==========================================================
+   CONFIRMAR IMPORTACIÓN DE SOCIOS
+   ========================================================== */
+
+btnConfirmarImportacion.addEventListener(
+    "click",
+    async function () {
+
+        if (
+            sociosPreparadosImportacion.length === 0
+        ) {
+
+            alert(
+                "No hay socios preparados para importar."
+            );
+
+            return;
+        }
+
+
+        /*
+         * Confirmación adicional.
+         *
+         * El Excel ya ha sido analizado,
+         * pero antes de modificar Supabase
+         * pedimos una última confirmación.
+         */
+
+        const confirmar =
+            window.confirm(
+                "Se van a actualizar los datos de " +
+                sociosPreparadosImportacion.length +
+                " socios.\n\n" +
+                "Los usuarios existentes conservarán " +
+                "su rol, su cuenta de Biblioteca y " +
+                "su cuenta web.\n\n" +
+                "¿Deseas continuar?"
+            );
+
+
+        if (!confirmar) {
+            return;
+        }
+
+
+        btnConfirmarImportacion.disabled =
+            true;
+
+        btnConfirmarImportacion.textContent =
+            "Importando...";
+
+
+        try {
+
+            /*
+             * Preparamos únicamente las columnas
+             * que el padrón anual puede modificar.
+             *
+             * NO incluimos:
+             * - id
+             * - auth_user_id
+             * - rol
+             * - activo
+             * - observaciones
+             *
+             * De esta forma una importación anual
+             * nunca puede alterar permisos,
+             * acceso web ni notas internas.
+             */
+
+            const datosImportacion =
+                sociosPreparadosImportacion.map(
+                    function (socio) {
+
+                        return {
+
+                            numero_socio:
+                                socio.numero_socio,
+
+                            nombre:
+                                socio.nombre,
+
+                            apellidos:
+                                socio.apellidos || null,
+
+                            email:
+                                socio.email || null,
+
+                            telefono:
+                                socio.telefono || null,
+
+                            socio_activo:
+                                socio.socio_activo,
+
+                            ultima_validacion_socio:
+                                socio.ultima_validacion_socio
+
+                        };
+
+                    }
+                );
+
+
+            /*
+             * Importamos por lotes.
+             *
+             * Es bastante más eficiente que
+             * enviar más de 2.000 peticiones
+             * independientes.
+             */
+
+            const TAMANO_LOTE = 250;
+
+            let procesados = 0;
+
+
+            for (
+                let inicio = 0;
+                inicio < datosImportacion.length;
+                inicio += TAMANO_LOTE
+            ) {
+
+                const lote =
+                    datosImportacion.slice(
+                        inicio,
+                        inicio + TAMANO_LOTE
+                    );
+
+
+                const {
+                    error
+                } =
+                    await clienteSupabase
+                        .from("usuarios")
+                        .upsert(
+                            lote,
+                            {
+                                onConflict:
+                                    "numero_socio"
+                            }
+                        );
+
+
+                if (error) {
+
+                    console.error(
+                        "Error importando lote:",
+                        error
+                    );
+
+                    throw error;
+
+                }
+
+
+                procesados +=
+                    lote.length;
+
+
+                btnConfirmarImportacion.textContent =
+                    "Importando " +
+                    procesados +
+                    " / " +
+                    datosImportacion.length;
+
+            }
+
+
+            /*
+             * Volvemos a cargar los usuarios
+             * directamente desde Supabase.
+             */
+
+            await cargarUsuarios();
+
+
+            alert(
+                "Importación completada correctamente.\n\n" +
+                "Socios procesados: " +
+                datosImportacion.length
+            );
+
+
+            sociosPreparadosImportacion = [];
+
+
+            cerrarModalImportacion();
+
+
+        } catch (error) {
+
+            console.error(
+                "Error en la importación de socios:",
+                error
+            );
+
+
+            alert(
+                "La importación no se ha podido completar.\n\n" +
+                "No continúes con otra importación " +
+                "hasta revisar el error."
+            );
+
+        } finally {
+
+            btnConfirmarImportacion.disabled =
+                false;
+
+            btnConfirmarImportacion.textContent =
+                "Importar socios";
+
+        }
+
+    }
+);
+
 
 
 /* ==========================================================

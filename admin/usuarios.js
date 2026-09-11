@@ -298,8 +298,67 @@ let sociosPreparadosImportacion = [];
    INICIO
    ========================================================== */
 
+/* ==========================================================
+   PRUEBA TEMPORAL DE UPSERT - PRUEBA001
+   ELIMINAR DESPUÉS DE LA COMPROBACIÓN
+   ========================================================== */
+
+async function probarUpsertUsuario() {
+
+    const {
+        data,
+        error
+    } =
+        await clienteSupabase
+            .from("usuarios")
+            .upsert(
+                {
+                    numero_socio:
+                        "PRUEBA001",
+
+                    nombre:
+                        "Usuario",
+
+                    apellidos:
+                        "Prueba",
+
+                    email:
+                        "prueba.importacion@fio.es",
+
+                    telefono:
+                        "600123456",
+
+                    socio_activo:
+                        true,
+
+                    ultima_validacion_socio:
+                        2026
+                },
+                {
+                    onConflict:
+                        "numero_socio"
+                }
+            )
+            .select()
+            .single();
+
+
+    console.log(
+        "RESULTADO PRUEBA UPSERT:",
+        data
+    );
+
+    console.log(
+        "ERROR PRUEBA UPSERT:",
+        error
+    );
+
+}
+
+
 iniciar();
 
+probarUpsertUsuario();
 
 async function iniciar() {
 

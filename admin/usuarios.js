@@ -1907,6 +1907,7 @@ btnConfirmarImportacion.addEventListener(
             const TAMANO_LOTE = 250;
 
             let procesados = 0;
+            let loteActual = 0;
 
 
             for (
@@ -1914,6 +1915,8 @@ btnConfirmarImportacion.addEventListener(
                 inicio < datosImportacion.length;
                 inicio += TAMANO_LOTE
             ) {
+
+                loteActual++;    
 
                 const lote =
                     datosImportacion.slice(
@@ -1992,8 +1995,14 @@ btnConfirmarImportacion.addEventListener(
 
             alert(
                 "La importación no se ha podido completar.\n\n" +
-                "No continúes con otra importación " +
-                "hasta revisar el error."
+                    "Socios procesados correctamente: " +
+                    procesados +
+                    "\n" +
+                    "Lote en el que se produjo el error: " +
+                    loteActual +
+                    "\n\n" +
+                    "No continúes con otra importación " +
+                    "hasta revisar el error."
             );
 
         } finally {

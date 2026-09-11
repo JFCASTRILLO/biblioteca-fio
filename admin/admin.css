@@ -1285,3 +1285,13 @@ body {
     }
 
 }
+
+/* ==========================================================
+   ANCHOS TABLA DE USUARIOS
+   ========================================================== */
+
+#tabla-usuarios th:nth-child(2),
+#tabla-usuarios td:nth-child(2) {
+    width: 180px;
+    min-width: 180px;
+}

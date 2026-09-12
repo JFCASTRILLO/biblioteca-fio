@@ -459,6 +459,15 @@ function navegarLibro(direccion) {
 
 
 function cerrarModal() {
+    
+    const contenidoModal =
+            document.querySelector(".contenido-modal");
+
+        contenidoModal.style.position = "relative";
+        contenidoModal.style.left = "";
+        contenidoModal.style.top = "";
+        contenidoModal.style.margin = "";
+        
     document.getElementById("modal-detalles").style.display = "none";
 }
 
@@ -510,3 +519,133 @@ modalImagen?.addEventListener("click", function(e){
         modalImagen.style.display = "none";
     }
 });
+
+/* ==================================================
+   MODAL ARRASTRABLE
+   ================================================== */
+
+let arrastrandoModal = false;
+
+let desplazamientoX = 0;
+let desplazamientoY = 0;
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const asaModal =
+            document.getElementById("asa-modal");
+
+        const contenidoModal =
+            document.querySelector(".contenido-modal");
+
+
+        if (
+            !asaModal ||
+            !contenidoModal
+        ) {
+            return;
+        }
+
+
+        asaModal.addEventListener(
+            "mousedown",
+            function (evento) {
+
+                arrastrandoModal = true;
+
+
+                const rect =
+                    contenidoModal.getBoundingClientRect();
+
+
+                desplazamientoX =
+                    evento.clientX - rect.left;
+
+                desplazamientoY =
+                    evento.clientY - rect.top;
+
+
+                contenidoModal.style.position =
+                    "fixed";
+
+                contenidoModal.style.margin =
+                    "0";
+
+                contenidoModal.style.left =
+                    rect.left + "px";
+
+                contenidoModal.style.top =
+                    rect.top + "px";
+
+
+                evento.preventDefault();
+            }
+        );
+
+
+        document.addEventListener(
+            "mousemove",
+            function (evento) {
+
+                if (!arrastrandoModal) {
+                    return;
+                }
+
+
+                let nuevaX =
+                    evento.clientX -
+                    desplazamientoX;
+
+                let nuevaY =
+                    evento.clientY -
+                    desplazamientoY;
+
+
+                const ancho =
+                    contenidoModal.offsetWidth;
+
+                const alto =
+                    contenidoModal.offsetHeight;
+
+
+                nuevaX =
+                    Math.max(
+                        0,
+                        Math.min(
+                            nuevaX,
+                            window.innerWidth - ancho
+                        )
+                    );
+
+
+                nuevaY =
+                    Math.max(
+                        0,
+                        Math.min(
+                            nuevaY,
+                            window.innerHeight - alto
+                        )
+                    );
+
+
+                contenidoModal.style.left =
+                    nuevaX + "px";
+
+                contenidoModal.style.top =
+                    nuevaY + "px";
+            }
+        );
+
+
+        document.addEventListener(
+            "mouseup",
+            function () {
+
+                arrastrandoModal = false;
+            }
+        );
+
+    }
+);

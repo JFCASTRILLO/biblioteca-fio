@@ -153,6 +153,9 @@ const btnSiguienteEjemplar =
 const posicionEjemplar =
     document.getElementById("posicion-ejemplar");
 
+const asaFichaEjemplar =
+    document.getElementById("asa-ficha-ejemplar");
+
 /* ==========================================================
    DATOS
    ========================================================== */
@@ -1344,6 +1347,12 @@ function cerrarFichaEjemplar() {
      * Dejamos de tener un ejemplar activo.
      */
 
+
+    fichaEjemplar.style.position = "";
+    fichaEjemplar.style.left = "";
+    fichaEjemplar.style.top = "";
+    fichaEjemplar.style.margin = "";
+
     ejemplarActual = null;
 }
 
@@ -1379,6 +1388,113 @@ document.addEventListener(
 
             cerrarFichaEjemplar();
         }
+    }
+);
+
+/* ==========================================================
+   FICHA DEL EJEMPLAR ARRASTRABLE
+   ========================================================== */
+
+let arrastrandoFichaEjemplar = false;
+
+let desplazamientoFichaX = 0;
+let desplazamientoFichaY = 0;
+
+
+asaFichaEjemplar.addEventListener(
+    "mousedown",
+    function (evento) {
+
+        arrastrandoFichaEjemplar = true;
+
+        const rect =
+            fichaEjemplar.getBoundingClientRect();
+
+
+        desplazamientoFichaX =
+            evento.clientX - rect.left;
+
+        desplazamientoFichaY =
+            evento.clientY - rect.top;
+
+
+        fichaEjemplar.style.position =
+            "fixed";
+
+        fichaEjemplar.style.margin =
+            "0";
+
+        fichaEjemplar.style.left =
+            rect.left + "px";
+
+        fichaEjemplar.style.top =
+            rect.top + "px";
+
+
+        evento.preventDefault();
+    }
+);
+
+
+document.addEventListener(
+    "mousemove",
+    function (evento) {
+
+        if (!arrastrandoFichaEjemplar) {
+            return;
+        }
+
+
+        let nuevaX =
+            evento.clientX -
+            desplazamientoFichaX;
+
+        let nuevaY =
+            evento.clientY -
+            desplazamientoFichaY;
+
+
+        const ancho =
+            fichaEjemplar.offsetWidth;
+
+        const alto =
+            fichaEjemplar.offsetHeight;
+
+
+        nuevaX =
+            Math.max(
+                0,
+                Math.min(
+                    nuevaX,
+                    window.innerWidth - ancho
+                )
+            );
+
+
+        nuevaY =
+            Math.max(
+                0,
+                Math.min(
+                    nuevaY,
+                    window.innerHeight - alto
+                )
+            );
+
+
+        fichaEjemplar.style.left =
+            nuevaX + "px";
+
+        fichaEjemplar.style.top =
+            nuevaY + "px";
+    }
+);
+
+
+document.addEventListener(
+    "mouseup",
+    function () {
+
+        arrastrandoFichaEjemplar = false;
     }
 );
 

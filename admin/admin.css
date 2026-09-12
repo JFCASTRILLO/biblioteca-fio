@@ -1576,7 +1576,7 @@ body {
     grid-row: 2;
 
     min-height: 0;
-    max-height: 180px;
+    max-height: 200px;
 
     margin-top: 16px;
     padding-top: 14px;
@@ -1656,4 +1656,23 @@ body {
 
 #btn-siguiente-ejemplar {
     justify-self: end;
+}
+
+/* ==================================================
+   FICHA EJEMPLAR ARRASTRABLE
+   ================================================== */
+
+.asa-ficha-ejemplar {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 45px;
+
+    height: 32px;
+
+    cursor: move;
+    user-select: none;
+
+    z-index: 5;
 }

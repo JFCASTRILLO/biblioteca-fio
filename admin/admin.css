@@ -1506,55 +1506,64 @@ body {
 
 
 /* ==================================================
-   CONTENIDO INTERIOR
+   CONTENIDO
    ================================================== */
 
 .contenido-ficha-ejemplar {
     flex: 1;
     min-height: 0;
 
-    display: flex;
-    flex-direction: column;
+    display: grid;
+
+    grid-template-columns: 220px 1fr;
+
+    /*
+     * Fila 1: portada + datos
+     * Fila 2: sinopsis flexible
+     * Fila 3: botón editar
+     * Fila 4: navegación
+     */
+    grid-template-rows:
+        auto
+        minmax(80px, 1fr)
+        auto
+        auto;
+
+    column-gap: 30px;
+    row-gap: 0;
 
     overflow: hidden;
 }
 
 
 /* ==================================================
-   ZONA SUPERIOR: PORTADA + DATOS
+   PORTADA
    ================================================== */
-
-.zona-portada-admin {
-    flex-shrink: 0;
-}
-
-.zona-datos-ficha-admin {
-    flex-shrink: 0;
-}
-
-
-/*
- * Portada y datos vuelven a utilizar
- * la disposición original del formulario.
- */
-
-.contenido-ficha-ejemplar {
-    display: grid;
-
-    grid-template-columns: 260px 1fr;
-    grid-template-rows: auto minmax(0, 1fr) auto auto;
-
-    column-gap: 30px;
-}
 
 .zona-portada-admin {
     grid-column: 1;
     grid-row: 1;
+
+    width: 220px;
 }
+
+.portada-ficha-admin {
+    width: 220px;
+    max-height: 315px;
+
+    object-fit: contain;
+}
+
+
+/* ==================================================
+   DATOS DEL EJEMPLAR
+   ================================================== */
 
 .zona-datos-ficha-admin {
     grid-column: 2;
     grid-row: 1;
+
+    min-width: 0;
 }
 
 
@@ -1568,8 +1577,8 @@ body {
 
     min-height: 0;
 
-    margin-top: 20px;
-    padding-top: 16px;
+    margin-top: 16px;
+    padding-top: 14px;
     padding-right: 8px;
 
     border-top: 1px solid #e5e5e5;
@@ -1578,16 +1587,26 @@ body {
 }
 
 
+/*
+ * Quitamos márgenes que puedan aumentar
+ * artificialmente la altura de la sinopsis.
+ */
+
+.sinopsis-ficha-admin p {
+    margin-bottom: 0;
+}
+
+
 /* ==================================================
-   BOTONES DE EDICIÓN
+   ACCIONES
    ================================================== */
 
 .acciones-ficha-ejemplar {
     grid-column: 1 / -1;
     grid-row: 3;
 
-    margin-top: 16px;
-    padding-top: 14px;
+    margin-top: 14px;
+    padding-top: 12px;
 
     flex-shrink: 0;
 }
@@ -1609,13 +1628,14 @@ body {
 
     gap: 20px;
 
-    margin-top: 16px;
-    padding-top: 16px;
+    margin-top: 14px;
+    padding-top: 14px;
 
     border-top: 1px solid #d9dce5;
 
     flex-shrink: 0;
 }
+
 
 #btn-anterior-ejemplar {
     justify-self: start;

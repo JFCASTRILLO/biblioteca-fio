@@ -144,6 +144,15 @@ const archivoPortada =
 const btnLimpiarBusqueda =
     document.getElementById("btn-limpiar-busqueda");
 
+const btnAnteriorEjemplar =
+    document.getElementById("btn-anterior-ejemplar");
+
+const btnSiguienteEjemplar =
+    document.getElementById("btn-siguiente-ejemplar");
+
+const posicionEjemplar =
+    document.getElementById("posicion-ejemplar");
+
 /* ==========================================================
    DATOS
    ========================================================== */
@@ -151,6 +160,8 @@ const btnLimpiarBusqueda =
 let ejemplares = [];
 let ejemplarActual = null;
 
+let ejemplaresVisibles = [];
+let indiceEjemplarActual = -1;
 
 /* ==========================================================
    COMPROBAR ACCESO ADMIN
@@ -359,6 +370,13 @@ function mostrarEjemplares() {
             }
         );
 
+    /*
+    * Guardamos exactamente los ejemplares
+    * que se están mostrando en la tabla.
+    */
+
+        ejemplaresVisibles = filtrados;    
+
 
     cuerpoTabla.innerHTML = "";
 
@@ -433,6 +451,15 @@ function abrirFichaEjemplar(ejemplar) {
     );
 
     ejemplarActual = ejemplar;
+
+    indiceEjemplarActual =
+    ejemplaresVisibles.findIndex(
+        function (elemento) {
+            return elemento.id === ejemplar.id;
+        }
+    );
+
+    actualizarNavegacionEjemplares();
 
 
     /* ==========================================================
@@ -570,6 +597,94 @@ function abrirFichaEjemplar(ejemplar) {
     );
 
 }
+
+    /* ==========================================================
+   NAVEGACIÓN ENTRE EJEMPLARES
+   ========================================================== */
+
+function actualizarNavegacionEjemplares() {
+
+    const total =
+        ejemplaresVisibles.length;
+
+
+    if (
+        indiceEjemplarActual < 0 ||
+        total === 0
+    ) {
+
+        posicionEjemplar.textContent = "";
+
+        btnAnteriorEjemplar.disabled = true;
+        btnSiguienteEjemplar.disabled = true;
+
+        return;
+    }
+
+
+    posicionEjemplar.textContent =
+        (indiceEjemplarActual + 1) +
+        " de " +
+        total;
+
+
+    btnAnteriorEjemplar.disabled =
+        indiceEjemplarActual === 0;
+
+    btnSiguienteEjemplar.disabled =
+        indiceEjemplarActual === total - 1;
+}
+
+
+function navegarEjemplar(direccion) {
+
+    /*
+     * No permitimos cambiar de ejemplar
+     * mientras se está editando.
+     */
+
+    if (
+        fichaEjemplar.classList.contains(
+            "modo-edicion"
+        )
+    ) {
+        return;
+    }
+
+
+    const nuevoIndice =
+        indiceEjemplarActual +
+        direccion;
+
+
+    if (
+        nuevoIndice < 0 ||
+        nuevoIndice >= ejemplaresVisibles.length
+    ) {
+        return;
+    }
+
+
+    abrirFichaEjemplar(
+        ejemplaresVisibles[nuevoIndice]
+    );
+}
+
+    btnAnteriorEjemplar.addEventListener(
+        "click",
+        function () {
+            navegarEjemplar(-1);
+        }
+    );
+
+
+    btnSiguienteEjemplar.addEventListener(
+        "click",
+        function () {
+            navegarEjemplar(1);
+        }
+    );
+
 
    /* ==========================================================
    ACTIVAR EDICIÓN DEL EJEMPLAR

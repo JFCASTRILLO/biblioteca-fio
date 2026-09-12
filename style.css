@@ -783,26 +783,10 @@ td {
 
     top: 0;
     left: 0;
-    right: 0;
+    right: 45px;
 
-    height: 28px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-
-    color: #8a8f9c;
+    height: 32px;
 
     cursor: move;
-
     user-select: none;
-}
-
-.asa-modal:hover {
-    color: #212c59;
 }

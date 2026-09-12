@@ -1576,14 +1576,23 @@ body {
     grid-row: 2;
 
     min-height: 0;
+    max-height: 180px;
 
     margin-top: 16px;
     padding-top: 14px;
-    padding-right: 8px;
+    padding-right: 10px;
 
     border-top: 1px solid #e5e5e5;
 
     overflow-y: auto;
+    overflow-x: hidden;
+
+    scrollbar-gutter: stable;
+}
+
+.sinopsis-ficha-admin p {
+    margin-top: 8px;
+    margin-bottom: 0;
 }
 
 

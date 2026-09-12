@@ -28,7 +28,8 @@ const columnasVisibles = [
 ];
 
 let todosLosLibros = [];
-
+let librosVisibles = [];
+let indiceLibroActual = -1;
 
 /* ==========================================================
    CARGAR CATÁLOGO DESDE SUPABASE
@@ -256,8 +257,11 @@ function filtrarLibros() {
         return cumpleEstado && cumpleBusqueda;
     });
 
+    // Guardar la lista actualmente visible
+    librosVisibles = librosFiltrados;
+
     // Pintar los resultados procesados en la tabla minimalista
-    mostrarEnTabla(librosFiltrados);
+    mostrarEnTabla(librosVisibles);
 }
 
 function limpiarFiltros() {
@@ -274,8 +278,10 @@ function limpiarFiltros() {
     filtroEstado.value = "todos";
 
 
+    librosVisibles = todosLosLibros;
+
     mostrarEnTabla(
-        todosLosLibros
+        librosVisibles
     );
 
 
@@ -287,6 +293,13 @@ function limpiarFiltros() {
 
 // 5. EVENTOS MODAL
 function abrirDetallesModal(libro) {
+
+indiceLibroActual =
+    librosVisibles.findIndex(
+        elemento => elemento.id === libro.id
+    );
+
+actualizarNavegacionModal();
 
 const portada = document.getElementById("modal-portada");
 const loader = document.getElementById("loader-portada");
@@ -367,6 +380,83 @@ loader.style.display = "block";
 
     document.getElementById("modal-detalles").style.display = "flex";
 }
+
+function actualizarNavegacionModal() {
+
+    const btnAnterior =
+        document.getElementById("btn-anterior-libro");
+
+    const btnSiguiente =
+        document.getElementById("btn-siguiente-libro");
+
+    const posicion =
+        document.getElementById("posicion-libro");
+
+
+    if (
+        !btnAnterior ||
+        !btnSiguiente ||
+        !posicion
+    ) {
+        return;
+    }
+
+
+    const total =
+        librosVisibles.length;
+
+
+    if (
+        indiceLibroActual < 0 ||
+        total === 0
+    ) {
+
+        posicion.textContent = "";
+
+        btnAnterior.disabled = true;
+        btnSiguiente.disabled = true;
+
+        return;
+    }
+
+
+    posicion.textContent =
+        (indiceLibroActual + 1) +
+        " de " +
+        total;
+
+
+    btnAnterior.disabled =
+        indiceLibroActual === 0;
+
+    btnSiguiente.disabled =
+        indiceLibroActual === total - 1;
+}
+
+
+function navegarLibro(direccion) {
+
+    const nuevoIndice =
+        indiceLibroActual + direccion;
+
+
+    if (
+        nuevoIndice < 0 ||
+        nuevoIndice >= librosVisibles.length
+    ) {
+        return;
+    }
+
+
+    indiceLibroActual =
+        nuevoIndice;
+
+
+    abrirDetallesModal(
+        librosVisibles[indiceLibroActual]
+    );
+}
+
 
 function cerrarModal() {
     document.getElementById("modal-detalles").style.display = "none";

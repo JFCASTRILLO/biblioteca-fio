@@ -1576,7 +1576,7 @@ body {
     grid-row: 2;
 
     min-height: 0;
-    max-height: 200px;
+    max-height: 180px;
 
     margin-top: 16px;
     padding-top: 14px;
@@ -1675,4 +1675,78 @@ body {
     user-select: none;
 
     z-index: 5;
+}
+
+/* ==================================================
+   FILTROS EJEMPLARES - BOTÓN LIMPIAR
+   ================================================== */
+
+.filtros-ejemplares {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        220px
+        auto;
+
+    gap: 20px;
+
+    align-items: end;
+}
+
+
+.campo-limpiar-ejemplares {
+    display: flex;
+    align-items: flex-end;
+}
+
+
+.btn-limpiar-busqueda {
+    height: 42px;
+
+    padding: 0 22px;
+
+    border: none;
+    border-radius: 6px;
+
+    background: #212c59;
+    color: #ffffff;
+
+    font-size: 0.92rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.btn-limpiar-busqueda:hover {
+    background: #34457f;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 3px 8px
+        rgba(0, 0, 0, 0.18);
+}
+
+
+.btn-limpiar-busqueda:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+@media (max-width: 900px) {
+
+    .filtros-ejemplares {
+        grid-template-columns: 1fr;
+    }
+
+    .campo-limpiar-ejemplares {
+        justify-content: flex-start;
+    }
 }

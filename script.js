@@ -126,6 +126,8 @@ async function cargarLibros() {
 
         document.getElementById("filtro-estado").disabled = false;
 
+        document.getElementById("btn-limpiar").disabled = false;
+
 
         /* --------------------------------------------------
            CREAR CABECERA DE LA TABLA
@@ -257,6 +259,31 @@ function filtrarLibros() {
     // Pintar los resultados procesados en la tabla minimalista
     mostrarEnTabla(librosFiltrados);
 }
+
+function limpiarFiltros() {
+
+    const buscador =
+        document.getElementById("buscador");
+
+    const filtroEstado =
+        document.getElementById("filtro-estado");
+
+
+    buscador.value = "";
+
+    filtroEstado.value = "todos";
+
+
+    mostrarEnTabla(
+        todosLosLibros
+    );
+
+
+    buscador.focus();
+}
+
+
+
 
 // 5. EVENTOS MODAL
 function abrirDetallesModal(libro) {

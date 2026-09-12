@@ -1822,17 +1822,120 @@ body {
    TABLETA
    ================================================== */
 
+/* ==================================================
+   EJEMPLARES - TABLETA
+   ================================================== */
+
 @media (max-width: 1000px) {
 
-    .filtros-usuarios {
-        grid-template-columns:
-            1fr
-            1fr;
+    .ficha-ejemplar-admin {
+        width: 94%;
+        max-width: 900px;
+
+        height: auto;
+
+        /*
+         * dvh tiene en cuenta las barras reales
+         * del navegador de la tableta.
+         */
+        max-height: calc(100dvh - 24px);
+
+        box-sizing: border-box;
+
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        padding: 22px;
     }
 
-    .filtros-usuarios
-    .campo-filtro-ejemplares:first-child {
+
+    .contenido-ficha-ejemplar {
+        display: grid;
+
+        grid-template-columns: 200px minmax(0, 1fr);
+        grid-template-rows: auto auto auto auto;
+
+        column-gap: 24px;
+        row-gap: 0;
+
+        min-height: 0;
+
+        overflow: visible;
+    }
+
+
+    /* PORTADA */
+
+    .zona-portada-admin {
+        grid-column: 1;
+        grid-row: 1;
+
+        width: 200px;
+    }
+
+
+    .portada-ficha-admin {
+        width: 200px;
+        max-height: 285px;
+
+        object-fit: contain;
+    }
+
+
+    /* DATOS */
+
+    .zona-datos-ficha-admin {
+        grid-column: 2;
+        grid-row: 1;
+
+        min-width: 0;
+    }
+
+
+    /* SINOPSIS */
+
+    .sinopsis-ficha-admin {
         grid-column: 1 / -1;
+        grid-row: 2;
+
+        max-height: none;
+
+        margin-top: 18px;
+        padding-top: 14px;
+
+        overflow: visible;
+    }
+
+
+    /* EDICIÓN */
+
+    .acciones-ficha-ejemplar {
+        grid-column: 1 / -1;
+        grid-row: 3;
+
+        margin-top: 16px;
+        padding-top: 12px;
+    }
+
+
+    /* NAVEGACIÓN */
+
+    .navegacion-ficha-admin {
+        grid-column: 1 / -1;
+        grid-row: 4;
+
+        position: sticky;
+        bottom: 0;
+
+        z-index: 10;
+
+        margin-top: 16px;
+        padding-top: 14px;
+        padding-bottom: 6px;
+
+        background: #ffffff;
+
+        border-top: 1px solid #d9dce5;
     }
 
 }

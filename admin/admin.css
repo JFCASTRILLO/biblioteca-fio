@@ -1615,9 +1615,8 @@ body {
     grid-row: 3;
 
     margin-top: 14px;
-    padding-top: 12px;
-
-    flex-shrink: 0;
+    padding-top: 10px;
+    margin-bottom: 6px;
 }
 
 
@@ -1923,21 +1922,20 @@ body {
     /* NAVEGACIÓN */
 
     .navegacion-ficha-admin {
-        grid-column: 1 / -1;
-        grid-row: 4;
+    grid-column: 1 / -1;
+    grid-row: 4;
 
-        position: sticky;
-        bottom: 0;
+    position: static;
 
-        z-index: 20;
+    width: 100%;
 
-        margin-top: 14px;
-        padding-top: 12px;
-        padding-bottom: 6px;
+    margin-top: 18px;
+    padding-top: 14px;
+    padding-bottom: 10px;
 
-        background: #ffffff;
+    background: #ffffff;
 
-        border-top: 1px solid #d9dce5;
-    }
+    border-top: 1px solid #d9dce5;
+}
 
 }

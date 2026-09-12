@@ -1823,42 +1823,42 @@ body {
    ================================================== */
 
 /* ==================================================
-   EJEMPLARES - TABLETA
+   EJEMPLARES - TABLETA / PANTALLAS BAJAS
    ================================================== */
 
-@media (max-width: 1000px) {
+@media (max-width: 1000px),
+       (max-height: 850px) {
 
     .ficha-ejemplar-admin {
         width: 94%;
         max-width: 900px;
 
         height: auto;
-
-        /*
-         * dvh tiene en cuenta las barras reales
-         * del navegador de la tableta.
-         */
-        max-height: calc(100dvh - 24px);
+        max-height: calc(100dvh - 20px);
 
         box-sizing: border-box;
 
+        padding: 20px;
+
         overflow-y: auto;
         overflow-x: hidden;
-
-        padding: 22px;
     }
 
 
     .contenido-ficha-ejemplar {
         display: grid;
 
-        grid-template-columns: 200px minmax(0, 1fr);
-        grid-template-rows: auto auto auto auto;
+        grid-template-columns:
+            200px
+            minmax(0, 1fr);
+
+        grid-template-rows:
+            auto
+            auto
+            auto
+            auto;
 
         column-gap: 24px;
-        row-gap: 0;
-
-        min-height: 0;
 
         overflow: visible;
     }
@@ -1898,23 +1898,25 @@ body {
         grid-column: 1 / -1;
         grid-row: 2;
 
-        max-height: none;
+        max-height: 150px;
 
         margin-top: 18px;
         padding-top: 14px;
+        padding-right: 8px;
 
-        overflow: visible;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
 
 
-    /* EDICIÓN */
+    /* BOTÓN EDITAR */
 
     .acciones-ficha-ejemplar {
         grid-column: 1 / -1;
         grid-row: 3;
 
-        margin-top: 16px;
-        padding-top: 12px;
+        margin-top: 14px;
+        padding-top: 10px;
     }
 
 
@@ -1927,10 +1929,10 @@ body {
         position: sticky;
         bottom: 0;
 
-        z-index: 10;
+        z-index: 20;
 
-        margin-top: 16px;
-        padding-top: 14px;
+        margin-top: 14px;
+        padding-top: 12px;
         padding-bottom: 6px;
 
         background: #ffffff;
@@ -1939,39 +1941,3 @@ body {
     }
 
 }
-
-
-/* ==================================================
-   MÓVIL
-   ================================================== */
-
-@media (max-width: 650px) {
-
-    .filtros-usuarios {
-        grid-template-columns: 1fr;
-
-        gap: 14px;
-    }
-
-    .filtros-usuarios
-    .campo-filtro-ejemplares:first-child {
-        grid-column: auto;
-    }
-
-    .filtros-usuarios input,
-    .filtros-usuarios select {
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    .campo-limpiar-usuarios {
-        width: 100%;
-    }
-
-    .filtros-usuarios
-    .btn-limpiar-busqueda {
-        width: 100%;
-    }
-
-}
-

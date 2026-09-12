@@ -153,83 +153,95 @@
              FILTROS
              ================================================= -->
 
-        <section class="filtros-ejemplares">
+        <section class="filtros-ejemplares filtros-usuarios">
+
+    <!-- BUSCAR -->
+
+    <div class="campo-filtro-ejemplares">
+
+        <label for="buscar-usuario">
+            Buscar
+        </label>
+
+        <input
+            type="text"
+            id="buscar-usuario"
+            placeholder="Nº de socio, nombre o apellidos..."
+        >
+
+    </div>
 
 
-            <div class="campo-filtro-ejemplares">
+    <!-- SOCIO FIO -->
 
-                <label for="buscar-usuario">
-                    Buscar
-                </label>
+    <div class="campo-filtro-ejemplares">
 
-                <input
-                    type="text"
-                    id="buscar-usuario"
-                    placeholder="Nº de socio, nombre o apellidos..."
-                >
+        <label for="filtro-socio">
+            Socio FIO
+        </label>
 
-                <button
-                    type="button"
-                    id="btn-limpiar-busqueda"
-                    class="btn-limpiar-busqueda"
-                    title="Limpiar búsqueda"
-                >
-                    Limpiar
-                </button>
+        <select id="filtro-socio">
 
-            </div>
+            <option value="">
+                Todos
+            </option>
 
+            <option value="activo">
+                Activos
+            </option>
 
-            <div class="campo-filtro-ejemplares">
+            <option value="inactivo">
+                No activos
+            </option>
 
-                <label for="filtro-socio">
-                    Socio FIO
-                </label>
+        </select>
 
-                <select id="filtro-socio">
-
-                    <option value="">
-                        Todos
-                    </option>
-
-                    <option value="activo">
-                        Activos
-                    </option>
-
-                    <option value="inactivo">
-                        No activos
-                    </option>
-
-                </select>
-
-            </div>
+    </div>
 
 
-            <div class="campo-filtro-ejemplares">
+    <!-- CUENTA BIBLIOTECA -->
 
-                <label for="filtro-cuenta">
-                    Cuenta Biblioteca
-                </label>
+    <div class="campo-filtro-ejemplares">
 
-                <select id="filtro-cuenta">
+        <label for="filtro-cuenta">
+            Cuenta Biblioteca
+        </label>
 
-                    <option value="">
-                        Todas
-                    </option>
+        <select id="filtro-cuenta">
 
-                    <option value="activo">
-                        Habilitadas
-                    </option>
+            <option value="">
+                Todas
+            </option>
 
-                    <option value="inactivo">
-                        Deshabilitadas
-                    </option>
+            <option value="activo">
+                Habilitadas
+            </option>
 
-                </select>
+            <option value="inactivo">
+                Deshabilitadas
+            </option>
 
-            </div>
+        </select>
 
-        </section>
+    </div>
+
+
+    <!-- LIMPIAR -->
+
+    <div class="campo-limpiar-usuarios">
+
+        <button
+            type="button"
+            id="btn-limpiar-busqueda"
+            class="btn-limpiar-busqueda"
+            title="Limpiar búsqueda"
+        >
+            Limpiar
+        </button>
+
+    </div>
+
+</section>
 
 
 

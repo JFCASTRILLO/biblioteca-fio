@@ -1750,3 +1750,124 @@ body {
         justify-content: flex-start;
     }
 }
+
+/* ==================================================
+   USUARIOS - FILTROS RESPONSIVE
+   ================================================== */
+
+.filtros-usuarios {
+    display: grid;
+
+    grid-template-columns:
+        minmax(300px, 1fr)
+        220px
+        220px
+        auto;
+
+    gap: 20px;
+
+    align-items: end;
+}
+
+
+/* Botón Limpiar */
+
+.campo-limpiar-usuarios {
+    display: flex;
+    align-items: flex-end;
+}
+
+
+.filtros-usuarios .btn-limpiar-busqueda {
+    height: 42px;
+
+    padding: 0 22px;
+
+    border: none;
+    border-radius: 6px;
+
+    background: #212c59;
+    color: #ffffff;
+
+    font-size: 0.92rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.filtros-usuarios .btn-limpiar-busqueda:hover {
+    background: #34457f;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 3px 8px
+        rgba(0, 0, 0, 0.18);
+}
+
+
+.filtros-usuarios .btn-limpiar-busqueda:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+
+/* ==================================================
+   TABLETA
+   ================================================== */
+
+@media (max-width: 1000px) {
+
+    .filtros-usuarios {
+        grid-template-columns:
+            1fr
+            1fr;
+    }
+
+    .filtros-usuarios
+    .campo-filtro-ejemplares:first-child {
+        grid-column: 1 / -1;
+    }
+
+}
+
+
+/* ==================================================
+   MÓVIL
+   ================================================== */
+
+@media (max-width: 650px) {
+
+    .filtros-usuarios {
+        grid-template-columns: 1fr;
+
+        gap: 14px;
+    }
+
+    .filtros-usuarios
+    .campo-filtro-ejemplares:first-child {
+        grid-column: auto;
+    }
+
+    .filtros-usuarios input,
+    .filtros-usuarios select {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .campo-limpiar-usuarios {
+        width: 100%;
+    }
+
+    .filtros-usuarios
+    .btn-limpiar-busqueda {
+        width: 100%;
+    }
+
+}

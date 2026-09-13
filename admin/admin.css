@@ -2200,3 +2200,37 @@ body {
     }
 
 }
+
+/* ==========================================================
+   USUARIOS - TABLETA
+   SCROLL VERTICAL DEL MODAL
+   ========================================================== */
+
+@media (min-width: 700px) and (max-width: 1200px) {
+
+    #modal-usuario {
+        padding: 10px;
+    }
+
+    #modal-usuario > .ficha-ejemplar-admin {
+        width: 96%;
+
+        height: calc(100dvh - 20px);
+        max-height: calc(100dvh - 20px);
+
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        padding-bottom: 20px;
+    }
+
+    #modal-usuario .acciones-ficha-ejemplar {
+        position: sticky;
+        bottom: -20px;
+
+        margin-bottom: -20px;
+
+        background: #ffffff;
+        z-index: 10;
+    }
+}

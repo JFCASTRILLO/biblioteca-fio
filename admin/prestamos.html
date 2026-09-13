@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Préstamos - Biblioteca FIO</title>
+
+    <link
+        rel="stylesheet"
+        href="admin.css"
+    >
+
+</head>
+
+<body>
+
+    <header class="cabecera-admin">
+
+        <div class="cabecera-admin-contenido">
+
+            <div>
+                <h1>Biblioteca FIO</h1>
+                <h2>Gestión de Préstamos</h2>
+            </div>
+
+            <a
+                href="index.html"
+                class="btn-volver-admin"
+            >
+                Volver al panel
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <main class="contenido-admin">
+
+        <section class="panel-admin">
+
+            <div class="cabecera-seccion-admin">
+
+                <div>
+                    <h2>Préstamos</h2>
+                    <p>
+                        Gestión de préstamos activos e históricos
+                        de la Biblioteca FIO.
+                    </p>
+                </div>
+
+                <button
+                    id="btn-nuevo-prestamo"
+                    class="btn-principal-admin"
+                    type="button"
+                >
+                    Nuevo préstamo
+                </button>
+
+            </div>
+
+
+            <div class="filtros-ejemplares">
+
+                <input
+                    type="text"
+                    id="buscar-prestamo"
+                    placeholder="Buscar socio, usuario, título, clave..."
+                >
+
+                <select id="filtro-estado-prestamo">
+
+                    <option value="">
+                        Todos los estados
+                    </option>
+
+                    <option value="PRESTADO">
+                        Prestados
+                    </option>
+
+                    <option value="DEVUELTO">
+                        Devueltos
+                    </option>
+
+                </select>
+
+                <button
+                    id="btn-limpiar-prestamos"
+                    type="button"
+                    class="btn-secundario-admin"
+                >
+                    Limpiar
+                </button>
+
+            </div>
+
+
+            <div id="contador-prestamos">
+                Cargando préstamos...
+            </div>
+
+
+            <div class="tabla-admin-contenedor">
+
+                <table class="tabla-admin">
+
+                    <thead>
+
+                        <tr>
+                            <th>ID</th>
+                            <th>Socio</th>
+                            <th>Usuario</th>
+                            <th>Ejemplar</th>
+                            <th>Fecha préstamo</th>
+                            <th>Devolución prevista</th>
+                            <th>Estado</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="tabla-prestamos-cuerpo">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="prestamos.js"></script>
+
+</body>
+
+</html>

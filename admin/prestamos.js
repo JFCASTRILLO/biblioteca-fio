@@ -66,7 +66,7 @@ async function iniciarPrestamos() {
 
         if (!session) {
 
-            window.location.href = "login.html";
+            alert("No hay una sesión de administrador iniciada.");
             return;
 
         }

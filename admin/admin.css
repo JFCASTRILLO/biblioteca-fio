@@ -2613,3 +2613,29 @@ body {
 
     line-height: 1.5;
 }
+
+/* ==========================================================
+   EJEMPLARES - ID EN CABECERA
+   ========================================================== */
+
+#modal-ejemplar .id-cabecera-ejemplar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    font-size: 0.82rem;
+
+    color: #777;
+}
+
+#modal-ejemplar .id-cabecera-ejemplar span {
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#modal-ejemplar .id-cabecera-ejemplar strong {
+    color: #333;
+    font-weight: 600;
+}

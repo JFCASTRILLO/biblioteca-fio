@@ -2665,3 +2665,40 @@ body {
 .campo-edicion-sinopsis {
     overflow-y: auto;
 }
+
+/* ==================================================
+   USUARIOS - CUENTA WEB EN MODO EDICIÓN
+   ================================================== */
+
+#modal-usuario
+.ficha-ejemplar-admin.modo-edicion
+#bloque-cuenta-web strong {
+    display: block;
+}
+
+/* ==================================================
+   USUARIOS - OBSERVACIONES
+   ================================================== */
+
+#modal-usuario
+.campo-observaciones-usuario {
+    grid-column: 2 / 4;
+}
+
+
+#modal-usuario
+.campo-observaciones-usuario textarea {
+    width: 100%;
+    box-sizing: border-box;
+
+    resize: vertical;
+}
+
+@media (max-width: 700px) {
+
+    #modal-usuario
+    .campo-observaciones-usuario {
+        grid-column: auto;
+    }
+
+}

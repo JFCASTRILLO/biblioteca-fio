@@ -995,3 +995,29 @@ td {
 
     border-top: 1px solid #d9dce5;
 }
+
+/* ==================================================
+   CATÁLOGO - ID EN CABECERA
+   ================================================== */
+
+.id-catalogo-superior {
+    margin: 10px 0 8px 0;
+
+    font-size: .92rem;
+    color: #444;
+}
+
+.id-catalogo-superior strong {
+    color: #2a2a2a;
+}
+
+@media (pointer: coarse) and (min-width: 700px) {
+
+    .grid-detalles {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+
+        gap: 8px 22px;
+    }
+
+}

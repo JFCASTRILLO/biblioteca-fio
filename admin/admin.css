@@ -2639,3 +2639,29 @@ body {
     color: #333;
     font-weight: 600;
 }
+
+/* ==========================================================
+   EJEMPLARES - SCROLL DE SINOPSIS
+   ========================================================== */
+
+#modal-ejemplar .sinopsis-ficha-admin {
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    scrollbar-gutter: stable;
+}
+
+@media (pointer: coarse) and (min-width: 700px) {
+
+    #modal-ejemplar .sinopsis-ficha-admin {
+        max-height: 150px;
+        padding-right: 8px;
+    }
+
+}
+
+#modal-ejemplar
+.ficha-ejemplar-admin.modo-edicion
+.campo-edicion-sinopsis {
+    overflow-y: auto;
+}

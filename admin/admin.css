@@ -1939,3 +1939,156 @@ body {
 }
 
 }
+
+/* ==================================================
+   TABLETA - FICHA DE EJEMPLAR
+   CONFIGURACIÓN DEFINITIVA
+   ================================================== */
+
+@media (pointer: coarse) and (min-width: 700px) {
+
+    .ficha-ejemplar-admin {
+        width: 94%;
+        max-width: 980px;
+
+        /*
+         * Ocupamos prácticamente toda la altura
+         * realmente disponible del dispositivo.
+         */
+        height: calc(100dvh - 24px);
+        max-height: none;
+
+        box-sizing: border-box;
+
+        padding: 18px;
+
+        display: flex;
+        flex-direction: column;
+
+        overflow: hidden;
+    }
+
+
+    .contenido-ficha-ejemplar {
+        flex: 1;
+        min-height: 0;
+
+        display: grid;
+
+        grid-template-columns:
+            180px
+            minmax(0, 1fr);
+
+        /*
+         * 1 = portada + datos
+         * 2 = sinopsis flexible
+         * 3 = editar
+         * 4 = navegación
+         */
+        grid-template-rows:
+            auto
+            minmax(130px, 1fr)
+            auto
+            auto;
+
+        column-gap: 22px;
+        row-gap: 0;
+
+        overflow: hidden;
+    }
+
+
+    /* PORTADA */
+
+    .zona-portada-admin {
+        grid-column: 1;
+        grid-row: 1;
+
+        width: 180px;
+    }
+
+
+    .portada-ficha-admin {
+        width: 180px;
+        max-height: 255px;
+
+        object-fit: contain;
+    }
+
+
+    /* DATOS */
+
+    .zona-datos-ficha-admin {
+        grid-column: 2;
+        grid-row: 1;
+
+        min-width: 0;
+    }
+
+
+    /* SINOPSIS */
+
+    .sinopsis-ficha-admin {
+        grid-column: 1 / -1;
+        grid-row: 2;
+
+        min-height: 0;
+        max-height: none;
+
+        margin-top: 14px;
+        padding-top: 12px;
+        padding-right: 10px;
+
+        border-top: 1px solid #e5e5e5;
+
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        scrollbar-gutter: stable;
+    }
+
+
+    .sinopsis-ficha-admin p {
+        margin-top: 8px;
+        margin-bottom: 0;
+    }
+
+
+    /* EDITAR */
+
+    .acciones-ficha-ejemplar {
+        grid-column: 1 / -1;
+        grid-row: 3;
+
+        position: static;
+
+        margin-top: 12px;
+        padding-top: 10px;
+        margin-bottom: 0;
+
+        flex-shrink: 0;
+    }
+
+
+    /* NAVEGACIÓN */
+
+    .navegacion-ficha-admin {
+        grid-column: 1 / -1;
+        grid-row: 4;
+
+        position: static;
+
+        width: 100%;
+
+        margin-top: 12px;
+        padding-top: 12px;
+        padding-bottom: 4px;
+
+        background: #ffffff;
+
+        border-top: 1px solid #d9dce5;
+
+        flex-shrink: 0;
+    }
+
+}

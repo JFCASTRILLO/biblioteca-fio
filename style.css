@@ -790,3 +790,96 @@ td {
     cursor: move;
     user-select: none;
 }
+/* ==================================================
+   TABLETA - MODAL DEL CATÁLOGO
+   CONFIGURACIÓN DEFINITIVA
+   ================================================== */
+
+@media (pointer: coarse) and (min-width: 700px) {
+
+    .contenido-modal {
+        width: 94%;
+        max-width: 980px;
+
+        height: calc(100dvh - 24px);
+        max-height: none;
+
+        box-sizing: border-box;
+
+        padding: 18px;
+
+        display: flex;
+        flex-direction: column;
+
+        overflow: hidden;
+    }
+
+
+    /* PORTADA + INFORMACIÓN */
+
+    .detalles-libro {
+        flex: 0 0 auto;
+
+        display: grid;
+
+        grid-template-columns:
+            180px
+            minmax(0, 1fr);
+
+        gap: 22px;
+
+        align-items: start;
+    }
+
+
+    .portada-libro {
+        width: 180px;
+    }
+
+
+    .portada-libro img {
+        width: 100%;
+        max-height: 255px;
+
+        object-fit: contain;
+    }
+
+
+    /* SINOPSIS */
+
+    .sinopsis-completa {
+        flex: 1 1 auto;
+
+        min-height: 130px;
+        max-height: none;
+
+        margin-top: 14px;
+        padding-top: 12px;
+        padding-right: 10px;
+
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        scrollbar-gutter: stable;
+    }
+
+
+    /* NAVEGACIÓN */
+
+    .navegacion-modal {
+        flex: 0 0 auto;
+
+        position: static;
+
+        width: 100%;
+
+        margin-top: 12px;
+        padding-top: 12px;
+        padding-bottom: 4px;
+
+        background: #ffffff;
+
+        border-top: 1px solid #d9dce5;
+    }
+
+}

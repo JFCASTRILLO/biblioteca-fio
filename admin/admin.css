@@ -1526,7 +1526,6 @@ body {
     grid-template-rows:
         auto
         minmax(160px, 1fr)
-        auto
         auto;
 
     column-gap: 30px;
@@ -1626,7 +1625,7 @@ body {
 
 .navegacion-ficha-admin {
     grid-column: 1 / -1;
-    grid-row: 4;
+    grid-row: 3;
 
     width: 100%;
 
@@ -1923,7 +1922,7 @@ body {
 
     .navegacion-ficha-admin {
     grid-column: 1 / -1;
-    grid-row: 4;
+    grid-row: 3;
 
     position: static;
 
@@ -1987,7 +1986,7 @@ body {
          */
         grid-template-rows:
             auto
-            minmax(130px, 1fr)
+            minmax(160px, 1fr)
             auto
             auto;
 
@@ -2074,7 +2073,7 @@ body {
 
     .navegacion-ficha-admin {
         grid-column: 1 / -1;
-        grid-row: 4;
+        grid-row: 3;
 
         position: static;
 
@@ -2126,4 +2125,47 @@ body {
         font-size: 0.88rem;
     }
 
+}
+
+/* ==================================================
+   ACCIONES DE EDICIÓN EN CABECERA
+   ================================================== */
+
+.acciones-cabecera-ejemplar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    gap: 10px;
+
+    flex-shrink: 0;
+}
+
+
+.acciones-edicion-superior {
+    display: none;
+
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 10px;
+}
+
+
+/* MODO EDICIÓN */
+
+.ficha-ejemplar-admin.modo-edicion
+.btn-editar-superior {
+    display: none;
+}
+
+
+.ficha-ejemplar-admin.modo-edicion
+.acciones-edicion-superior {
+    display: flex;
+}
+
+.ficha-ejemplar-admin.modo-edicion
+.navegacion-ficha-admin {
+    display: none;
 }

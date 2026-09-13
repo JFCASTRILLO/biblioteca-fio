@@ -2182,3 +2182,21 @@ body {
     }
 
 }
+
+/* ==========================================================
+   USUARIOS - AJUSTE DE ALTURA EN TABLETA
+   ========================================================== */
+
+@media (pointer: coarse) and (min-width: 700px) {
+
+    #modal-usuario {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    #modal-usuario > .ficha-ejemplar-admin {
+        height: calc(100dvh - 20px);
+        max-height: calc(100dvh - 20px);
+    }
+
+}

@@ -295,7 +295,7 @@ let administradorActual = null;
 let sociosPreparadosImportacion = [];
 let importacionAnualValida = false;
 let usuariosAusentesImportacion = [];
-let ejercicioImportacionAnual = null;
+let fechaImportacionSocios = null;
 
 /* ==========================================================
    MODAL - FORMATO DEL FICHERO DE SOCIOS
@@ -492,6 +492,7 @@ async function cargarUsuarios() {
                     rol,
                     activo,
                     socio_activo,
+                    fecha_ultima_validacion_socio,
                     ultima_validacion_socio
                 `)
                 .order(
@@ -754,6 +755,51 @@ function valorFichaUsuario(valor) {
     return valor;
 }
 
+function obtenerFechaHoyISO() {
+
+    const hoy = new Date();
+
+    const ano =
+        hoy.getFullYear();
+
+    const mes =
+        String(
+            hoy.getMonth() + 1
+        ).padStart(2, "0");
+
+    const dia =
+        String(
+            hoy.getDate()
+        ).padStart(2, "0");
+
+    return (
+        ano + "-" +
+        mes + "-" +
+        dia
+    );
+}
+
+
+function formatearFechaUsuario(fecha) {
+
+    if (!fecha) {
+        return "—";
+    }
+
+    const partes =
+        String(fecha).split("-");
+
+    if (partes.length !== 3) {
+        return fecha;
+    }
+
+    return (
+        partes[2] + "/" +
+        partes[1] + "/" +
+        partes[0]
+    );
+}
+
 
 function abrirFichaUsuario(usuario) {
 
@@ -820,7 +866,11 @@ function abrirFichaUsuario(usuario) {
 
 
     fichaValidacion.textContent =
-        valorFichaUsuario(
+    usuario.fecha_ultima_validacion_socio
+        ? formatearFechaUsuario(
+            usuario.fecha_ultima_validacion_socio
+        )
+        : valorFichaUsuario(
             usuario.ultima_validacion_socio
         );
 
@@ -1129,8 +1179,7 @@ archivoSocios.addEventListener(
                 "numero_socio",
                 "nombre",
                 "apellidos",
-                "socio_activo",
-                "ultima_validacion_socio"
+                "socio_activo"
             ];
 
 
@@ -1232,20 +1281,6 @@ archivoSocios.addEventListener(
                         );
 
 
-                    const validacionTexto =
-                        String(
-                            fila.ultima_validacion_socio || ""
-                        ).trim();
-
-
-                    const validacion =
-                        validacionTexto === ""
-                            ? null
-                            : Number(
-                                validacionTexto
-                            );
-
-
                     sociosUnicos.set(
                         numeroSocio,
                         {
@@ -1263,14 +1298,8 @@ archivoSocios.addEventListener(
                                 ).trim(),
 
                             socio_activo:
-                                socioActivo,
+                                socioActivo
 
-                            ultima_validacion_socio:
-                                Number.isFinite(
-                                    validacion
-                                )
-                                    ? validacion
-                                    : null
                         }
                     );
 
@@ -1379,73 +1408,20 @@ archivoSocios.addEventListener(
             usuariosAusentes;
 
             /* ==============================================
-               AÑOS DE VALIDACIÓN DETECTADOS
-               ============================================== */
+            FECHA DE LA ACTUALIZACIÓN
+            ============================================== */
 
-            const anosValidacion =
-                [
-                    ...new Set(
-                        socios
-                            .map(
-                                socio =>
-                                    socio.ultima_validacion_socio
-                            )
-                            .filter(
-                                valor =>
-                                    valor !== null
-                            )
-                    )
-                ]
-                    .sort(
-                        (a, b) => a - b
-                    );
-
+            fechaImportacionSocios =
+                obtenerFechaHoyISO();
 
             const textoValidacion =
-                anosValidacion.length > 0
-                    ? anosValidacion.join(", ")
-                    : "Sin año";
+                formatearFechaUsuario(
+                    fechaImportacionSocios
+                );
 
 
-                /* ==============================================
-                VALIDAR EJERCICIO DE LA ACTUALIZACIÓN
-                ============================================== */
-
-                const validacionesInvalidas =
-                    socios.filter(
-                        function (socio) {
-
-                            const ano =
-                                socio.ultima_validacion_socio;
-
-                            return (
-                                !Number.isInteger(ano) ||
-                                ano < 2000 ||
-                                ano > 2100
-                            );
-
-                        }
-                    ).length;
-
-
-                const ejercicioUnico =
-                    anosValidacion.length === 1;
-
-
-                const ejercicioDetectado =
-                    ejercicioUnico
-                        ? anosValidacion[0]
-                        : null;
-
-                ejercicioImportacionAnual =
-                    ejercicioDetectado;
-
-                
-                importacionAnualValida =
-                    socios.length > 0 &&
-                    ejercicioUnico &&
-                    validacionesInvalidas === 0;       
-
+            importacionAnualValida =
+                socios.length > 0;
 
             /* ==============================================
                INFORME PREVIO
@@ -1495,7 +1471,7 @@ archivoSocios.addEventListener(
                 "\n\n" +
 
                 
-                "Validación detectada: " +
+                "Fecha de validación: " +
                 textoValidacion +
                 "\n\n" +
 
@@ -1520,8 +1496,9 @@ archivoSocios.addEventListener(
                     existentes:
                         yaExistentes,
 
-                    anosValidacion:
-                        anosValidacion
+                    fechaValidacion:
+                        fechaImportacionSocios    
+
                 }
             );
 
@@ -1585,55 +1562,37 @@ archivoSocios.addEventListener(
             * Informamos claramente al administrador.
             */
 
-            if (importacionAnualValida) {
+        if (importacionAnualValida) {
 
-                avisoEstadoImportacion.style.background =
-                    "#f1f5f1";
+            avisoEstadoImportacion.style.background =
+                "#f1f5f1";
 
-                estadoImportacionTitulo.textContent =
-                    "Archivo válido para importar";
+            estadoImportacionTitulo.textContent =
+                "Archivo válido para importar";
 
-                estadoImportacionTexto.textContent =
-                    "Ejercicio " +
-                    ejercicioDetectado +
-                    ". Se han detectado " +
-                    ausentes +
-                    (
-                        ausentes === 1
-                            ? " usuario que no figura"
-                            : " usuarios que no figuran"
-                    ) +
-                    " en el fichero. Todavía no se ha modificado ningún dato.";
+            estadoImportacionTexto.textContent =
+                "Fecha de validación: " +
+                textoValidacion +
+                ". Se han detectado " +
+                ausentes +
+                (
+                    ausentes === 1
+                        ? " usuario que no figura"
+                        : " usuarios que no figuran"
+                ) +
+                " en el fichero. Todavía no se ha modificado ningún dato.";
 
-            } else {
+        } else {
 
-                avisoEstadoImportacion.style.background =
-                    "#fff2cc";
+            avisoEstadoImportacion.style.background =
+                "#fff2cc";
 
-                estadoImportacionTitulo.textContent =
-                    "El archivo necesita revisión";
+            estadoImportacionTitulo.textContent =
+                "El archivo necesita revisión";
 
-
-                if (!ejercicioUnico) {
-
-                    estadoImportacionTexto.textContent =
-                        "Debe existir un único ejercicio de validación en todo el fichero.";
-
-                } else if (validacionesInvalidas > 0) {
-
-                    estadoImportacionTexto.textContent =
-                        "Hay " +
-                        validacionesInvalidas +
-                        " registros con un ejercicio de validación vacío o incorrecto.";
-
-                
-                } else {
-
-                    estadoImportacionTexto.textContent =
-                        "El archivo no reúne las condiciones necesarias para realizar la actualización.";
-
-                }
-
+            estadoImportacionTexto.textContent =
+                "El archivo no contiene socios válidos para realizar la actualización.";
+        }
             }
             modalImportacionSocios.classList.add(
                 "visible"
@@ -1766,9 +1725,9 @@ btnConfirmarImportacion.addEventListener(
                         ? " usuario de la Biblioteca no figura "
                         : " usuarios de la Biblioteca no figuran "
                 ) +
-                "en el fichero anual.\n\n" +
+                "en el fichero.\n\n" +
 
-                "Al completar la actualización anual, " +
+                "Al completar la actualización, " +
                 (
                     usuariosAusentesImportacion.length === 1
                         ? "este usuario será marcado "
@@ -1783,7 +1742,7 @@ btnConfirmarImportacion.addEventListener(
             "la cuenta web ni las observaciones.\n\n" +
 
             "Confirma únicamente si este fichero contiene " +
-            "el padrón completo de socios del ejercicio.\n\n" +
+            "el padrón completo y actualizado de socios.\n\n" +
 
             "¿Deseas continuar?";
 
@@ -1842,8 +1801,8 @@ btnConfirmarImportacion.addEventListener(
                             socio_activo:
                                 socio.socio_activo,
 
-                            ultima_validacion_socio:
-                                socio.ultima_validacion_socio
+                            fecha_ultima_validacion_socio:
+                                fechaImportacionSocios
 
                         };
 
@@ -1944,8 +1903,8 @@ btnConfirmarImportacion.addEventListener(
                             .from("usuarios")
                             .update({
                                 socio_activo: false,
-                                ultima_validacion_socio:
-                                    ejercicioImportacionAnual
+                                fecha_ultima_validacion_socio:
+                                    fechaImportacionSocios
                             })
                             .in(
                                 "id",
@@ -1978,10 +1937,12 @@ btnConfirmarImportacion.addEventListener(
 
 
             alert(
-                "Actualización anual completada correctamente.\n\n" +
+                "Actualización de socios completada correctamente.\n\n" +
 
-                "Ejercicio: " +
-                ejercicioImportacionAnual +
+                "Fecha de validación: " +
+                formatearFechaUsuario(
+                    fechaImportacionSocios
+                ) +
                 "\n" +
 
                 "Socios del fichero procesados: " +
@@ -1999,7 +1960,7 @@ btnConfirmarImportacion.addEventListener(
                                 ? "El usuario ausente ha sido marcado como NO ACTIVO en FIO."
                                 : "Los usuarios ausentes han sido marcados como NO ACTIVOS en FIO."
                         )
-                        : "Todos los usuarios de Biblioteca figuran en el fichero anual."
+                        : "Todos los usuarios de Biblioteca figuran en el fichero."
                 ) +
 
                 "\n\nNo se han modificado roles, cuentas de Biblioteca, " +
@@ -2111,7 +2072,7 @@ btnNuevoUsuario.addEventListener(
         editarRol.disabled = false;
 
         editarValidacion.value =
-            new Date().getFullYear();
+            obtenerFechaHoyISO();
 
 
         /*
@@ -2218,7 +2179,7 @@ btnEditarUsuario.addEventListener(
             esAdministradorActual;
 
         editarValidacion.value =
-            usuarioActual.ultima_validacion_socio || "";
+            usuarioActual.fecha_ultima_validacion_socio || "";
 
         fichaUsuario.classList.add(
             "modo-edicion"
@@ -2293,11 +2254,7 @@ btnGuardarUsuario.addEventListener(
         }
 
         const validacion =
-            editarValidacion.value.trim() === ""
-                ? null
-                : Number(
-                    editarValidacion.value
-                );
+            editarValidacion.value.trim() || null;
 
         const cambios = {
            
@@ -2319,7 +2276,7 @@ btnGuardarUsuario.addEventListener(
             rol:
                 editarRol.value,
 
-            ultima_validacion_socio:
+            fecha_ultima_validacion_socio:
                 validacion,
 
             observaciones:
@@ -2499,9 +2456,9 @@ btnGuardarUsuario.addEventListener(
                 : "—";
 
         fichaValidacion.textContent =
-            valorFichaUsuario(
-                data.ultima_validacion_socio
-            );
+                formatearFechaUsuario(
+                    data.fecha_ultima_validacion_socio
+                );
 
         fichaUsuarioNombre.textContent =
             [

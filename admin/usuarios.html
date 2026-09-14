@@ -462,11 +462,9 @@
     <strong id="ficha-validacion"></strong>
 
     <input
-        type="number"
+        type="date"
         id="editar-validacion"
         class="campo-edicion-ejemplar"
-        min="2000"
-        max="2100"
     >
 </div>
 
@@ -619,23 +617,18 @@
 
             </section>
 
-
-
-
-
             <section>
 
                 <h3>Validación</h3>
 
                 <div class="fila-resumen-importacion">
-                    <span>Año detectado</span>
+                    <span>Fecha de validación</span>
                     <strong id="imp-validacion">—</strong>
                 </div>
 
             </section>
 
         </div>
-
 
         <div
             id="aviso-estado-importacion"
@@ -704,7 +697,7 @@
             <div>
 
                 <span class="etiqueta-ficha-admin">
-                    Importación anual
+                     Actualización de socios
                 </span>
 
                 <h2>
@@ -712,8 +705,8 @@
                 </h2>
 
                 <p class="ficha-autor">
-                    Estructura recomendada para la actualización
-                    anual de socios FIO.
+                    Estructura del fichero para la actualización
+                    de socios FIO.
                 </p>
 
             </div>
@@ -765,14 +758,6 @@
                             <td>SI / NO</td>
                         </tr>
 
-                        <tr>
-                            <td>ultima_validacion_socio</td>
-                            <td>
-                                Ejercicio de la actualización,
-                                por ejemplo 2027
-                            </td>
-                        </tr>
-
                     </tbody>
 
                 </table>
@@ -797,17 +782,19 @@
 
             <div class="aviso-formato-socios aviso-formato-secundario">
 
-                <strong>Actualización anual</strong>
+            <strong>Actualización periódica</strong>
 
-                <p>
-                    Todos los registros del fichero deben
-                    corresponder al mismo ejercicio.
-                    Antes de importar, el sistema analizará
-                    los datos y mostrará un resumen para
-                    confirmar la operación.
-                </p>
+            <p>
+                El fichero debe contener el padrón completo
+                y actualizado de socios FIO.
+                La fecha de validación se asignará
+                automáticamente en el momento de la importación.
+                Antes de importar, el sistema analizará
+                los datos y mostrará un resumen para
+                confirmar la operación.
+            </p>
 
-            </div>
+        </div>
 
         </div>
 

@@ -1593,7 +1593,7 @@ archivoSocios.addEventListener(
             estadoImportacionTexto.textContent =
                 "El archivo no contiene socios válidos para realizar la actualización.";
         }
-            }
+            
             modalImportacionSocios.classList.add(
                 "visible"
             );

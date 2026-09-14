@@ -2234,3 +2234,39 @@ body {
         z-index: 10;
     }
 }
+
+/* ==========================================================
+   USUARIOS - ACCIONES EN CABECERA
+   ========================================================== */
+
+#modal-usuario .acciones-cabecera-usuario {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+
+    gap: 10px;
+
+    flex-shrink: 0;
+
+    padding-top: 4px;
+}
+
+
+#modal-usuario .acciones-cabecera-usuario
+.acciones-edicion-ejemplar {
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 10px;
+}
+
+
+@media (max-width: 700px) {
+
+    #modal-usuario .acciones-cabecera-usuario {
+        width: 100%;
+        align-items: flex-start;
+    }
+
+}

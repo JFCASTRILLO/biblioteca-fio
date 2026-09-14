@@ -2283,3 +2283,22 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+/* ==========================================================
+   USUARIOS - FICHA ARRASTRABLE
+   ========================================================== */
+
+#modal-usuario .asa-ficha-usuario {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 55px;
+
+    height: 38px;
+
+    cursor: move;
+    user-select: none;
+
+    z-index: 4;
+}

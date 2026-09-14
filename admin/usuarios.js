@@ -2570,3 +2570,110 @@ function escaparHTML(valor) {
         .replaceAll("'", "&#039;");
 
 }
+
+/* ==========================================================
+   FICHA DE USUARIO ARRASTRABLE
+   ========================================================== */
+
+const asaFichaUsuario =
+    document.querySelector(
+        "#modal-usuario .asa-ficha-usuario"
+    );
+
+let arrastrandoFichaUsuario = false;
+let desplazamientoUsuarioX = 0;
+let desplazamientoUsuarioY = 0;
+
+
+asaFichaUsuario.addEventListener(
+    "mousedown",
+    function (evento) {
+
+        arrastrandoFichaUsuario = true;
+
+        const rect =
+            fichaUsuario.getBoundingClientRect();
+
+        desplazamientoUsuarioX =
+            evento.clientX - rect.left;
+
+        desplazamientoUsuarioY =
+            evento.clientY - rect.top;
+
+
+        fichaUsuario.style.position =
+            "fixed";
+
+        fichaUsuario.style.margin =
+            "0";
+
+        fichaUsuario.style.left =
+            rect.left + "px";
+
+        fichaUsuario.style.top =
+            rect.top + "px";
+
+
+        evento.preventDefault();
+    }
+);
+
+
+document.addEventListener(
+    "mousemove",
+    function (evento) {
+
+        if (!arrastrandoFichaUsuario) {
+            return;
+        }
+
+
+        let nuevaX =
+            evento.clientX -
+            desplazamientoUsuarioX;
+
+        let nuevaY =
+            evento.clientY -
+            desplazamientoUsuarioY;
+
+
+        const ancho =
+            fichaUsuario.offsetWidth;
+
+        const alto =
+            fichaUsuario.offsetHeight;
+
+
+        nuevaX = Math.max(
+            0,
+            Math.min(
+                nuevaX,
+                window.innerWidth - ancho
+            )
+        );
+
+        nuevaY = Math.max(
+            0,
+            Math.min(
+                nuevaY,
+                window.innerHeight - alto
+            )
+        );
+
+
+        fichaUsuario.style.left =
+            nuevaX + "px";
+
+        fichaUsuario.style.top =
+            nuevaY + "px";
+    }
+);
+
+
+document.addEventListener(
+    "mouseup",
+    function () {
+
+        arrastrandoFichaUsuario = false;
+    }
+);

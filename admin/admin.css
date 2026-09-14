@@ -2270,3 +2270,16 @@ body {
     }
 
 }
+
+/* ==========================================================
+   USUARIOS - TAMAÑO NATURAL DE LA FICHA
+   ========================================================== */
+
+#modal-usuario > .ficha-ejemplar-admin {
+    height: auto;
+    min-height: 0;
+    max-height: 90vh;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+}

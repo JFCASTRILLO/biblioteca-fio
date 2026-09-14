@@ -87,30 +87,12 @@ const fichaApellidos =
         "ficha-apellidos"
     );
 
-const fichaEmail =
-    document.getElementById(
-        "ficha-email"
-    );
-
-const fichaTelefono =
-    document.getElementById(
-        "ficha-telefono"
-    );
 
 const fichaObservaciones =
     document.getElementById(
         "ficha-observaciones"
     );
 
-const editarEmail =
-    document.getElementById(
-        "editar-email"
-    );
-
-const editarTelefono =
-    document.getElementById(
-        "editar-telefono"
-    );
 
 const editarObservaciones =
     document.getElementById(
@@ -278,35 +260,10 @@ const estadoImportacionTexto =
         "estado-importacion-texto"
     );
 
-const impConTelefono =
-    document.getElementById("imp-con-telefono");
-
-const impSinTelefono =
-    document.getElementById("imp-sin-telefono");
-
-const impTelefonosRevisar =
-    document.getElementById(
-        "imp-telefonos-revisar"
-    );
-
-const impConEmail =
-    document.getElementById("imp-con-email");
-
-const impSinEmail =
-    document.getElementById("imp-sin-email");
-
-const impEmailsRevisar =
-    document.getElementById(
-        "imp-emails-revisar"
-    );
 
 const impValidacion =
     document.getElementById("imp-validacion");
 
-const impFormatoTelefono =
-    document.getElementById(
-        "imp-formato-telefono"
-    );
 
 const btnFormatoSocios =
     document.getElementById(
@@ -531,8 +488,6 @@ async function cargarUsuarios() {
                     numero_socio,
                     nombre,
                     apellidos,
-                    email,
-                    telefono,
                     observaciones,
                     rol,
                     activo,
@@ -876,16 +831,7 @@ function abrirFichaUsuario(usuario) {
 
     bloqueCuentaWeb.style.display = "";
 
-    fichaEmail.textContent =
-    valorFichaUsuario(
-        usuario.email
-    );
-
-    fichaTelefono.textContent =
-        valorFichaUsuario(
-            usuario.telefono
-        );
-
+    
     fichaObservaciones.textContent =
         valorFichaUsuario(
             usuario.observaciones
@@ -1045,7 +991,6 @@ btnLimpiarBusqueda.addEventListener(
  * Normaliza los nombres de las columnas del Excel.
  *
  * Ejemplos:
- * "Teléfono"  -> "telefono"
  * "Nº Socio"  -> "n_socio"
  * "SOCIO ACTIVO" -> "socio_activo"
  */
@@ -1102,146 +1047,6 @@ function normalizarFilaExcel(fila) {
     );
 
     return resultado;
-}
-
-
-/*
- * Normaliza un teléfono sin inventar
- * ni corregir números.
- */
-
-function normalizarTelefono(valor) {
-
-    if (
-        valor === null ||
-        valor === undefined ||
-        String(valor).trim() === ""
-    ) {
-        return "";
-    }
-
-    let telefono =
-        String(valor)
-            .trim()
-            .replace(/[.\s()-]/g, "");
-
-    /*
-     * Eliminamos únicamente el prefijo
-     * internacional español.
-     */
-
-    if (telefono.startsWith("+34")) {
-
-        telefono =
-            telefono.substring(3);
-
-    } else if (
-        telefono.startsWith("0034")
-    ) {
-
-        telefono =
-            telefono.substring(4);
-
-    }
-
-    return telefono;
-}
-
-
-/*
- * Comprueba si parece un móvil español.
- *
- * Debe tener 9 cifras y comenzar
- * por 6 o por 7.
- */
-
-function esMovilEspanol(telefono) {
-
-    return /^[67][0-9]{8}$/.test(
-        telefono
-    );
-
-}
-
-/*
- * Obtiene el teléfono que guardaremos.
- *
- * FORMATO FUTURO:
- * Si existe una columna "telefono",
- * se utiliza directamente.
- *
- * FORMATO ANTIGUO:
- * Si existen telefono1 / telefono2,
- * elegimos automáticamente el más
- * adecuado.
- */
-
-function obtenerTelefonoSocio(fila) {
-
-    /*
-     * Formato nuevo:
-     * una única columna telefono.
-     */
-
-    if (
-        Object.prototype.hasOwnProperty.call(
-            fila,
-            "telefono"
-        )
-    ) {
-
-        return normalizarTelefono(
-            fila.telefono
-        );
-
-    }
-
-
-    /*
-     * Formato antiguo:
-     * telefono1 y telefono2.
-     */
-
-    const telefono1 =
-        normalizarTelefono(
-            fila.telefono1
-        );
-
-    const telefono2 =
-        normalizarTelefono(
-            fila.telefono2
-        );
-
-
-    /*
-     * Preferimos un móvil.
-     */
-
-    if (esMovilEspanol(telefono2)) {
-        return telefono2;
-    }
-
-    if (esMovilEspanol(telefono1)) {
-        return telefono1;
-    }
-
-
-    /*
-     * Si ninguno es móvil, conservamos
-     * un teléfono disponible.
-     */
-
-    if (telefono2) {
-        return telefono2;
-    }
-
-    if (telefono1) {
-        return telefono1;
-    }
-
-
-    return "";
-
 }
 
 btnImportarSocios.addEventListener(
@@ -1311,57 +1116,11 @@ archivoSocios.addEventListener(
                 );
 
 
-            /*
-             * Detectamos el formato del teléfono.
-             *
-             * FORMATO ACTUAL Y FUTURO:
-             * una única columna "telefono".
-             *
-             * COMPATIBILIDAD HISTÓRICA 2026:
-             * telefono1 + telefono2.
-             */
-
+            
             const primeraFila =
                 filas[0];
 
-            const tieneTelefonoUnico =
-                Object.prototype.hasOwnProperty.call(
-                    primeraFila,
-                    "telefono"
-                );
-
-            const tieneTelefono1 =
-                Object.prototype.hasOwnProperty.call(
-                    primeraFila,
-                    "telefono1"
-                );
-
-            const tieneTelefono2 =
-                Object.prototype.hasOwnProperty.call(
-                    primeraFila,
-                    "telefono2"
-                );
-
-
-            let formatoTelefono =
-                "Sin columna de teléfono";
-
-            if (tieneTelefonoUnico) {
-
-                formatoTelefono =
-                    "telefono";
-
-            } else if (
-                tieneTelefono1 ||
-                tieneTelefono2
-            ) {
-
-                formatoTelefono =
-                "Doble columna (histórico 2026)";
-
-            }
-
-
+            
             /* ==============================================
                COMPROBAR COLUMNAS OBLIGATORIAS
                ============================================== */
@@ -1370,7 +1129,6 @@ archivoSocios.addEventListener(
                 "numero_socio",
                 "nombre",
                 "apellidos",
-                "email",
                 "socio_activo",
                 "ultima_validacion_socio"
             ];
@@ -1402,33 +1160,6 @@ archivoSocios.addEventListener(
             }
 
             
-            /*
-            * Debe existir información de teléfono.
-            *
-            * Formato actual:
-            * telefono
-            *
-            * Compatibilidad histórica 2026:
-            * telefono1 / telefono2
-            */
-
-            if (
-                !tieneTelefonoUnico &&
-                !tieneTelefono1 &&
-                !tieneTelefono2
-            ) {
-
-                alert(
-                    "No se puede analizar el archivo.\n\n" +
-                    "Falta la columna obligatoria de teléfono.\n\n" +
-                    "El formato actual utiliza la columna:\n" +
-                    "telefono"
-                );
-
-                return;
-
-            }
-
 
             /* ==============================================
                PREPARAR Y DEPURAR SOCIOS
@@ -1476,12 +1207,7 @@ archivoSocios.addEventListener(
                     }
 
 
-                    const telefono =
-                        obtenerTelefonoSocio(
-                            fila
-                        );
-
-
+                    
                     const socioActivoTexto =
                         String(
                             fila.socio_activo || ""
@@ -1536,14 +1262,6 @@ archivoSocios.addEventListener(
                                     fila.apellidos || ""
                                 ).trim(),
 
-                            email:
-                                String(
-                                    fila.email || ""
-                                ).trim(),
-
-                            telefono:
-                                telefono,
-
                             socio_activo:
                                 socioActivo,
 
@@ -1580,75 +1298,6 @@ archivoSocios.addEventListener(
             const sociosNoActivos =
                 socios.length -
                 sociosActivos;
-
-
-            const conTelefono =
-                socios.filter(
-                    socio =>
-                        socio.telefono !== ""
-                ).length;
-
-
-            const sinTelefono =
-                socios.length -
-                conTelefono;
-
-
-            /*
-             * Consideramos teléfono a revisar aquel
-             * que no tenga 9 cifras después de
-             * la normalización.
-             */
-
-            const telefonosRevisar =
-                socios.filter(
-                    function (socio) {
-
-                        if (!socio.telefono) {
-                            return false;
-                        }
-
-                        return !/^[0-9]{9}$/.test(
-                            socio.telefono
-                        );
-
-                    }
-                ).length;
-
-
-            const conEmail =
-                socios.filter(
-                    socio =>
-                        socio.email !== ""
-                ).length;
-
-
-            const sinEmail =
-                socios.length -
-                conEmail;
-
-
-            /*
-             * Validación básica.
-             * No corregimos automáticamente
-             * ninguna dirección.
-             */
-
-            const emailsRevisar =
-                socios.filter(
-                    function (socio) {
-
-                        if (!socio.email) {
-                            return false;
-                        }
-
-                        return !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
-                            .test(
-                                socio.email
-                            );
-
-                    }
-                ).length;
 
 
             /* ==============================================
@@ -1791,30 +1440,11 @@ archivoSocios.addEventListener(
                 ejercicioImportacionAnual =
                     ejercicioDetectado;
 
-                /*
-                * A partir de 2027 exigimos el formato
-                * moderno de una única columna "telefono".
-                *
-                * El formato telefono1 / telefono2 queda
-                * exclusivamente como compatibilidad 2026.
-                */
-
-                const formatoTelefonoValido =
-                    tieneTelefonoUnico ||
-                    (
-                        ejercicioDetectado === 2026 &&
-                        (
-                            tieneTelefono1 ||
-                            tieneTelefono2
-                        )
-                    );
-
-
+                
                 importacionAnualValida =
                     socios.length > 0 &&
                     ejercicioUnico &&
-                    validacionesInvalidas === 0 &&
-                    formatoTelefonoValido;        
+                    validacionesInvalidas === 0;       
 
 
             /* ==============================================
@@ -1864,34 +1494,7 @@ archivoSocios.addEventListener(
                 yaExistentes +
                 "\n\n" +
 
-                "Formato teléfono: " +
-                formatoTelefono +
-                "\n" +
-
-                "Con teléfono: " +
-                conTelefono +
-                "\n" +
-
-                "Sin teléfono: " +
-                sinTelefono +
-                "\n" +
-
-                "Teléfonos a revisar: " +
-                telefonosRevisar +
-                "\n\n" +
-
-                "Emails informados: " +
-                conEmail +
-                "\n" +
-
-                "Sin email: " +
-                sinEmail +
-                "\n" +
-
-                "Emails a revisar: " +
-                emailsRevisar +
-                "\n\n" +
-
+                
                 "Validación detectada: " +
                 textoValidacion +
                 "\n\n" +
@@ -1916,15 +1519,6 @@ archivoSocios.addEventListener(
 
                     existentes:
                         yaExistentes,
-
-                    formatoTelefono:
-                        formatoTelefono,
-
-                    telefonosRevisar:
-                        telefonosRevisar,
-
-                    emailsRevisar:
-                        emailsRevisar,
 
                     anosValidacion:
                         anosValidacion
@@ -1965,29 +1559,8 @@ archivoSocios.addEventListener(
             impAusentes.textContent =
                 ausentes;
 
-            impConTelefono.textContent =
-                conTelefono;
-
-            impSinTelefono.textContent =
-                sinTelefono;
-
-            impTelefonosRevisar.textContent =
-                telefonosRevisar;
-
-            impConEmail.textContent =
-                conEmail;
-
-            impSinEmail.textContent =
-                sinEmail;
-
-            impEmailsRevisar.textContent =
-                emailsRevisar;
-
             impValidacion.textContent =
                 textoValidacion;
-
-            impFormatoTelefono.textContent =
-                formatoTelefono;
 
 
             /*
@@ -2053,11 +1626,7 @@ archivoSocios.addEventListener(
                         validacionesInvalidas +
                         " registros con un ejercicio de validación vacío o incorrecto.";
 
-                } else if (!formatoTelefonoValido) {
-
-                    estadoImportacionTexto.textContent =
-                        "Para ejercicios posteriores a 2026 debe utilizarse una única columna llamada telefono.";
-
+                
                 } else {
 
                     estadoImportacionTexto.textContent =
@@ -2269,12 +1838,6 @@ btnConfirmarImportacion.addEventListener(
 
                             apellidos:
                                 socio.apellidos || null,
-
-                            email:
-                                socio.email || null,
-
-                            telefono:
-                                socio.telefono || null,
 
                             socio_activo:
                                 socio.socio_activo,
@@ -2528,9 +2091,6 @@ btnNuevoUsuario.addEventListener(
         editarNumeroSocio.value = "";
         editarNombre.value = "";
         editarApellidos.value = "";
-
-        editarEmail.value = "";
-        editarTelefono.value = "";
         editarObservaciones.value = "";
 
 
@@ -2621,11 +2181,6 @@ btnEditarUsuario.addEventListener(
         editarApellidos.value =
             usuarioActual.apellidos || "";
 
-        editarEmail.value =
-            usuarioActual.email || "";
-
-        editarTelefono.value =
-            usuarioActual.telefono || "";
 
         editarObservaciones.value =
             usuarioActual.observaciones || "";
@@ -2766,12 +2321,6 @@ btnGuardarUsuario.addEventListener(
 
             ultima_validacion_socio:
                 validacion,
-
-            email:
-                editarEmail.value.trim() || null,
-
-            telefono:
-                editarTelefono.value.trim() || null,
 
             observaciones:
                 editarObservaciones.value.trim() || null
@@ -2927,16 +2476,6 @@ btnGuardarUsuario.addEventListener(
         fichaApellidos.textContent =
             valorFichaUsuario(
                 data.apellidos
-            );
-
-        fichaEmail.textContent =
-            valorFichaUsuario(
-                data.email
-            );
-
-        fichaTelefono.textContent =
-            valorFichaUsuario(
-                data.telefono
             );
 
         fichaObservaciones.textContent =

@@ -174,11 +174,6 @@ const editarRol =
         "editar-rol"
     );
 
-const editarValidacion =
-    document.getElementById(
-        "editar-validacion"
-    );
-
 const btnNuevoUsuario =
     document.getElementById(
         "btn-nuevo-usuario"
@@ -492,8 +487,7 @@ async function cargarUsuarios() {
                     rol,
                     activo,
                     socio_activo,
-                    fecha_ultima_validacion_socio,
-                    ultima_validacion_socio
+                    fecha_ultima_validacion_socio
                 `)
                 .order(
                     "numero_socio",
@@ -870,9 +864,7 @@ function abrirFichaUsuario(usuario) {
         ? formatearFechaUsuario(
             usuario.fecha_ultima_validacion_socio
         )
-        : valorFichaUsuario(
-            usuario.ultima_validacion_socio
-        );
+        : "—";
 
     fichaCuentaWeb.textContent =
         usuario.auth_user_id
@@ -2069,10 +2061,7 @@ btnNuevoUsuario.addEventListener(
         editarCuentaActiva.disabled = false;
         editarRol.disabled = false;
 
-        editarValidacion.value =
-            obtenerFechaHoyISO();
-
-
+        
         /*
          * Cuenta web.
          *
@@ -2176,9 +2165,6 @@ btnEditarUsuario.addEventListener(
         editarRol.disabled =
             esAdministradorActual;
 
-        editarValidacion.value =
-            usuarioActual.fecha_ultima_validacion_socio || "";
-
         fichaUsuario.classList.add(
             "modo-edicion"
         );
@@ -2251,9 +2237,6 @@ btnGuardarUsuario.addEventListener(
             return;
         }
 
-        const validacion =
-            editarValidacion.value.trim() || null;
-
         const cambios = {
            
             numero_socio:
@@ -2273,9 +2256,6 @@ btnGuardarUsuario.addEventListener(
 
             rol:
                 editarRol.value,
-
-            fecha_ultima_validacion_socio:
-                validacion,
 
             observaciones:
                 editarObservaciones.value.trim() || null

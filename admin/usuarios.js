@@ -1903,8 +1903,6 @@ btnConfirmarImportacion.addEventListener(
                             .from("usuarios")
                             .update({
                                 socio_activo: false,
-                                fecha_ultima_validacion_socio:
-                                    fechaImportacionSocios
                             })
                             .in(
                                 "id",

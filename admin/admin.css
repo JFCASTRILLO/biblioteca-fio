@@ -2302,3 +2302,11 @@ body {
 
     z-index: 4;
 }
+
+/* ==================================================
+   USUARIOS - VALIDACIÓN FIO SOLO LECTURA
+   ================================================== */
+
+.ficha-ejemplar-admin.modo-edicion #ficha-validacion {
+    display: block !important;
+}

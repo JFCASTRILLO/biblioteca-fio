@@ -356,14 +356,7 @@ function seleccionarSocioPrestamo(usuario) {
     input.value =
         `${usuario.numero_socio} — ${usuario.nombre} ${usuario.apellidos}`;
 
-    contenedor.innerHTML = `
-        <div class="socio-prestamo-seleccionado">
-            <strong>Socio seleccionado:</strong>
-            ${escaparHTMLPrestamo(usuario.numero_socio || "")}
-            — ${escaparHTMLPrestamo(usuario.nombre || "")}
-            ${escaparHTMLPrestamo(usuario.apellidos || "")}
-        </div>
-    `;
+    contenedor.innerHTML = "";
 }
 
 

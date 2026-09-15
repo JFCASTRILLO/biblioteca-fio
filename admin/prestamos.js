@@ -39,7 +39,8 @@ const btnCerrarSesion =
 
 let todosLosPrestamos = [];
 let prestamosFiltrados = [];
-
+let usuariosPrestamo = [];
+let usuarioPrestamoSeleccionado = null;
 
 /* ==========================================================
    INICIO
@@ -168,7 +169,7 @@ async function iniciarPrestamos() {
                 cerrarNuevoPrestamo
             );
 
-           
+        document.getElementById("btn-nuevo-prestamo").addEventListener("click", abrirNuevoPrestamo);
 
     }
     catch (error) {
@@ -191,6 +192,8 @@ async function iniciarPrestamos() {
    ========================================================== */
 
 function abrirNuevoPrestamo() {
+
+    usuarioPrestamoSeleccionado = null;
 
     document
         .getElementById("buscar-socio-prestamo")
@@ -243,6 +246,130 @@ function cerrarNuevoPrestamo() {
         "modal-abierto"
     );
 
+}
+
+// ==================================================
+// BÚSQUEDA DE SOCIO PARA NUEVO PRÉSTAMO
+// ==================================================
+
+async function buscarSocioPrestamo() {
+
+    const input = document.getElementById("buscar-socio-prestamo");
+    const contenedor = document.getElementById("resultados-socio-prestamo");
+
+    const texto = input.value.trim();
+
+    usuarioPrestamoSeleccionado = null;
+    document.getElementById("btn-registrar-prestamo").disabled = true;
+
+    if (texto.length < 2) {
+        contenedor.innerHTML = "";
+        return;
+    }
+
+    contenedor.innerHTML =
+        '<div class="mensaje-busqueda-prestamo">Buscando socios...</div>';
+
+    const textoSeguro = texto
+        .replace(/,/g, " ")
+        .replace(/\(/g, " ")
+        .replace(/\)/g, " ")
+        .trim();
+
+    const { data, error } = await supabaseClient
+        .from("usuarios")
+        .select("id, numero_socio, nombre, apellidos, activo, socio_activo")
+        .eq("activo", true)
+        .eq("socio_activo", true)
+        .or(
+            `numero_socio.ilike.%${textoSeguro}%,` +
+            `nombre.ilike.%${textoSeguro}%,` +
+            `apellidos.ilike.%${textoSeguro}%`
+        )
+        .order("numero_socio", { ascending: true })
+        .limit(8);
+
+    if (error) {
+        console.error("Error buscando socio:", error);
+
+        contenedor.innerHTML =
+            '<div class="mensaje-busqueda-prestamo error">' +
+            'No se han podido buscar los socios.' +
+            '</div>';
+
+        return;
+    }
+
+    usuariosPrestamo = data || [];
+
+    if (usuariosPrestamo.length === 0) {
+        contenedor.innerHTML =
+            '<div class="mensaje-busqueda-prestamo">' +
+            'No se encontraron socios habilitados para préstamo.' +
+            '</div>';
+
+        return;
+    }
+
+    contenedor.innerHTML = "";
+
+    usuariosPrestamo.forEach(usuario => {
+
+        const boton = document.createElement("button");
+
+        boton.type = "button";
+        boton.className = "resultado-busqueda-prestamo";
+
+        boton.innerHTML = `
+            <span class="resultado-prestamo-principal">
+                ${escaparHTMLPrestamo(usuario.numero_socio || "")}
+                — ${escaparHTMLPrestamo(usuario.nombre || "")}
+                ${escaparHTMLPrestamo(usuario.apellidos || "")}
+            </span>
+
+            <span class="resultado-prestamo-estado">
+                Socio FIO activo · Biblioteca habilitada
+            </span>
+        `;
+
+        boton.addEventListener("click", () => {
+            seleccionarSocioPrestamo(usuario);
+        });
+
+        contenedor.appendChild(boton);
+    });
+}
+
+
+function seleccionarSocioPrestamo(usuario) {
+
+    usuarioPrestamoSeleccionado = usuario;
+
+    const input = document.getElementById("buscar-socio-prestamo");
+    const contenedor = document.getElementById("resultados-socio-prestamo");
+
+    input.value =
+        `${usuario.numero_socio} — ${usuario.nombre} ${usuario.apellidos}`;
+
+    contenedor.innerHTML = `
+        <div class="socio-prestamo-seleccionado">
+            <strong>Socio seleccionado:</strong>
+            ${escaparHTMLPrestamo(usuario.numero_socio || "")}
+            — ${escaparHTMLPrestamo(usuario.nombre || "")}
+            ${escaparHTMLPrestamo(usuario.apellidos || "")}
+        </div>
+    `;
+}
+
+
+function escaparHTMLPrestamo(valor) {
+
+    return String(valor ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
 
 

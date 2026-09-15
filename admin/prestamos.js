@@ -368,6 +368,7 @@ function seleccionarSocioPrestamo(usuario) {
         `${usuario.numero_socio} — ${usuario.nombre} ${usuario.apellidos}`;
 
     contenedor.innerHTML = "";
+    actualizarBotonRegistrarPrestamo();
 }
 
 
@@ -521,7 +522,6 @@ function seleccionarEjemplarPrestamo(ejemplar) {
 
     actualizarBotonRegistrarPrestamo();
 }
-
 
 function actualizarBotonRegistrarPrestamo() {
 

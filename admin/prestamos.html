@@ -178,6 +178,119 @@
     </main>
 
 
+        <!-- =====================================================
+         NUEVO PRÉSTAMO
+         ===================================================== -->
+
+    <div
+        id="modal-nuevo-prestamo"
+        class="modal-ejemplar-admin"
+    >
+
+        <div class="ficha-ejemplar-admin">
+
+            <div class="cabecera-ficha-ejemplar asa-ficha-prestamo">
+
+                <div>
+                    <h2>Nuevo préstamo</h2>
+                    <p>
+                        Seleccione el socio y el ejemplar que desea prestar.
+                    </p>
+                </div>
+
+                <button
+                    id="cerrar-nuevo-prestamo"
+                    type="button"
+                    class="cerrar-ficha-ejemplar"
+                    title="Cerrar"
+                >
+                    &times;
+                </button>
+
+            </div>
+
+
+            <div class="contenido-ficha-ejemplar">
+
+                <div class="campo-ficha-ejemplar">
+
+                    <label for="buscar-socio-prestamo">
+                        Socio
+                    </label>
+
+                    <input
+                        type="text"
+                        id="buscar-socio-prestamo"
+                        placeholder="Nº de socio, nombre o apellidos..."
+                        autocomplete="off"
+                    >
+
+                    <div id="resultados-socio-prestamo"></div>
+
+                </div>
+
+
+                <div class="campo-ficha-ejemplar">
+
+                    <label for="buscar-ejemplar-prestamo">
+                        Ejemplar
+                    </label>
+
+                    <input
+                        type="text"
+                        id="buscar-ejemplar-prestamo"
+                        placeholder="ID, clave, título o autor..."
+                        autocomplete="off"
+                    >
+
+                    <div id="resultados-ejemplar-prestamo"></div>
+
+                </div>
+
+
+                <div class="campo-ficha-ejemplar">
+
+                    <label for="observaciones-prestamo">
+                        Observaciones
+                    </label>
+
+                    <textarea
+                        id="observaciones-prestamo"
+                        rows="3"
+                        placeholder="Observaciones del préstamo..."
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <div class="acciones-ficha-ejemplar">
+
+                <button
+                    id="btn-cancelar-nuevo-prestamo"
+                    type="button"
+                    class="btn-cancelar-ejemplar"
+                >
+                    Cancelar
+                </button>
+
+                <button
+                    id="btn-registrar-prestamo"
+                    type="button"
+                    class="btn-guardar-ejemplar"
+                    disabled
+                >
+                    Registrar préstamo
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script src="prestamos.js"></script>

@@ -149,13 +149,23 @@ async function iniciarPrestamos() {
             .getElementById("btn-nuevo-prestamo")
             .addEventListener(
                 "click",
-                function () {
+                abrirNuevoPrestamo
+            );
 
-                    alert(
-                        "El alta de préstamos se incorporará en el siguiente paso."
-                    );
 
-                }
+        document
+            .getElementById("cerrar-nuevo-prestamo")
+            .addEventListener(
+                "click",
+                cerrarNuevoPrestamo
+            );
+
+
+        document
+            .getElementById("btn-cancelar-nuevo-prestamo")
+            .addEventListener(
+                "click",
+                cerrarNuevoPrestamo
             );
 
            
@@ -173,6 +183,65 @@ async function iniciarPrestamos() {
         );
 
     }
+
+}
+
+/* ==========================================================
+   NUEVO PRÉSTAMO
+   ========================================================== */
+
+function abrirNuevoPrestamo() {
+
+    document
+        .getElementById("buscar-socio-prestamo")
+        .value = "";
+
+    document
+        .getElementById("buscar-ejemplar-prestamo")
+        .value = "";
+
+    document
+        .getElementById("observaciones-prestamo")
+        .value = "";
+
+    document
+        .getElementById("resultados-socio-prestamo")
+        .innerHTML = "";
+
+    document
+        .getElementById("resultados-ejemplar-prestamo")
+        .innerHTML = "";
+
+    document
+        .getElementById("btn-registrar-prestamo")
+        .disabled = true;
+
+
+    document
+        .getElementById("modal-nuevo-prestamo")
+        .classList.add("visible");
+
+    document.body.classList.add(
+        "modal-abierto"
+    );
+
+
+    document
+        .getElementById("buscar-socio-prestamo")
+        .focus();
+
+}
+
+
+function cerrarNuevoPrestamo() {
+
+    document
+        .getElementById("modal-nuevo-prestamo")
+        .classList.remove("visible");
+
+    document.body.classList.remove(
+        "modal-abierto"
+    );
 
 }
 

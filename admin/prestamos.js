@@ -156,14 +156,14 @@ async function cargarPrestamos() {
             estado,
             observaciones,
 
-            usuario:usuarios (
+            usuario:usuarios!prestamos_usuario_id_fkey (
                 id,
                 numero_socio,
                 nombre,
                 apellidos
             ),
 
-            ejemplar:ejemplares (
+            ejemplar:ejemplares!prestamos_ejemplar_id_fkey (
                 id,
                 titulo,
                 autor,

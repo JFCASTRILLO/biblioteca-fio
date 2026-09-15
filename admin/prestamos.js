@@ -26,6 +26,12 @@ const supabaseClient = supabase.createClient(
     SUPABASE_KEY
 );
 
+const nombreAdmin =
+    document.getElementById("nombre-admin");
+
+const btnCerrarSesion =
+    document.getElementById("btn-cerrar-sesion");
+
 
 /* ==========================================================
    VARIABLES
@@ -50,26 +56,58 @@ async function iniciarPrestamos() {
     try {
 
         /* ----------------------------------------------
-           Comprobar sesión
+           Comprobar administrador
            ---------------------------------------------- */
 
         const {
-            data: { session },
-            error: errorSesion
-        } = await supabaseClient.auth.getSession();
+            data: { user },
+            error: errorUsuario
+        } =
+            await supabaseClient.auth.getUser();
 
 
-        if (errorSesion) {
-            throw errorSesion;
-        }
+        if (errorUsuario || !user) {
 
+            window.location.href =
+                "index.html";
 
-        if (!session) {
-
-            alert("No hay una sesión de administrador iniciada.");
             return;
-
         }
+
+
+        const {
+            data: perfil,
+            error: errorPerfil
+        } =
+            await supabaseClient
+                .from("usuarios")
+                .select(
+                    "id,auth_user_id,nombre,apellidos,rol,activo"
+                )
+                .eq("auth_user_id", user.id)
+                .single();
+
+
+        if (
+            errorPerfil ||
+            !perfil ||
+            perfil.rol !== "admin" ||
+            perfil.activo !== true
+        ) {
+
+            await supabaseClient.auth.signOut();
+
+            window.location.href =
+                "index.html";
+
+            return;
+        }
+
+
+        nombreAdmin.textContent =
+            [perfil.nombre, perfil.apellidos]
+                .filter(Boolean)
+                .join(" ");
 
 
         /* ----------------------------------------------
@@ -119,6 +157,8 @@ async function iniciarPrestamos() {
 
                 }
             );
+
+           
 
     }
     catch (error) {
@@ -541,6 +581,22 @@ function escaparHTML(valor) {
         .replaceAll("'", "&#039;");
 
 }
+
+/* ==========================================================
+   CERRAR SESIÓN
+   ========================================================== */
+
+btnCerrarSesion.addEventListener(
+    "click",
+    async function () {
+
+        await supabaseClient.auth.signOut();
+
+        window.location.href =
+            "index.html";
+
+    }
+);
 
 
 /* ==========================================================

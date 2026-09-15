@@ -108,39 +108,57 @@
     </div>
 
 
-            <div class="filtros-ejemplares">
+            <section class="filtros-ejemplares">
 
-                <input
-                    type="text"
-                    id="buscar-prestamo"
-                    placeholder="Buscar socio, usuario, título, clave..."
-                >
+    <div class="campo-filtro-ejemplares">
 
-                <select id="filtro-estado-prestamo">
+        <label for="buscar-prestamo">
+            Buscar
+        </label>
 
-                    <option value="">
-                        Todos los estados
-                    </option>
+        <input
+            type="text"
+            id="buscar-prestamo"
+            placeholder="Nº de socio, usuario, título o clave..."
+        >
 
-                    <option value="PRESTADO">
-                        Prestados
-                    </option>
+        <button
+            id="btn-limpiar-prestamos"
+            type="button"
+            class="btn-limpiar-busqueda"
+            title="Limpiar búsqueda"
+        >
+            Limpiar
+        </button>
 
-                    <option value="DEVUELTO">
-                        Devueltos
-                    </option>
+    </div>
 
-                </select>
 
-                <button
-                    id="btn-limpiar-prestamos"
-                    type="button"
-                    class="btn-secundario-admin"
-                >
-                    Limpiar
-                </button>
+    <div class="campo-filtro-ejemplares">
 
-            </div>
+        <label for="filtro-estado-prestamo">
+            Estado
+        </label>
+
+        <select id="filtro-estado-prestamo">
+
+            <option value="">
+                Todos
+            </option>
+
+            <option value="PRESTADO">
+                Prestados
+            </option>
+
+            <option value="DEVUELTO">
+                Devueltos
+            </option>
+
+        </select>
+
+    </div>
+
+</section>
 
 
             <div id="contador-prestamos">

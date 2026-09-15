@@ -19,52 +19,93 @@
 
 </head>
 
-<body>
+<body class="body-panel">
 
-    <header class="cabecera-admin">
+    <!-- =====================================================
+     CABECERA
+     ===================================================== -->
 
-        <div class="cabecera-admin-contenido">
+<header class="cabecera-admin">
+
+    <div class="cabecera-admin-contenido">
+
+        <div class="marca-admin">
+
+            <img
+                src="../Logo_FIO.png"
+                alt="Fundación Infante de Orleans"
+                class="logo-panel"
+            >
 
             <div>
-                <h1>Biblioteca FIO</h1>
-                <h2>Gestión de Préstamos</h2>
+
+                <h1>
+                    Biblioteca FIO
+                </h1>
+
+                <p>
+                    Gestión de préstamos
+                </p>
+
             </div>
+
+        </div>
+
+
+        <div class="usuario-admin">
+
+            <span id="nombre-admin">
+                Comprobando usuario...
+            </span>
+
+            <button id="btn-cerrar-sesion">
+                Cerrar sesión
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+    <main class="panel-contenedor">
+
+    <div class="barra-superior-ejemplares">
+
+        <div>
+
+            <h2>
+                Préstamos
+            </h2>
+
+            <p>
+                Gestión de préstamos activos e históricos de la Biblioteca FIO.
+            </p>
+
+        </div>
+
+
+        <div class="acciones-superiores-usuarios">
+
+            <button
+                id="btn-nuevo-prestamo"
+                class="btn-editar-ejemplar"
+                type="button"
+            >
+                + Nuevo préstamo
+            </button>
 
             <a
                 href="panel.html"
-                class="btn-volver-admin"
+                class="btn-volver-panel"
             >
-                Volver al panel
+                ← Volver al panel
             </a>
 
         </div>
 
-    </header>
-
-
-    <main class="contenido-admin">
-
-        <section class="panel-admin">
-
-            <div class="cabecera-seccion-admin">
-
-                <div>
-                    <h2>Préstamos</h2>
-                    <p>
-                        Gestión de préstamos activos e históricos
-                        de la Biblioteca FIO.
-                    </p>
-                </div>
-
-                <button
-                    id="btn-nuevo-prestamo"
-                    class="btn-principal-admin"
-                    type="button"
-                >
-                    Nuevo préstamo
-                </button>
-
-            </div>
+    </div>
 
 
             <div class="filtros-ejemplares">
@@ -132,8 +173,6 @@
                 </table>
 
             </div>
-
-        </section>
 
     </main>
 

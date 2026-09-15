@@ -41,6 +41,8 @@ let todosLosPrestamos = [];
 let prestamosFiltrados = [];
 let usuariosPrestamo = [];
 let usuarioPrestamoSeleccionado = null;
+let ejemplaresPrestamo = [];
+let ejemplarPrestamoSeleccionado = null;
 
 /* ==========================================================
    INICIO
@@ -176,6 +178,14 @@ async function iniciarPrestamos() {
                 buscarSocioPrestamo
             );
 
+        document
+            .getElementById("buscar-ejemplar-prestamo")
+            .addEventListener(
+                "input",
+                buscarEjemplarPrestamo
+    );
+
+
     }
     catch (error) {
 
@@ -199,6 +209,7 @@ async function iniciarPrestamos() {
 function abrirNuevoPrestamo() {
 
     usuarioPrestamoSeleccionado = null;
+    ejemplarPrestamoSeleccionado = null;
 
     document
         .getElementById("buscar-socio-prestamo")
@@ -370,6 +381,158 @@ function escaparHTMLPrestamo(valor) {
         .replace(/'/g, "&#039;");
 }
 
+// ==================================================
+// BÚSQUEDA DE EJEMPLAR PARA NUEVO PRÉSTAMO
+// ==================================================
+
+async function buscarEjemplarPrestamo() {
+
+    const input =
+        document.getElementById("buscar-ejemplar-prestamo");
+
+    const contenedor =
+        document.getElementById("resultados-ejemplar-prestamo");
+
+    const texto = input.value.trim();
+
+    ejemplarPrestamoSeleccionado = null;
+
+    document
+        .getElementById("btn-registrar-prestamo")
+        .disabled = true;
+
+    if (texto.length < 2) {
+        contenedor.innerHTML = "";
+        return;
+    }
+
+    contenedor.innerHTML =
+        '<div class="mensaje-busqueda-prestamo">' +
+        'Buscando ejemplares...</div>';
+
+    const textoSeguro = texto
+        .replace(/,/g, " ")
+        .replace(/\(/g, " ")
+        .replace(/\)/g, " ")
+        .trim();
+
+    let consulta = supabaseClient
+        .from("ejemplares")
+        .select("id, clave, titulo, autor, estado")
+        .eq("estado", "DISPONIBLE");
+
+    // Si escribe solamente un número, también buscamos por ID.
+    if (/^\d+$/.test(textoSeguro)) {
+
+        consulta = consulta.or(
+            `id.eq.${Number(textoSeguro)},` +
+            `clave.ilike.%${textoSeguro}%,` +
+            `titulo.ilike.%${textoSeguro}%,` +
+            `autor.ilike.%${textoSeguro}%`
+        );
+
+    } else {
+
+        consulta = consulta.or(
+            `clave.ilike.%${textoSeguro}%,` +
+            `titulo.ilike.%${textoSeguro}%,` +
+            `autor.ilike.%${textoSeguro}%`
+        );
+    }
+
+    const { data, error } = await consulta
+        .order("titulo", { ascending: true })
+        .limit(8);
+
+    if (error) {
+
+        console.error(
+            "Error buscando ejemplar:",
+            error
+        );
+
+        contenedor.innerHTML =
+            '<div class="mensaje-busqueda-prestamo error">' +
+            'No se han podido buscar los ejemplares.' +
+            '</div>';
+
+        return;
+    }
+
+    ejemplaresPrestamo = data || [];
+
+    if (ejemplaresPrestamo.length === 0) {
+
+        contenedor.innerHTML =
+            '<div class="mensaje-busqueda-prestamo">' +
+            'No se encontraron ejemplares disponibles.' +
+            '</div>';
+
+        return;
+    }
+
+    contenedor.innerHTML = "";
+
+    ejemplaresPrestamo.forEach(ejemplar => {
+
+        const boton =
+            document.createElement("button");
+
+        boton.type = "button";
+
+        boton.className =
+            "resultado-busqueda-prestamo";
+
+        boton.innerHTML = `
+            <span class="resultado-prestamo-principal">
+                ${escaparHTMLPrestamo(ejemplar.clave || "")}
+                — ${escaparHTMLPrestamo(ejemplar.titulo || "")}
+            </span>
+
+            <span class="resultado-prestamo-estado">
+                ${escaparHTMLPrestamo(ejemplar.autor || "")}
+            </span>
+        `;
+
+        boton.addEventListener(
+            "click",
+            () => seleccionarEjemplarPrestamo(ejemplar)
+        );
+
+        contenedor.appendChild(boton);
+    });
+}
+
+
+function seleccionarEjemplarPrestamo(ejemplar) {
+
+    ejemplarPrestamoSeleccionado = ejemplar;
+
+    const input =
+        document.getElementById("buscar-ejemplar-prestamo");
+
+    const contenedor =
+        document.getElementById("resultados-ejemplar-prestamo");
+
+    input.value =
+        `${ejemplar.clave} — ${ejemplar.titulo}`;
+
+    contenedor.innerHTML = "";
+
+    actualizarBotonRegistrarPrestamo();
+}
+
+
+function actualizarBotonRegistrarPrestamo() {
+
+    const boton =
+        document.getElementById("btn-registrar-prestamo");
+
+    boton.disabled = !(
+        usuarioPrestamoSeleccionado &&
+        ejemplarPrestamoSeleccionado
+    );
+}
 
 /* ==========================================================
    CARGAR PRÉSTAMOS

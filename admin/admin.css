@@ -2310,3 +2310,66 @@ body {
 .ficha-ejemplar-admin.modo-edicion #ficha-validacion {
     display: block !important;
 }
+
+/* ==================================================
+   PRÉSTAMOS - MODAL NUEVO PRÉSTAMO
+   ================================================== */
+
+#modal-nuevo-prestamo {
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+
+#modal-nuevo-prestamo .ficha-ejemplar-admin {
+    width: min(720px, 94vw);
+    max-height: 90vh;
+    margin: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+
+#modal-nuevo-prestamo .contenido-ficha-ejemplar {
+    display: block;
+    padding: 24px 28px;
+}
+
+
+#modal-nuevo-prestamo .campo-ficha-ejemplar {
+    display: block;
+    margin-bottom: 20px;
+}
+
+
+#modal-nuevo-prestamo .campo-ficha-ejemplar label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: 600;
+}
+
+
+#modal-nuevo-prestamo input,
+#modal-nuevo-prestamo textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 1px solid #c8ccd4;
+    border-radius: 5px;
+    font: inherit;
+}
+
+
+#modal-nuevo-prestamo textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+
+#modal-nuevo-prestamo .acciones-ficha-ejemplar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 16px 28px 20px;
+}

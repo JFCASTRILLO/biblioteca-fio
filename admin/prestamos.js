@@ -169,7 +169,12 @@ async function iniciarPrestamos() {
                 cerrarNuevoPrestamo
             );
 
-        document.getElementById("btn-nuevo-prestamo").addEventListener("click", abrirNuevoPrestamo);
+        document
+            .getElementById("buscar-socio-prestamo")
+            .addEventListener(
+                "input",
+                buscarSocioPrestamo
+            );
 
     }
     catch (error) {

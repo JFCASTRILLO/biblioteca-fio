@@ -179,6 +179,13 @@ async function iniciarReservas() {
                 buscarEjemplaresReserva
             );
 
+        document
+            .getElementById("btn-registrar-reserva")
+            .addEventListener(
+                "click",
+                registrarNuevaReserva
+            );
+
     }
     catch (error) {
 
@@ -700,6 +707,216 @@ function seleccionarEjemplarReserva(ejemplar) {
 
     actualizarBotonRegistrarReserva();
 }
+
+/* ==========================================================
+   REGISTRAR NUEVA RESERVA
+   ========================================================== */
+
+async function registrarNuevaReserva() {
+
+    if (
+        !socioReservaSeleccionado ||
+        !ejemplarReservaSeleccionado
+    ) {
+        return;
+    }
+
+
+    const medioContacto =
+        document
+            .getElementById("medio-contacto-reserva")
+            .value || null;
+
+
+    const datoContacto =
+        document
+            .getElementById("dato-contacto-reserva")
+            .value
+            .trim() || null;
+
+
+    const observaciones =
+        document
+            .getElementById("observaciones-reserva")
+            .value
+            .trim() || null;
+
+
+    /* ------------------------------------------------------
+       Validar contacto
+       ------------------------------------------------------ */
+
+    if (
+        medioContacto &&
+        !datoContacto
+    ) {
+
+        alert(
+            "Debe indicar el dato de contacto."
+        );
+
+        document
+            .getElementById("dato-contacto-reserva")
+            .focus();
+
+        return;
+    }
+
+
+    const nombreSocio =
+        [
+            socioReservaSeleccionado.numero_socio,
+
+            [
+                socioReservaSeleccionado.nombre,
+                socioReservaSeleccionado.apellidos
+            ]
+            .filter(Boolean)
+            .join(" ")
+        ]
+        .filter(Boolean)
+        .join(" — ");
+
+
+    const descripcionEjemplar =
+        [
+            ejemplarReservaSeleccionado.clave,
+            ejemplarReservaSeleccionado.titulo
+        ]
+        .filter(Boolean)
+        .join(" — ");
+
+
+    const confirmar =
+        window.confirm(
+
+            "¿Registrar esta reserva?\n\n" +
+
+            "Socio: " +
+            nombreSocio +
+            "\n\n" +
+
+            "Ejemplar: " +
+            descripcionEjemplar
+
+        );
+
+
+    if (!confirmar) {
+        return;
+    }
+
+
+    const boton =
+        document.getElementById(
+            "btn-registrar-reserva"
+        );
+
+
+    try {
+
+        boton.disabled = true;
+
+        boton.textContent =
+            "Registrando...";
+
+
+        const {
+            data,
+            error
+        } = await supabaseClient.rpc(
+            "crear_reserva",
+            {
+                p_usuario_id:
+                    socioReservaSeleccionado.id,
+
+                p_ejemplar_id:
+                    ejemplarReservaSeleccionado.id,
+
+                p_medio_contacto:
+                    medioContacto,
+
+                p_dato_contacto:
+                    datoContacto,
+
+                p_observaciones:
+                    observaciones
+            }
+        );
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        let numeroReserva = "";
+
+
+        if (
+            Array.isArray(data) &&
+            data.length > 0
+        ) {
+
+            numeroReserva =
+                data[0].reserva_id || "";
+        }
+
+
+        cerrarNuevaReserva();
+
+        await cargarReservas();
+
+
+        let mensaje =
+            "Reserva registrada correctamente.\n\n" +
+
+            "Socio: " +
+            nombreSocio +
+            "\n\n" +
+
+            "Ejemplar: " +
+            descripcionEjemplar;
+
+
+        if (numeroReserva) {
+
+            mensaje +=
+                "\n\nNº de reserva: " +
+                numeroReserva;
+        }
+
+
+        alert(mensaje);
+
+    }
+    catch (error) {
+
+        console.error(
+            "Error registrando reserva:",
+            error
+        );
+
+
+        alert(
+            "No se ha podido registrar la reserva.\n\n" +
+            (
+                error.message ||
+                "Se ha producido un error inesperado."
+            )
+        );
+
+    }
+    finally {
+
+        boton.disabled = false;
+
+        boton.textContent =
+            "Registrar reserva";
+
+    }
+}
+
 
 /* ==========================================================
    CARGAR RESERVAS

@@ -284,28 +284,119 @@
                     Registrar préstamo
                 </button>
 
-             <div class="acciones-ficha-ejemplar">
-
-                <button
-                    id="btn-cerrar-ficha-prestamo"
-                    type="button"
-                    class="btn-cancelar-ejemplar">
-                    Cerrar
-                </button>
-
-                <button
-                    id="btn-registrar-devolucion"
-                    type="button"
-                    class="btn-guardar-ejemplar">
-                    Registrar devolución
-                </button>
-
-            </div>
+              </div>
 
         </div>
 
     </div>
 
+    <!-- ==================================================
+     MODAL - FICHA DEL PRÉSTAMO
+     ================================================== -->
+
+<div id="modal-ficha-prestamo" class="modal-ejemplar-admin">
+
+    <div class="ficha-ejemplar-admin ficha-prestamo-admin">
+
+        <div class="cabecera-ficha-ejemplar">
+
+            <div>
+                <h2>Ficha del préstamo</h2>
+                <p>Información y seguimiento del préstamo.</p>
+            </div>
+
+            <button
+                id="cerrar-ficha-prestamo"
+                type="button"
+                class="cerrar-ficha-ejemplar"
+                title="Cerrar">
+                &times;
+            </button>
+
+        </div>
+
+
+        <div class="contenido-ficha-prestamo">
+
+            <div class="dato-prestamo">
+                <span class="etiqueta-prestamo">Nº préstamo</span>
+                <span id="ficha-prestamo-id">-</span>
+            </div>
+
+            <div class="dato-prestamo">
+                <span class="etiqueta-prestamo">Estado</span>
+                <span id="ficha-prestamo-estado">-</span>
+            </div>
+
+
+            <div class="dato-prestamo ancho-completo">
+                <span class="etiqueta-prestamo">Socio</span>
+                <span id="ficha-prestamo-socio">-</span>
+            </div>
+
+
+            <div class="dato-prestamo ancho-completo">
+                <span class="etiqueta-prestamo">Ejemplar</span>
+                <span id="ficha-prestamo-ejemplar">-</span>
+            </div>
+
+
+            <div class="dato-prestamo">
+                <span class="etiqueta-prestamo">Fecha préstamo</span>
+                <span id="ficha-prestamo-fecha">-</span>
+            </div>
+
+            <div class="dato-prestamo">
+                <span class="etiqueta-prestamo">Devolución prevista</span>
+                <span id="ficha-prestamo-prevista">-</span>
+            </div>
+
+
+            <div class="dato-prestamo">
+                <span class="etiqueta-prestamo">Fecha devolución</span>
+                <span id="ficha-prestamo-devolucion">-</span>
+            </div>
+
+            <div class="dato-prestamo">
+                <span class="etiqueta-prestamo">Situación</span>
+                <span id="ficha-prestamo-situacion">-</span>
+            </div>
+
+
+            <div class="dato-prestamo ancho-completo">
+                <span class="etiqueta-prestamo">Observaciones</span>
+
+                <div
+                    id="ficha-prestamo-observaciones"
+                    class="observaciones-ficha-prestamo">
+                    -
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="acciones-ficha-ejemplar">
+
+            <button
+                id="btn-cerrar-ficha-prestamo"
+                type="button"
+                class="btn-cancelar-ejemplar">
+                Cerrar
+            </button>
+
+            <button
+                id="btn-registrar-devolucion"
+                type="button"
+                class="btn-guardar-ejemplar">
+                Registrar devolución
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 

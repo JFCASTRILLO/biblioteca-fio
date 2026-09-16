@@ -2562,3 +2562,171 @@ body {
 .fila-prestamo:hover {
     background: #f1f4fa;
 }
+
+/* ==================================================
+   PRÉSTAMOS - FICHA DEL PRÉSTAMO
+   ================================================== */
+
+#modal-ficha-prestamo {
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+#modal-ficha-prestamo .ficha-prestamo-admin {
+    width: min(760px, 94vw);
+    max-height: 90vh;
+    margin: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+
+/* Contenido */
+
+.contenido-ficha-prestamo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 32px;
+    padding: 28px;
+}
+
+
+/* Cada dato */
+
+.dato-prestamo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.dato-prestamo.ancho-completo {
+    grid-column: 1 / -1;
+}
+
+
+/* Etiquetas */
+
+.etiqueta-prestamo {
+    display: block;
+    font-size: .82rem;
+    font-weight: 600;
+    color: #687080;
+}
+
+
+/* Valores */
+
+.dato-prestamo > span:not(.etiqueta-prestamo) {
+    font-size: .98rem;
+    line-height: 1.4;
+    color: #20242c;
+}
+
+
+/* Observaciones */
+
+.observaciones-ficha-prestamo {
+    min-height: 52px;
+    padding: 10px 12px;
+
+    border: 1px solid #d6d9df;
+    border-radius: 5px;
+
+    background: #f7f8fa;
+    color: #303640;
+
+    line-height: 1.45;
+}
+
+
+/* Botonera inferior */
+
+#modal-ficha-prestamo .acciones-ficha-ejemplar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+
+    padding: 16px 28px 20px;
+
+    border-top: 1px solid #e0e3e8;
+}
+
+
+/* Botón cerrar */
+
+#btn-cerrar-ficha-prestamo {
+    padding: 10px 18px;
+
+    border: 1px solid #b8bec8;
+    border-radius: 5px;
+
+    background: #ffffff;
+
+    font: inherit;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color .2s ease,
+        border-color .2s ease,
+        transform .15s ease;
+}
+
+#btn-cerrar-ficha-prestamo:hover {
+    background: #f1f3f6;
+    border-color: #8f98a6;
+    transform: translateY(-1px);
+}
+
+
+/* Botón registrar devolución */
+
+#btn-registrar-devolucion {
+    padding: 10px 18px;
+
+    border: 1px solid #212c59;
+    border-radius: 5px;
+
+    background: #212c59;
+    color: #ffffff;
+
+    font: inherit;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color .2s ease,
+        border-color .2s ease,
+        transform .15s ease;
+}
+
+#btn-registrar-devolucion:hover {
+    background: #2d3b73;
+    border-color: #2d3b73;
+    transform: translateY(-1px);
+}
+
+
+/* Responsive */
+
+@media (max-width: 650px) {
+
+    .contenido-ficha-prestamo {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding: 22px;
+    }
+
+    .dato-prestamo.ancho-completo {
+        grid-column: auto;
+    }
+
+    #modal-ficha-prestamo {
+        padding: 15px;
+    }
+
+}

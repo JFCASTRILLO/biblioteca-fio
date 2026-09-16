@@ -172,6 +172,13 @@ async function iniciarReservas() {
                 buscarSociosReserva
             );    
 
+        document
+            .getElementById("buscar-ejemplar-reserva")
+            .addEventListener(
+                "input",
+                buscarEjemplaresReserva
+            );
+
     }
     catch (error) {
 
@@ -493,6 +500,206 @@ function actualizarBotonRegistrarReserva() {
             !ejemplarReservaSeleccionado;
 }
 
+/* ==========================================================
+   BUSCAR EJEMPLAR PARA RESERVA
+   ========================================================== */
+
+async function buscarEjemplaresReserva() {
+
+    const input =
+        document.getElementById(
+            "buscar-ejemplar-reserva"
+        );
+
+    const contenedor =
+        document.getElementById(
+            "resultados-ejemplar-reserva"
+        );
+
+    const texto =
+        input.value.trim();
+
+
+    ejemplarReservaSeleccionado = null;
+
+    actualizarBotonRegistrarReserva();
+
+
+    if (texto.length < 2) {
+
+        contenedor.innerHTML = "";
+
+        return;
+    }
+
+
+    try {
+
+        const termino =
+            texto.replaceAll(",", " ");
+
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("ejemplares")
+            .select(`
+                id,
+                clave,
+                titulo,
+                autor,
+                estado
+            `)
+            .eq("estado", "PRESTADO")
+            .or(
+                `clave.ilike.%${termino}%,` +
+                `titulo.ilike.%${termino}%,` +
+                `autor.ilike.%${termino}%`
+            )
+            .order(
+                "clave",
+                {
+                    ascending: true
+                }
+            )
+            .limit(10);
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        mostrarResultadosEjemplaresReserva(
+            data || []
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "Error buscando ejemplares:",
+            error
+        );
+
+        contenedor.innerHTML = `
+            <div class="resultado-busqueda-vacio">
+                No se ha podido realizar la búsqueda.
+            </div>
+        `;
+    }
+}
+
+
+/* ==========================================================
+   MOSTRAR EJEMPLARES ENCONTRADOS
+   ========================================================== */
+
+function mostrarResultadosEjemplaresReserva(lista) {
+
+    const contenedor =
+        document.getElementById(
+            "resultados-ejemplar-reserva"
+        );
+
+
+    contenedor.innerHTML = "";
+
+
+    if (lista.length === 0) {
+
+        contenedor.innerHTML = `
+            <div class="resultado-busqueda-vacio">
+                No hay ejemplares prestados que coincidan.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    lista.forEach(ejemplar => {
+
+        const opcion =
+            document.createElement("button");
+
+
+        opcion.type = "button";
+
+        opcion.className =
+            "resultado-busqueda-prestamo";
+
+
+        opcion.innerHTML = `
+
+            <strong>
+                ${escaparHTML(
+                    ejemplar.clave || "-"
+                )}
+            </strong>
+
+            <span>
+                ${escaparHTML(
+                    ejemplar.titulo || "-"
+                )}
+            </span>
+
+            <small>
+                ${escaparHTML(
+                    ejemplar.autor || ""
+                )}
+            </small>
+
+        `;
+
+
+        opcion.addEventListener(
+            "click",
+            function () {
+
+                seleccionarEjemplarReserva(
+                    ejemplar
+                );
+            }
+        );
+
+
+        contenedor.appendChild(
+            opcion
+        );
+    });
+}
+
+
+/* ==========================================================
+   SELECCIONAR EJEMPLAR
+   ========================================================== */
+
+function seleccionarEjemplarReserva(ejemplar) {
+
+    ejemplarReservaSeleccionado =
+        ejemplar;
+
+
+    document
+        .getElementById("buscar-ejemplar-reserva")
+        .value =
+            [
+                ejemplar.clave,
+                ejemplar.titulo
+            ]
+            .filter(Boolean)
+            .join(" — ");
+
+
+    document
+        .getElementById("resultados-ejemplar-reserva")
+        .innerHTML = "";
+
+
+    actualizarBotonRegistrarReserva();
+}
 
 /* ==========================================================
    CARGAR RESERVAS

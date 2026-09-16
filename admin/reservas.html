@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Reservas - Biblioteca FIO</title>
+
+    <link
+        rel="stylesheet"
+        href="admin.css"
+    >
+
+</head>
+
+
+<body class="body-panel">
+
+
+    <!-- =====================================================
+         CABECERA
+         ===================================================== -->
+
+    <header class="cabecera-admin">
+
+        <div class="cabecera-admin-contenido">
+
+            <div class="marca-admin">
+
+                <img
+                    src="../Logo_FIO.png"
+                    alt="Fundación Infante de Orleans"
+                    class="logo-panel"
+                >
+
+                <div>
+
+                    <h1>
+                        Biblioteca FIO
+                    </h1>
+
+                    <p>
+                        Gestión de reservas
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="usuario-admin">
+
+                <span id="nombre-admin">
+                    Comprobando usuario...
+                </span>
+
+                <button id="btn-cerrar-sesion">
+                    Cerrar sesión
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         CONTENIDO
+         ===================================================== -->
+
+    <main class="panel-contenedor">
+
+
+        <div class="barra-superior-ejemplares">
+
+            <div>
+
+                <h2>
+                    Reservas
+                </h2>
+
+                <p>
+                    Gestión de reservas activas e históricas de la Biblioteca FIO.
+                </p>
+
+            </div>
+
+
+            <div class="acciones-superiores-usuarios">
+
+                <button
+                    id="btn-nueva-reserva"
+                    class="btn-editar-ejemplar"
+                    type="button"
+                >
+                    + Nueva reserva
+                </button>
+
+                <a
+                    href="panel.html"
+                    class="btn-volver-panel"
+                >
+                    ← Volver al panel
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             FILTROS
+             ================================================= -->
+
+        <section class="filtros-ejemplares">
+
+            <div class="campo-filtro-ejemplares">
+
+                <label for="buscar-reserva">
+                    Buscar
+                </label>
+
+                <input
+                    type="text"
+                    id="buscar-reserva"
+                    placeholder="Nº de socio, usuario, título o clave..."
+                >
+
+            </div>
+
+
+            <div class="campo-filtro-ejemplares">
+
+                <label for="filtro-estado-reserva">
+                    Estado
+                </label>
+
+                <select id="filtro-estado-reserva">
+
+                    <option value="">
+                        Todos
+                    </option>
+
+                    <option value="ACTIVA">
+                        Activas
+                    </option>
+
+                    <option value="DISPONIBLE">
+                        Disponibles
+                    </option>
+
+                    <option value="ATENDIDA">
+                        Atendidas
+                    </option>
+
+                    <option value="CANCELADA">
+                        Canceladas
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button
+                id="btn-limpiar-reservas"
+                type="button"
+                class="btn-limpiar-busqueda"
+                title="Limpiar búsqueda"
+            >
+                Limpiar
+            </button>
+
+        </section>
+
+
+        <!-- =================================================
+             CONTADOR
+             ================================================= -->
+
+        <div id="contador-reservas">
+            Cargando reservas...
+        </div>
+
+
+        <!-- =================================================
+             TABLA
+             ================================================= -->
+
+        <div class="tabla-admin-contenedor">
+
+            <table class="tabla-admin">
+
+                <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Socio</th>
+                        <th>Usuario</th>
+                        <th>Ejemplar</th>
+                        <th>Fecha reserva</th>
+                        <th>Estado</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="tabla-reservas-cuerpo">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         SCRIPTS
+         ===================================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="reservas.js"></script>
+
+
+</body>
+
+</html>

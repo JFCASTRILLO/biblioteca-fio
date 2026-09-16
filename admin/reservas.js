@@ -35,6 +35,8 @@ const btnCerrarSesion =
 let todasLasReservas = [];
 let reservasFiltradas = [];
 
+let socioReservaSeleccionado = null;
+let ejemplarReservaSeleccionado = null;
 
 /* ==========================================================
    INICIO
@@ -163,6 +165,13 @@ async function iniciarReservas() {
                 cerrarNuevaReserva
             );
 
+        document
+            .getElementById("buscar-socio-reserva")
+            .addEventListener(
+                "input",
+                buscarSociosReserva
+            );    
+
     }
     catch (error) {
 
@@ -203,6 +212,9 @@ function cerrarNuevaReserva() {
 
 function limpiarNuevaReserva() {
 
+    socioReservaSeleccionado = null;
+    ejemplarReservaSeleccionado = null;
+
     document
         .getElementById("buscar-socio-reserva")
         .value = "";
@@ -236,6 +248,249 @@ function limpiarNuevaReserva() {
     document
         .getElementById("btn-registrar-reserva")
         .disabled = true;
+}
+
+/* ==========================================================
+   BUSCAR SOCIO PARA RESERVA
+   ========================================================== */
+
+async function buscarSociosReserva() {
+
+    const input =
+        document.getElementById(
+            "buscar-socio-reserva"
+        );
+
+    const contenedor =
+        document.getElementById(
+            "resultados-socio-reserva"
+        );
+
+    const texto =
+        input.value.trim();
+
+
+    socioReservaSeleccionado = null;
+
+    document
+        .getElementById("btn-registrar-reserva")
+        .disabled = true;
+
+
+    if (texto.length < 2) {
+
+        contenedor.innerHTML = "";
+
+        return;
+    }
+
+
+    try {
+
+        const termino =
+            texto.replaceAll(",", " ");
+
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("usuarios")
+            .select(`
+                id,
+                numero_socio,
+                nombre,
+                apellidos,
+                activo,
+                socio_activo
+            `)
+            .or(
+                `numero_socio.ilike.%${termino}%,` +
+                `nombre.ilike.%${termino}%,` +
+                `apellidos.ilike.%${termino}%`
+            )
+            .order(
+                "numero_socio",
+                {
+                    ascending: true
+                }
+            )
+            .limit(10);
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        mostrarResultadosSociosReserva(
+            data || []
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "Error buscando socios:",
+            error
+        );
+
+        contenedor.innerHTML = `
+            <div class="resultado-busqueda-vacio">
+                No se ha podido realizar la búsqueda.
+            </div>
+        `;
+    }
+}
+
+
+/* ==========================================================
+   MOSTRAR SOCIOS ENCONTRADOS
+   ========================================================== */
+
+function mostrarResultadosSociosReserva(lista) {
+
+    const contenedor =
+        document.getElementById(
+            "resultados-socio-reserva"
+        );
+
+
+    contenedor.innerHTML = "";
+
+
+    if (lista.length === 0) {
+
+        contenedor.innerHTML = `
+            <div class="resultado-busqueda-vacio">
+                No se han encontrado socios.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    lista.forEach(usuario => {
+
+        const nombreCompleto =
+            [
+                usuario.nombre,
+                usuario.apellidos
+            ]
+            .filter(Boolean)
+            .join(" ");
+
+
+        const opcion =
+            document.createElement("button");
+
+
+        opcion.type = "button";
+
+        opcion.className =
+            "resultado-busqueda-prestamo";
+
+
+        opcion.innerHTML = `
+
+            <strong>
+                ${escaparHTML(
+                    usuario.numero_socio || "-"
+                )}
+            </strong>
+
+            <span>
+                ${escaparHTML(
+                    nombreCompleto || "-"
+                )}
+            </span>
+
+        `;
+
+
+        if (
+            usuario.activo !== true ||
+            usuario.socio_activo !== true
+        ) {
+
+            opcion.disabled = true;
+
+            opcion.title =
+                usuario.activo !== true
+                    ? "Cuenta de Biblioteca no habilitada"
+                    : "No figura como socio FIO activo";
+        }
+
+
+        opcion.addEventListener(
+            "click",
+            function () {
+
+                seleccionarSocioReserva(
+                    usuario
+                );
+            }
+        );
+
+
+        contenedor.appendChild(
+            opcion
+        );
+    });
+}
+
+
+/* ==========================================================
+   SELECCIONAR SOCIO
+   ========================================================== */
+
+function seleccionarSocioReserva(usuario) {
+
+    socioReservaSeleccionado =
+        usuario;
+
+
+    const nombreCompleto =
+        [
+            usuario.nombre,
+            usuario.apellidos
+        ]
+        .filter(Boolean)
+        .join(" ");
+
+
+    document
+        .getElementById("buscar-socio-reserva")
+        .value =
+            [
+                usuario.numero_socio,
+                nombreCompleto
+            ]
+            .filter(Boolean)
+            .join(" — ");
+
+
+    document
+        .getElementById("resultados-socio-reserva")
+        .innerHTML = "";
+
+
+    actualizarBotonRegistrarReserva();
+}
+
+
+/* ==========================================================
+   BOTÓN REGISTRAR RESERVA
+   ========================================================== */
+
+function actualizarBotonRegistrarReserva() {
+
+    document
+        .getElementById("btn-registrar-reserva")
+        .disabled =
+            !socioReservaSeleccionado ||
+            !ejemplarReservaSeleccionado;
 }
 
 

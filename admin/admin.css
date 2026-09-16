@@ -2753,7 +2753,7 @@ body {
 
 
 /* ----------------------------------------------------------
-   ESTADO DEL PRÉSTAMO
+   ESTADOS - FICHA DEL PRÉSTAMO
    ---------------------------------------------------------- */
 
 #ficha-prestamo-estado {
@@ -2762,17 +2762,36 @@ body {
 
     padding: 4px 10px;
 
-    border: 1px solid #c6dfcf;
     border-radius: 20px;
-
-    background: #e8f3ec;
-
-    color: #356448 !important;
 
     font-size: 0.82rem !important;
     font-weight: 700 !important;
 
     letter-spacing: 0.02em;
+}
+
+
+/* Préstamo actualmente en curso */
+
+#ficha-prestamo-estado.estado-prestamo-prestado {
+
+    background: #fff3df;
+
+    border: 1px solid #ead3aa;
+
+    color: #8a5a16 !important;
+}
+
+
+/* Préstamo ya devuelto */
+
+#ficha-prestamo-estado.estado-prestamo-devuelto {
+
+    background: #e8f3ec;
+
+    border: 1px solid #c6dfcf;
+
+    color: #356448 !important;
 }
 
 

@@ -775,6 +775,29 @@ function abrirFichaPrestamo(prestamo) {
     estado.textContent =
         prestamo.estado || "-";
 
+
+    const estadoFicha =
+    document.getElementById("ficha-prestamo-estado");
+
+    estadoFicha.classList.remove(
+        "estado-prestamo-prestado",
+        "estado-prestamo-devuelto"
+    );
+
+    if (prestamo.estado === "PRESTADO") {
+
+        estadoFicha.classList.add(
+            "estado-prestamo-prestado"
+        );
+
+    } else if (prestamo.estado === "DEVUELTO") {
+
+        estadoFicha.classList.add(
+            "estado-prestamo-devuelto"
+        );
+    }
+
+
     estado.className =
         "estado-admin " +
         claseEstadoPrestamo(

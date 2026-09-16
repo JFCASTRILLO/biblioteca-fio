@@ -539,12 +539,10 @@ async function buscarEjemplaresReserva() {
         return;
     }
 
-
     try {
 
         const termino =
             texto.replaceAll(",", " ");
-
 
         const {
             data,
@@ -558,7 +556,13 @@ async function buscarEjemplaresReserva() {
                 autor,
                 estado
             `)
-            .eq("estado", "PRESTADO")
+            .in(
+                "estado",
+                [
+                    "DISPONIBLE",
+                    "PRESTADO"
+                ]
+            )
             .or(
                 `clave.ilike.%${termino}%,` +
                 `titulo.ilike.%${termino}%,` +
@@ -618,7 +622,7 @@ function mostrarResultadosEjemplaresReserva(lista) {
 
         contenedor.innerHTML = `
             <div class="resultado-busqueda-vacio">
-                No hay ejemplares prestados que coincidan.
+                No hay ejemplares disponibles o prestados que coincidan.
             </div>
         `;
 
@@ -658,8 +662,13 @@ function mostrarResultadosEjemplaresReserva(lista) {
                 )}
             </small>
 
-        `;
+            <small>
+                Estado: ${escaparHTML(
+                    ejemplar.estado || "-"
+                )}
+            </small>
 
+        `;
 
         opcion.addEventListener(
             "click",

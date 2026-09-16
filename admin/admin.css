@@ -2965,128 +2965,20 @@ body {
 }
 
 /* ==========================================================
-   FICHA DE RESERVA
-   ========================================================== */
-
-#modal-ficha-reserva {
-    align-items: center;
-    justify-content: center;
-    padding: 30px;
-}
-
-
-#modal-ficha-reserva .ficha-reserva-admin {
-    width: min(760px, 94vw);
-    max-height: 90vh;
-    margin: 0;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-
-.contenido-ficha-reserva {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 22px 32px;
-    padding: 28px;
-}
-
-
-.dato-reserva {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    min-width: 0;
-}
-
-
-.dato-reserva.ancho-completo {
-    grid-column: 1 / -1;
-}
-
-
-.etiqueta-reserva {
-    display: block;
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: #687080;
-}
-
-
-.dato-reserva > span:not(.etiqueta-reserva) {
-    font-size: 0.98rem;
-    line-height: 1.4;
-    color: #20242c;
-}
-
-
-#modal-ficha-reserva .acciones-ficha-ejemplar {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-    padding: 16px 28px 20px;
-    border-top: 1px solid #e0e3e8;
-}
-
-
-#btn-cerrar-ficha-reserva {
-    padding: 10px 18px;
-    border: 1px solid #b8bec8;
-    border-radius: 5px;
-    background: #ffffff;
-    color: #20242c;
-    font: inherit;
-    font-weight: 600;
-    cursor: pointer;
-
-    transition:
-        background-color 0.2s ease,
-        border-color 0.2s ease,
-        transform 0.15s ease;
-}
-
-
-#btn-cerrar-ficha-reserva:hover {
-    background: #f1f3f6;
-    border-color: #8f98a6;
-    transform: translateY(-1px);
-}
-
-
-@media (max-width: 650px) {
-
-    #modal-ficha-reserva {
-        padding: 15px;
-    }
-
-    .contenido-ficha-reserva {
-        grid-template-columns: 1fr;
-        gap: 18px;
-        padding: 22px;
-    }
-
-    .dato-reserva.ancho-completo {
-        grid-column: auto;
-    }
-}
-
-/* ==========================================================
-   FILAS INTERACTIVAS - RESERVAS
+   RESERVAS - FILAS INTERACTIVAS
    ========================================================== */
 
 .fila-reserva {
     cursor: pointer;
-    transition:
-        background-color 0.18s ease;
+    transition: background-color 0.18s ease;
 }
-
 
 .fila-reserva:hover {
     background-color: #f2f4f8;
 }
 
 /* ==========================================================
-   AJUSTE VISUAL FINAL - FICHA DE RESERVA
+   RESERVAS - FICHA DE RESERVA (CONSOLIDADA)
    ========================================================== */
 
 #modal-ficha-reserva {
@@ -3095,593 +2987,208 @@ body {
     padding: 30px;
 }
 
-
-/* Ventana */
-
 #modal-ficha-reserva .ficha-reserva-admin {
     width: min(760px, 94vw);
-    max-height: 90vh;
+    max-height: 94vh;
     margin: 0;
-    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
+    background: #f3f7fb;
+    border: 1px solid #d8deea;
+    border-radius: 10px;
+    box-shadow: 0 18px 45px rgba(25, 36, 70, 0.18);
 }
-
 
 /* Cabecera */
 
 #modal-ficha-reserva .cabecera-ficha-ejemplar {
-    padding: 22px 28px 18px;
+    flex-shrink: 0;
+    padding: 18px 28px 10px;
+    background: linear-gradient(135deg, #ffffff 0%, #eef5fb 100%);
+    border-bottom: 1px solid #d8deea;
 }
-
 
 #modal-ficha-reserva .cabecera-ficha-ejemplar h2 {
     margin: 0 0 6px 0;
+    color: #212c59;
     font-size: 1.45rem;
     line-height: 1.2;
 }
 
-
 #modal-ficha-reserva .cabecera-ficha-ejemplar p {
     margin: 0;
+    color: #6b7280;
     font-size: 0.95rem;
     line-height: 1.4;
 }
 
-
-/* Zona de datos */
+/* Cuerpo */
 
 #modal-ficha-reserva .contenido-ficha-reserva {
+    flex: 1 1 auto;
+    min-height: 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px 32px;
-
-    padding: 22px 28px 26px;
+    gap: 12px 32px;
+    padding: 8px 28px 18px;
+    overflow-y: visible;
+    background: #f3f7fb;
 }
-
-
-/* Cada dato */
 
 #modal-ficha-reserva .dato-reserva {
     display: flex;
     flex-direction: column;
     gap: 5px;
     min-width: 0;
-}
-
-
-#modal-ficha-reserva .dato-reserva.ancho-completo {
-    grid-column: 1 / -1;
-}
-
-
-/* Etiquetas */
-
-#modal-ficha-reserva .etiqueta-reserva {
-    display: block;
-
-    font-size: 0.86rem;
-    font-weight: 600;
-
-    color: #687080;
-}
-
-
-/* Valores */
-
-#modal-ficha-reserva
-.dato-reserva > span:not(.etiqueta-reserva) {
-
-    font-size: 0.98rem;
-    line-height: 1.4;
-
-    color: #20242c;
-}
-
-
-/* Observaciones */
-
-#modal-ficha-reserva
-.observaciones-ficha-prestamo {
-
-    min-height: 48px;
-
-    padding: 10px 12px;
-
-    border: 1px solid #d6d9df;
-    border-radius: 5px;
-
-    background: #f7f8fa;
-
-    color: #303640;
-
-    font-size: 0.95rem;
-    line-height: 1.4;
-
-    box-sizing: border-box;
-}
-
-
-/* Pie */
-
-#modal-ficha-reserva .acciones-ficha-ejemplar {
-
-    display: flex;
-
-    justify-content: flex-end;
-    align-items: center;
-
-    gap: 12px;
-
-    padding: 16px 28px 20px;
-
-    border-top: 1px solid #e0e3e8;
-}
-
-
-/* Botón cerrar */
-
-#modal-ficha-reserva #btn-cerrar-ficha-reserva {
-
-    padding: 10px 18px;
-
-    border: 1px solid #b8bec8;
-    border-radius: 5px;
-
+    padding: 9px 14px;
     background: #ffffff;
-    color: #20242c;
-
-    font: inherit;
-    font-size: 0.95rem;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition:
-        background-color 0.2s ease,
-        border-color 0.2s ease,
-        transform 0.15s ease;
-}
-
-
-#modal-ficha-reserva #btn-cerrar-ficha-reserva:hover {
-
-    background: #f1f3f6;
-    border-color: #8f98a6;
-
-    transform: translateY(-1px);
-}
-
-
-/* ==========================================================
-   RESPONSIVE
-   ========================================================== */
-
-@media (max-width: 650px) {
-
-    #modal-ficha-reserva {
-        padding: 15px;
-    }
-
-
-    #modal-ficha-reserva .contenido-ficha-reserva {
-
-        grid-template-columns: 1fr;
-
-        gap: 17px;
-
-        padding: 20px 22px 24px;
-    }
-
-
-    #modal-ficha-reserva
-    .dato-reserva.ancho-completo {
-
-        grid-column: auto;
-    }
-
-
-    #modal-ficha-reserva
-    .cabecera-ficha-ejemplar {
-
-        padding: 20px 22px 16px;
-    }
-
-
-    #modal-ficha-reserva
-    .acciones-ficha-ejemplar {
-
-        padding: 15px 22px 18px;
-    }
-}
-
-/* ==========================================================
-   FICHA DE RESERVA - ESTILO VISUAL
-   ========================================================== */
-
-
-/* Fondo general de la ficha */
-
-#modal-ficha-reserva .ficha-reserva-admin {
-    background: #f5f7fb;
-
-    border: 1px solid #d8deea;
-
-    box-shadow:
-        0 18px 45px rgba(25, 36, 70, 0.18);
-}
-
-
-/* ----------------------------------------------------------
-   CABECERA
-   ---------------------------------------------------------- */
-
-#modal-ficha-reserva .cabecera-ficha-ejemplar {
-
-    background:
-        linear-gradient(
-            135deg,
-            #ffffff 0%,
-            #f1f4fa 100%
-        );
-
-    border-bottom: 1px solid #d8deea;
-}
-
-
-#modal-ficha-reserva .cabecera-ficha-ejemplar h2 {
-    color: #212c59;
-}
-
-
-#modal-ficha-reserva .cabecera-ficha-ejemplar p {
-    color: #6b7280;
-}
-
-
-/* ----------------------------------------------------------
-   CUERPO
-   ---------------------------------------------------------- */
-
-#modal-ficha-reserva .contenido-ficha-reserva {
-    background: #f5f7fb;
-}
-
-
-/* Cada dato se convierte en una pequeña tarjeta */
-
-#modal-ficha-reserva .dato-reserva {
-
-    padding: 12px 14px;
-
-    background: #ffffff;
-
-    border: 1px solid #d9deea;
+    border: 1px solid #d5e0ea;
     border-radius: 7px;
-
-    box-shadow:
-        0 2px 5px rgba(33, 44, 89, 0.05);
-
+    box-shadow: 0 2px 5px rgba(33, 44, 89, 0.05);
     transition:
         border-color 0.2s ease,
         box-shadow 0.2s ease,
         transform 0.15s ease;
 }
 
-
-/* Pequeño efecto al pasar el ratón */
-
 #modal-ficha-reserva .dato-reserva:hover {
-
     border-color: #aeb9d1;
-
-    box-shadow:
-        0 4px 10px rgba(33, 44, 89, 0.09);
-
+    box-shadow: 0 4px 10px rgba(33, 44, 89, 0.09);
     transform: translateY(-1px);
 }
 
-
-/* Etiquetas */
-
-#modal-ficha-reserva .etiqueta-reserva {
-
-    font-size: 0.78rem;
-
-    font-weight: 700;
-
-    letter-spacing: 0.025em;
-
-    text-transform: uppercase;
-
-    color: #727b8d;
-}
-
-
-/* Valores */
-
-#modal-ficha-reserva
-.dato-reserva > span:not(.etiqueta-reserva) {
-
-    color: #252b38;
-
-    font-weight: 500;
-}
-
-
-/* ----------------------------------------------------------
-   ESTADO
-   ---------------------------------------------------------- */
-
-#ficha-reserva-estado {
-
-    align-self: flex-start;
-
-    padding: 4px 10px;
-
-    border-radius: 20px;
-
-    background: #e8f3ec;
-
-    border: 1px solid #c6dfcf;
-
-    color: #356448 !important;
-
-    font-size: 0.82rem !important;
-
-    font-weight: 700 !important;
-
-    letter-spacing: 0.02em;
-}
-
-
-/* ----------------------------------------------------------
-   OBSERVACIONES
-   ---------------------------------------------------------- */
-
-#modal-ficha-reserva
-.dato-reserva:has(#ficha-reserva-observaciones) {
-
-    background: #ffffff;
-}
-
-
-#modal-ficha-reserva
-.observaciones-ficha-prestamo {
-
-    margin-top: 2px;
-
-    background: #f8f9fc;
-
-    border: 1px solid #e0e4ec;
-
-    box-shadow: inset 0 1px 2px rgba(33, 44, 89, 0.03);
-}
-
-
-/* ----------------------------------------------------------
-   PIE
-   ---------------------------------------------------------- */
-
-#modal-ficha-reserva .acciones-ficha-ejemplar {
-
-    background: #ffffff;
-
-    border-top: 1px solid #d8deea;
-}
-
-/* ==========================================================
-   FICHA RESERVA - AJUSTE AZUL + ALTURA
-   ========================================================== */
-
-
-/* Fondo azul grisáceo muy suave */
-
-#modal-ficha-reserva .ficha-reserva-admin {
-    background: #f3f7fb;
-}
-
-
-/* Cabecera con un ligero tono azul */
-
-#modal-ficha-reserva .cabecera-ficha-ejemplar {
-    background:
-        linear-gradient(
-            135deg,
-            #ffffff 0%,
-            #eef5fb 100%
-        );
-
-    padding: 18px 28px 15px;
-}
-
-
-/* Cuerpo */
-
-#modal-ficha-reserva .contenido-ficha-reserva {
-
-    background: #f3f7fb;
-
-    /* Reducimos espacios verticales */
-    gap: 14px 32px;
-
-    padding: 16px 28px 18px;
-
-    /* Protección para pantallas con poca altura */
-    overflow-y: auto;
-}
-
-
-/* Tarjetas */
-
-#modal-ficha-reserva .dato-reserva {
-
-    padding: 9px 14px;
-
-    background: #ffffff;
-
-    border-color: #d5e0ea;
-}
-
-
-/* Tarjetas anchas: socio, ejemplar y observaciones */
-
-#modal-ficha-reserva
-.dato-reserva.ancho-completo {
-
+#modal-ficha-reserva .dato-reserva.ancho-completo {
+    grid-column: 1 / -1;
     padding-top: 9px;
     padding-bottom: 9px;
 }
 
-
-/* Etiquetas algo más compactas */
-
 #modal-ficha-reserva .etiqueta-reserva {
-
+    display: block;
     margin: 0;
-
-    line-height: 1.15;
-
     color: #64758a;
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
 }
 
-
-/* Valores */
-
-#modal-ficha-reserva
-.dato-reserva > span:not(.etiqueta-reserva) {
-
+#modal-ficha-reserva .dato-reserva > span:not(.etiqueta-reserva) {
+    color: #252b38;
+    font-size: 0.98rem;
+    font-weight: 500;
     line-height: 1.3;
 }
 
+/* Estado */
 
-/* Observaciones */
+#ficha-reserva-estado {
+    align-self: flex-start;
+    padding: 4px 10px;
+    background: #e8f3ec;
+    border: 1px solid #c6dfcf;
+    border-radius: 20px;
+    color: #356448 !important;
+    font-size: 0.82rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.02em;
+}
 
-#modal-ficha-reserva
-.observaciones-ficha-prestamo {
+/* Observaciones: el scroll pertenece únicamente a este campo */
 
-    min-height: 42px;
+#modal-ficha-reserva .dato-reserva:has(#ficha-reserva-observaciones) {
+    background: #ffffff;
+}
 
-    padding: 8px 10px;
-
+#modal-ficha-reserva .observaciones-ficha-prestamo {
+    height: 54px;
+    min-height: 54px;
+    max-height: 54px;
     margin-top: 1px;
+    padding: 8px 10px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    background: #f8f9fc;
+    border: 1px solid #e0e4ec;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 2px rgba(33, 44, 89, 0.03);
+    color: #303640;
+    font-size: 0.95rem;
+    line-height: 1.4;
 }
 
-
-/* Pie más compacto */
+/* Pie y botón Cerrar */
 
 #modal-ficha-reserva .acciones-ficha-ejemplar {
-
-    padding: 12px 28px 14px;
-}
-
-
-/* La ficha puede aprovechar algo más de la pantalla */
-
-#modal-ficha-reserva .ficha-reserva-admin {
-
-    max-height: 94vh;
-
-    display: flex;
-    flex-direction: column;
-}
-
-
-/* La cabecera y el pie nunca se encogen */
-
-#modal-ficha-reserva .cabecera-ficha-ejemplar,
-#modal-ficha-reserva .acciones-ficha-ejemplar {
-
     flex-shrink: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 28px 12px;
+    background: #ffffff;
+    border-top: 1px solid #d8deea;
 }
 
-
-/* El cuerpo ocupa el espacio disponible */
-
-#modal-ficha-reserva .contenido-ficha-reserva {
-
-    flex: 1 1 auto;
-
-    min-height: 0;
+#modal-ficha-reserva #btn-cerrar-ficha-reserva {
+    padding: 10px 18px;
+    background: #ffffff;
+    border: 1px solid #b8bec8;
+    border-radius: 5px;
+    color: #20242c;
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.15s ease;
 }
 
+#modal-ficha-reserva #btn-cerrar-ficha-reserva:hover {
+    background: #f1f3f6;
+    border-color: #8f98a6;
+    transform: translateY(-1px);
+}
 
-/* ==========================================================
-   PANTALLAS DE POCA ALTURA
-   ========================================================== */
+/* Responsive */
+
+@media (max-width: 650px) {
+    #modal-ficha-reserva {
+        padding: 15px;
+    }
+
+    #modal-ficha-reserva .cabecera-ficha-ejemplar {
+        padding: 18px 22px 10px;
+    }
+
+    #modal-ficha-reserva .contenido-ficha-reserva {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 8px 22px 18px;
+    }
+
+    #modal-ficha-reserva .dato-reserva.ancho-completo {
+        grid-column: auto;
+    }
+
+    #modal-ficha-reserva .acciones-ficha-ejemplar {
+        padding: 10px 22px 12px;
+    }
+}
 
 @media (max-height: 750px) {
-
     #modal-ficha-reserva {
         padding-top: 15px;
         padding-bottom: 15px;
     }
 
-
     #modal-ficha-reserva .ficha-reserva-admin {
         max-height: 96vh;
     }
-
-
-    #modal-ficha-reserva .contenido-ficha-reserva {
-        overflow-y: auto;
-    }
-}
-
-/* ==========================================================
-   FICHA RESERVA - COMPACTACIÓN VERTICAL FINAL
-   ========================================================== */
-
-
-/* Acercamos los datos a la cabecera */
-
-#modal-ficha-reserva .cabecera-ficha-ejemplar {
-    padding-bottom: 10px;
-}
-
-
-#modal-ficha-reserva .contenido-ficha-reserva {
-
-    padding-top: 8px;
-
-    /* Un poco menos de separación entre filas */
-    gap: 12px 32px;
-
-    /* La ficha completa NO tendrá scroll */
-    overflow-y: visible;
-}
-
-
-/* Observaciones: altura fija y scroll SOLO aquí */
-
-#modal-ficha-reserva
-.observaciones-ficha-prestamo {
-
-    height: 54px;
-    min-height: 54px;
-    max-height: 54px;
-
-    overflow-y: auto;
-
-    padding: 8px 10px;
-
-    box-sizing: border-box;
-}
-
-
-/* Pie algo más compacto */
-
-#modal-ficha-reserva .acciones-ficha-ejemplar {
-    padding-top: 10px;
-    padding-bottom: 12px;
-}
-
-
-/* ----------------------------------------------------------
-   Quitamos el scroll general que habíamos previsto
-   para pantallas de poca altura
-   ---------------------------------------------------------- */
-
-@media (max-height: 750px) {
 
     #modal-ficha-reserva .contenido-ficha-reserva {
         overflow-y: visible;

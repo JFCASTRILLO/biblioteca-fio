@@ -222,6 +222,177 @@
 
     </main>
 
+        <!-- =====================================================
+         NUEVA RESERVA
+         ===================================================== -->
+
+    <div
+        id="modal-nueva-reserva"
+        class="modal-ejemplar-admin"
+    >
+
+        <div class="ficha-ejemplar-admin">
+
+            <div class="cabecera-ficha-ejemplar asa-ficha-prestamo">
+
+                <div>
+
+                    <h2>
+                        Nueva reserva
+                    </h2>
+
+                    <p>
+                        Seleccione el socio y el ejemplar que desea reservar.
+                    </p>
+
+                </div>
+
+
+                <button
+                    id="cerrar-nueva-reserva"
+                    type="button"
+                    class="cerrar-ficha-ejemplar"
+                    title="Cerrar"
+                >
+                    &times;
+                </button>
+
+            </div>
+
+
+            <div class="contenido-ficha-ejemplar">
+
+
+                <!-- SOCIO -->
+
+                <div class="campo-ficha-ejemplar">
+
+                    <label for="buscar-socio-reserva">
+                        Socio
+                    </label>
+
+                    <input
+                        type="text"
+                        id="buscar-socio-reserva"
+                        placeholder="Nº de socio, nombre o apellidos..."
+                        autocomplete="off"
+                    >
+
+                    <div id="resultados-socio-reserva"></div>
+
+                </div>
+
+
+                <!-- EJEMPLAR -->
+
+                <div class="campo-ficha-ejemplar">
+
+                    <label for="buscar-ejemplar-reserva">
+                        Ejemplar
+                    </label>
+
+                    <input
+                        type="text"
+                        id="buscar-ejemplar-reserva"
+                        placeholder="ID, clave, título o autor..."
+                        autocomplete="off"
+                    >
+
+                    <div id="resultados-ejemplar-reserva"></div>
+
+                </div>
+
+
+                <!-- MEDIO DE CONTACTO -->
+
+                <div class="campo-ficha-ejemplar">
+
+                    <label for="medio-contacto-reserva">
+                        Medio de contacto
+                    </label>
+
+                    <select id="medio-contacto-reserva">
+
+                        <option value="">
+                            Sin indicar
+                        </option>
+
+                        <option value="EMAIL">
+                            Email
+                        </option>
+
+                        <option value="TELEFONO">
+                            Teléfono
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- DATO DE CONTACTO -->
+
+                <div class="campo-ficha-ejemplar">
+
+                    <label for="dato-contacto-reserva">
+                        Dato de contacto
+                    </label>
+
+                    <input
+                        type="text"
+                        id="dato-contacto-reserva"
+                        placeholder="Email o teléfono para esta reserva..."
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+                <!-- OBSERVACIONES -->
+
+                <div class="campo-ficha-ejemplar">
+
+                    <label for="observaciones-reserva">
+                        Observaciones
+                    </label>
+
+                    <textarea
+                        id="observaciones-reserva"
+                        rows="3"
+                        placeholder="Observaciones de la reserva..."
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <div class="acciones-ficha-ejemplar">
+
+                <button
+                    id="btn-cancelar-nueva-reserva"
+                    type="button"
+                    class="btn-cancelar-ejemplar"
+                >
+                    Cancelar
+                </button>
+
+
+                <button
+                    id="btn-registrar-reserva"
+                    type="button"
+                    class="btn-guardar-ejemplar"
+                    disabled
+                >
+                    Registrar reserva
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
 
     <!-- =====================================================
          SCRIPTS

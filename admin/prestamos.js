@@ -183,7 +183,14 @@ async function iniciarPrestamos() {
             .addEventListener(
                 "input",
                 buscarEjemplarPrestamo
-    );
+            );
+
+        document
+            .getElementById("btn-registrar-prestamo")
+            .addEventListener(
+                "click",
+                registrarNuevoPrestamo
+            );
 
 
     }
@@ -533,6 +540,143 @@ function actualizarBotonRegistrarPrestamo() {
         ejemplarPrestamoSeleccionado
     );
 }
+
+// ==================================================
+// REGISTRAR NUEVO PRÉSTAMO
+// ==================================================
+
+async function registrarNuevoPrestamo() {
+
+    const boton =
+        document.getElementById("btn-registrar-prestamo");
+
+    if (
+        !usuarioPrestamoSeleccionado ||
+        !ejemplarPrestamoSeleccionado
+    ) {
+        return;
+    }
+
+    const observaciones =
+        document
+            .getElementById("observaciones-prestamo")
+            .value
+            .trim();
+
+    const usuario = usuarioPrestamoSeleccionado;
+    const ejemplar = ejemplarPrestamoSeleccionado;
+
+    try {
+
+        // Evitar doble pulsación mientras se registra.
+        boton.disabled = true;
+        boton.textContent = "Registrando...";
+
+        const {
+            data,
+            error
+        } = await supabaseClient.rpc(
+            "registrar_prestamo",
+            {
+                p_usuario_id: usuario.id,
+                p_ejemplar_id: ejemplar.id,
+                p_observaciones:
+                    observaciones || null
+            }
+        );
+
+        if (error) {
+            throw error;
+        }
+
+        // La función devuelve el ID del préstamo creado.
+        const idPrestamo =
+            Array.isArray(data)
+                ? data[0]?.id
+                : data?.id ?? data;
+
+        cerrarNuevoPrestamo();
+
+        // Recargar la tabla para mostrar el préstamo recién creado.
+        await cargarPrestamos();
+
+        // Localizamos el préstamo recién creado.
+        const nuevoPrestamo =
+            todosLosPrestamos.find(
+                prestamo =>
+                    String(prestamo.id) ===
+                    String(idPrestamo)
+            );
+
+        let fechaPrestamo = "";
+        let fechaDevolucion = "";
+
+        if (nuevoPrestamo) {
+
+            fechaPrestamo =
+                formatearFecha(
+                    nuevoPrestamo.fecha_prestamo
+                );
+
+            fechaDevolucion =
+                formatearFecha(
+                    nuevoPrestamo.fecha_prevista_devolucion
+                );
+        }
+
+        let mensaje =
+            "Préstamo registrado correctamente.\n\n" +
+            "Socio: " +
+            (usuario.numero_socio || "") +
+            " — " +
+            [usuario.nombre, usuario.apellidos]
+                .filter(Boolean)
+                .join(" ") +
+            "\n\n" +
+            "Ejemplar: " +
+            (ejemplar.clave || "") +
+            " — " +
+            (ejemplar.titulo || "");
+
+        if (fechaPrestamo) {
+            mensaje +=
+                "\n\nFecha del préstamo: " +
+                fechaPrestamo;
+        }
+
+        if (fechaDevolucion) {
+            mensaje +=
+                "\nDevolución prevista: " +
+                fechaDevolucion;
+        }
+
+        alert(mensaje);
+
+    }
+    catch (error) {
+
+        console.error(
+            "Error registrando préstamo:",
+            error
+        );
+
+        alert(
+            "No se ha podido registrar el préstamo.\n\n" +
+            (error.message ||
+                "Se ha producido un error inesperado.")
+        );
+    }
+    finally {
+
+        boton.textContent =
+            "Registrar préstamo";
+
+        actualizarBotonRegistrarPrestamo();
+    }
+}
+
+
+
 
 /* ==========================================================
    CARGAR PRÉSTAMOS

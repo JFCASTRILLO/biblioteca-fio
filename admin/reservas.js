@@ -139,6 +139,30 @@ async function iniciarReservas() {
                 limpiarFiltrosReservas
             );
 
+        
+         document
+            .getElementById("btn-nueva-reserva")
+            .addEventListener(
+                "click",
+                abrirNuevaReserva
+            );
+
+
+        document
+            .getElementById("cerrar-nueva-reserva")
+            .addEventListener(
+                "click",
+                cerrarNuevaReserva
+            );
+
+
+        document
+            .getElementById("btn-cancelar-nueva-reserva")
+            .addEventListener(
+                "click",
+                cerrarNuevaReserva
+            );
+
     }
     catch (error) {
 
@@ -151,6 +175,67 @@ async function iniciarReservas() {
             "No se ha podido iniciar el módulo de reservas."
         );
     }
+}
+
+    /* ==========================================================
+   NUEVA RESERVA
+   ========================================================== */
+
+function abrirNuevaReserva() {
+
+    limpiarNuevaReserva();
+
+    document
+        .getElementById("modal-nueva-reserva")
+        .style.display = "flex";
+}
+
+
+function cerrarNuevaReserva() {
+
+    document
+        .getElementById("modal-nueva-reserva")
+        .style.display = "none";
+
+    limpiarNuevaReserva();
+}
+
+
+function limpiarNuevaReserva() {
+
+    document
+        .getElementById("buscar-socio-reserva")
+        .value = "";
+
+    document
+        .getElementById("buscar-ejemplar-reserva")
+        .value = "";
+
+    document
+        .getElementById("medio-contacto-reserva")
+        .value = "";
+
+    document
+        .getElementById("dato-contacto-reserva")
+        .value = "";
+
+    document
+        .getElementById("observaciones-reserva")
+        .value = "";
+
+
+    document
+        .getElementById("resultados-socio-reserva")
+        .innerHTML = "";
+
+    document
+        .getElementById("resultados-ejemplar-reserva")
+        .innerHTML = "";
+
+
+    document
+        .getElementById("btn-registrar-reserva")
+        .disabled = true;
 }
 
 

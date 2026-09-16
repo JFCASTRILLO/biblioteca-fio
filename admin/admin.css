@@ -3293,3 +3293,178 @@ body {
         padding: 15px 22px 18px;
     }
 }
+
+/* ==========================================================
+   FICHA DE RESERVA - ESTILO VISUAL
+   ========================================================== */
+
+
+/* Fondo general de la ficha */
+
+#modal-ficha-reserva .ficha-reserva-admin {
+    background: #f5f7fb;
+
+    border: 1px solid #d8deea;
+
+    box-shadow:
+        0 18px 45px rgba(25, 36, 70, 0.18);
+}
+
+
+/* ----------------------------------------------------------
+   CABECERA
+   ---------------------------------------------------------- */
+
+#modal-ficha-reserva .cabecera-ficha-ejemplar {
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #f1f4fa 100%
+        );
+
+    border-bottom: 1px solid #d8deea;
+}
+
+
+#modal-ficha-reserva .cabecera-ficha-ejemplar h2 {
+    color: #212c59;
+}
+
+
+#modal-ficha-reserva .cabecera-ficha-ejemplar p {
+    color: #6b7280;
+}
+
+
+/* ----------------------------------------------------------
+   CUERPO
+   ---------------------------------------------------------- */
+
+#modal-ficha-reserva .contenido-ficha-reserva {
+    background: #f5f7fb;
+}
+
+
+/* Cada dato se convierte en una pequeña tarjeta */
+
+#modal-ficha-reserva .dato-reserva {
+
+    padding: 12px 14px;
+
+    background: #ffffff;
+
+    border: 1px solid #d9deea;
+    border-radius: 7px;
+
+    box-shadow:
+        0 2px 5px rgba(33, 44, 89, 0.05);
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+/* Pequeño efecto al pasar el ratón */
+
+#modal-ficha-reserva .dato-reserva:hover {
+
+    border-color: #aeb9d1;
+
+    box-shadow:
+        0 4px 10px rgba(33, 44, 89, 0.09);
+
+    transform: translateY(-1px);
+}
+
+
+/* Etiquetas */
+
+#modal-ficha-reserva .etiqueta-reserva {
+
+    font-size: 0.78rem;
+
+    font-weight: 700;
+
+    letter-spacing: 0.025em;
+
+    text-transform: uppercase;
+
+    color: #727b8d;
+}
+
+
+/* Valores */
+
+#modal-ficha-reserva
+.dato-reserva > span:not(.etiqueta-reserva) {
+
+    color: #252b38;
+
+    font-weight: 500;
+}
+
+
+/* ----------------------------------------------------------
+   ESTADO
+   ---------------------------------------------------------- */
+
+#ficha-reserva-estado {
+
+    align-self: flex-start;
+
+    padding: 4px 10px;
+
+    border-radius: 20px;
+
+    background: #e8f3ec;
+
+    border: 1px solid #c6dfcf;
+
+    color: #356448 !important;
+
+    font-size: 0.82rem !important;
+
+    font-weight: 700 !important;
+
+    letter-spacing: 0.02em;
+}
+
+
+/* ----------------------------------------------------------
+   OBSERVACIONES
+   ---------------------------------------------------------- */
+
+#modal-ficha-reserva
+.dato-reserva:has(#ficha-reserva-observaciones) {
+
+    background: #ffffff;
+}
+
+
+#modal-ficha-reserva
+.observaciones-ficha-prestamo {
+
+    margin-top: 2px;
+
+    background: #f8f9fc;
+
+    border: 1px solid #e0e4ec;
+
+    box-shadow: inset 0 1px 2px rgba(33, 44, 89, 0.03);
+}
+
+
+/* ----------------------------------------------------------
+   PIE
+   ---------------------------------------------------------- */
+
+#modal-ficha-reserva .acciones-ficha-ejemplar {
+
+    background: #ffffff;
+
+    border-top: 1px solid #d8deea;
+}

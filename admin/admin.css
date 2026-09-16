@@ -2963,3 +2963,109 @@ body {
     font-size: 0.95rem;
     font-weight: 600;
 }
+
+/* ==========================================================
+   FICHA DE RESERVA
+   ========================================================== */
+
+#modal-ficha-reserva {
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+
+#modal-ficha-reserva .ficha-reserva-admin {
+    width: min(760px, 94vw);
+    max-height: 90vh;
+    margin: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+
+.contenido-ficha-reserva {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 32px;
+    padding: 28px;
+}
+
+
+.dato-reserva {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+
+.dato-reserva.ancho-completo {
+    grid-column: 1 / -1;
+}
+
+
+.etiqueta-reserva {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #687080;
+}
+
+
+.dato-reserva > span:not(.etiqueta-reserva) {
+    font-size: 0.98rem;
+    line-height: 1.4;
+    color: #20242c;
+}
+
+
+#modal-ficha-reserva .acciones-ficha-ejemplar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 16px 28px 20px;
+    border-top: 1px solid #e0e3e8;
+}
+
+
+#btn-cerrar-ficha-reserva {
+    padding: 10px 18px;
+    border: 1px solid #b8bec8;
+    border-radius: 5px;
+    background: #ffffff;
+    color: #20242c;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+#btn-cerrar-ficha-reserva:hover {
+    background: #f1f3f6;
+    border-color: #8f98a6;
+    transform: translateY(-1px);
+}
+
+
+@media (max-width: 650px) {
+
+    #modal-ficha-reserva {
+        padding: 15px;
+    }
+
+    .contenido-ficha-reserva {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding: 22px;
+    }
+
+    .dato-reserva.ancho-completo {
+        grid-column: auto;
+    }
+}

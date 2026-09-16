@@ -3468,3 +3468,161 @@ body {
 
     border-top: 1px solid #d8deea;
 }
+
+/* ==========================================================
+   FICHA RESERVA - AJUSTE AZUL + ALTURA
+   ========================================================== */
+
+
+/* Fondo azul grisáceo muy suave */
+
+#modal-ficha-reserva .ficha-reserva-admin {
+    background: #f3f7fb;
+}
+
+
+/* Cabecera con un ligero tono azul */
+
+#modal-ficha-reserva .cabecera-ficha-ejemplar {
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #eef5fb 100%
+        );
+
+    padding: 18px 28px 15px;
+}
+
+
+/* Cuerpo */
+
+#modal-ficha-reserva .contenido-ficha-reserva {
+
+    background: #f3f7fb;
+
+    /* Reducimos espacios verticales */
+    gap: 14px 32px;
+
+    padding: 16px 28px 18px;
+
+    /* Protección para pantallas con poca altura */
+    overflow-y: auto;
+}
+
+
+/* Tarjetas */
+
+#modal-ficha-reserva .dato-reserva {
+
+    padding: 9px 14px;
+
+    background: #ffffff;
+
+    border-color: #d5e0ea;
+}
+
+
+/* Tarjetas anchas: socio, ejemplar y observaciones */
+
+#modal-ficha-reserva
+.dato-reserva.ancho-completo {
+
+    padding-top: 9px;
+    padding-bottom: 9px;
+}
+
+
+/* Etiquetas algo más compactas */
+
+#modal-ficha-reserva .etiqueta-reserva {
+
+    margin: 0;
+
+    line-height: 1.15;
+
+    color: #64758a;
+}
+
+
+/* Valores */
+
+#modal-ficha-reserva
+.dato-reserva > span:not(.etiqueta-reserva) {
+
+    line-height: 1.3;
+}
+
+
+/* Observaciones */
+
+#modal-ficha-reserva
+.observaciones-ficha-prestamo {
+
+    min-height: 42px;
+
+    padding: 8px 10px;
+
+    margin-top: 1px;
+}
+
+
+/* Pie más compacto */
+
+#modal-ficha-reserva .acciones-ficha-ejemplar {
+
+    padding: 12px 28px 14px;
+}
+
+
+/* La ficha puede aprovechar algo más de la pantalla */
+
+#modal-ficha-reserva .ficha-reserva-admin {
+
+    max-height: 94vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* La cabecera y el pie nunca se encogen */
+
+#modal-ficha-reserva .cabecera-ficha-ejemplar,
+#modal-ficha-reserva .acciones-ficha-ejemplar {
+
+    flex-shrink: 0;
+}
+
+
+/* El cuerpo ocupa el espacio disponible */
+
+#modal-ficha-reserva .contenido-ficha-reserva {
+
+    flex: 1 1 auto;
+
+    min-height: 0;
+}
+
+
+/* ==========================================================
+   PANTALLAS DE POCA ALTURA
+   ========================================================== */
+
+@media (max-height: 750px) {
+
+    #modal-ficha-reserva {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+
+    #modal-ficha-reserva .ficha-reserva-admin {
+        max-height: 96vh;
+    }
+
+
+    #modal-ficha-reserva .contenido-ficha-reserva {
+        overflow-y: auto;
+    }
+}

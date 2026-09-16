@@ -3084,3 +3084,212 @@ body {
 .fila-reserva:hover {
     background-color: #f2f4f8;
 }
+
+/* ==========================================================
+   AJUSTE VISUAL FINAL - FICHA DE RESERVA
+   ========================================================== */
+
+#modal-ficha-reserva {
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+
+/* Ventana */
+
+#modal-ficha-reserva .ficha-reserva-admin {
+    width: min(760px, 94vw);
+    max-height: 90vh;
+    margin: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+
+/* Cabecera */
+
+#modal-ficha-reserva .cabecera-ficha-ejemplar {
+    padding: 22px 28px 18px;
+}
+
+
+#modal-ficha-reserva .cabecera-ficha-ejemplar h2 {
+    margin: 0 0 6px 0;
+    font-size: 1.45rem;
+    line-height: 1.2;
+}
+
+
+#modal-ficha-reserva .cabecera-ficha-ejemplar p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+
+/* Zona de datos */
+
+#modal-ficha-reserva .contenido-ficha-reserva {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 32px;
+
+    padding: 22px 28px 26px;
+}
+
+
+/* Cada dato */
+
+#modal-ficha-reserva .dato-reserva {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+
+#modal-ficha-reserva .dato-reserva.ancho-completo {
+    grid-column: 1 / -1;
+}
+
+
+/* Etiquetas */
+
+#modal-ficha-reserva .etiqueta-reserva {
+    display: block;
+
+    font-size: 0.86rem;
+    font-weight: 600;
+
+    color: #687080;
+}
+
+
+/* Valores */
+
+#modal-ficha-reserva
+.dato-reserva > span:not(.etiqueta-reserva) {
+
+    font-size: 0.98rem;
+    line-height: 1.4;
+
+    color: #20242c;
+}
+
+
+/* Observaciones */
+
+#modal-ficha-reserva
+.observaciones-ficha-prestamo {
+
+    min-height: 48px;
+
+    padding: 10px 12px;
+
+    border: 1px solid #d6d9df;
+    border-radius: 5px;
+
+    background: #f7f8fa;
+
+    color: #303640;
+
+    font-size: 0.95rem;
+    line-height: 1.4;
+
+    box-sizing: border-box;
+}
+
+
+/* Pie */
+
+#modal-ficha-reserva .acciones-ficha-ejemplar {
+
+    display: flex;
+
+    justify-content: flex-end;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 16px 28px 20px;
+
+    border-top: 1px solid #e0e3e8;
+}
+
+
+/* Botón cerrar */
+
+#modal-ficha-reserva #btn-cerrar-ficha-reserva {
+
+    padding: 10px 18px;
+
+    border: 1px solid #b8bec8;
+    border-radius: 5px;
+
+    background: #ffffff;
+    color: #20242c;
+
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+#modal-ficha-reserva #btn-cerrar-ficha-reserva:hover {
+
+    background: #f1f3f6;
+    border-color: #8f98a6;
+
+    transform: translateY(-1px);
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 650px) {
+
+    #modal-ficha-reserva {
+        padding: 15px;
+    }
+
+
+    #modal-ficha-reserva .contenido-ficha-reserva {
+
+        grid-template-columns: 1fr;
+
+        gap: 17px;
+
+        padding: 20px 22px 24px;
+    }
+
+
+    #modal-ficha-reserva
+    .dato-reserva.ancho-completo {
+
+        grid-column: auto;
+    }
+
+
+    #modal-ficha-reserva
+    .cabecera-ficha-ejemplar {
+
+        padding: 20px 22px 16px;
+    }
+
+
+    #modal-ficha-reserva
+    .acciones-ficha-ejemplar {
+
+        padding: 15px 22px 18px;
+    }
+}

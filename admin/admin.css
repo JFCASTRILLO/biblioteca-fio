@@ -2710,7 +2710,6 @@ body {
     transform: translateY(-1px);
 }
 
-
 /* Responsive */
 
 @media (max-width: 650px) {
@@ -2729,4 +2728,120 @@ body {
         padding: 15px;
     }
 
+}
+
+/* ==========================================================
+   NUEVA RESERVA
+   ========================================================== */
+
+#modal-nueva-reserva {
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+
+#modal-nueva-reserva .ficha-ejemplar-admin {
+    width: min(760px, 94vw);
+    max-height: 90vh;
+    margin: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+
+#modal-nueva-reserva .contenido-ficha-ejemplar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 28px;
+    padding: 28px;
+}
+
+
+#modal-nueva-reserva .campo-ficha-ejemplar {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+
+#modal-nueva-reserva .campo-ficha-ejemplar label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #343a46;
+}
+
+
+#modal-nueva-reserva input,
+#modal-nueva-reserva select,
+#modal-nueva-reserva textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+#modal-nueva-reserva input,
+#modal-nueva-reserva select {
+    min-height: 40px;
+}
+
+
+#modal-nueva-reserva textarea {
+    min-height: 82px;
+    resize: vertical;
+}
+
+
+/* Observaciones ocupa todo el ancho */
+
+#modal-nueva-reserva .campo-ficha-ejemplar:last-child {
+    grid-column: 1 / -1;
+}
+
+
+/* Resultados de búsqueda */
+
+#resultados-socio-reserva,
+#resultados-ejemplar-reserva {
+    position: relative;
+    width: 100%;
+}
+
+
+#resultados-socio-reserva .resultado-busqueda-prestamo,
+#resultados-ejemplar-reserva .resultado-busqueda-prestamo {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+/* Botones inferiores */
+
+#modal-nueva-reserva .acciones-ficha-ejemplar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 16px 28px 20px;
+    border-top: 1px solid #e0e3e8;
+}
+
+
+/* Responsive */
+
+@media (max-width: 650px) {
+
+    #modal-nueva-reserva {
+        padding: 15px;
+    }
+
+    #modal-nueva-reserva .contenido-ficha-ejemplar {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding: 22px;
+    }
+
+    #modal-nueva-reserva .campo-ficha-ejemplar:last-child {
+        grid-column: auto;
+    }
 }

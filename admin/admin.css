@@ -2549,3 +2549,16 @@ body {
     background: #fff5f5;
     border-color: #e5bcbc;
 }
+
+/* ==================================================
+   PRÉSTAMOS - FILAS INTERACTIVAS
+   ================================================== */
+
+.fila-prestamo {
+    cursor: pointer;
+    transition: background-color .15s ease;
+}
+
+.fila-prestamo:hover {
+    background: #f1f4fa;
+}

@@ -43,6 +43,7 @@ let usuariosPrestamo = [];
 let usuarioPrestamoSeleccionado = null;
 let ejemplaresPrestamo = [];
 let ejemplarPrestamoSeleccionado = null;
+let prestamoFichaSeleccionado = null;
 
 /* ==========================================================
    INICIO
@@ -192,6 +193,19 @@ async function iniciarPrestamos() {
                 registrarNuevoPrestamo
             );
 
+        document
+            .getElementById("cerrar-ficha-prestamo")
+            .addEventListener(
+                "click",
+                cerrarFichaPrestamo
+            );
+
+        document
+            .getElementById("btn-cerrar-ficha-prestamo")
+            .addEventListener(
+                "click",
+                cerrarFichaPrestamo
+            );
 
     }
     catch (error) {
@@ -675,7 +689,166 @@ async function registrarNuevoPrestamo() {
     }
 }
 
+// ==================================================
+// FICHA DEL PRÉSTAMO
+// ==================================================
 
+function abrirFichaPrestamo(prestamo) {
+
+    prestamoFichaSeleccionado = prestamo;
+
+    const usuario = prestamo.usuario || {};
+    const ejemplar = prestamo.ejemplar || {};
+
+    const nombreSocio =
+        [
+            usuario.nombre,
+            usuario.apellidos
+        ]
+        .filter(Boolean)
+        .join(" ");
+
+    document.getElementById(
+        "ficha-prestamo-id"
+    ).textContent =
+        prestamo.id || "-";
+
+
+    document.getElementById(
+        "ficha-prestamo-socio"
+    ).textContent =
+        [
+            usuario.numero_socio,
+            nombreSocio
+        ]
+        .filter(Boolean)
+        .join(" — ") || "-";
+
+
+    document.getElementById(
+        "ficha-prestamo-ejemplar"
+    ).textContent =
+        [
+            ejemplar.clave,
+            ejemplar.titulo
+        ]
+        .filter(Boolean)
+        .join(" — ") || "-";
+
+
+    document.getElementById(
+        "ficha-prestamo-fecha"
+    ).textContent =
+        formatearFecha(
+            prestamo.fecha_prestamo
+        );
+
+
+    document.getElementById(
+        "ficha-prestamo-prevista"
+    ).textContent =
+        formatearFecha(
+            prestamo.fecha_prevista_devolucion
+        );
+
+
+    document.getElementById(
+        "ficha-prestamo-devolucion"
+    ).textContent =
+        formatearFecha(
+            prestamo.fecha_devolucion
+        );
+
+
+    const estado =
+        document.getElementById(
+            "ficha-prestamo-estado"
+        );
+
+    estado.textContent =
+        prestamo.estado || "-";
+
+    estado.className =
+        "estado-admin " +
+        claseEstadoPrestamo(
+            prestamo.estado
+        );
+
+
+    document.getElementById(
+        "ficha-prestamo-observaciones"
+    ).textContent =
+        prestamo.observaciones || "Sin observaciones";
+
+
+    actualizarSituacionPrestamo(prestamo);
+
+
+    const btnDevolucion =
+        document.getElementById(
+            "btn-registrar-devolucion"
+        );
+
+    btnDevolucion.style.display =
+        prestamo.estado === "PRESTADO"
+            ? ""
+            : "none";
+
+
+    document
+        .getElementById("modal-ficha-prestamo")
+        .classList.add("visible");
+
+    document.body.classList.add(
+        "modal-abierto"
+    );
+}
+
+
+function cerrarFichaPrestamo() {
+
+    document
+        .getElementById("modal-ficha-prestamo")
+        .classList.remove("visible");
+
+    document.body.classList.remove(
+        "modal-abierto"
+    );
+
+    prestamoFichaSeleccionado = null;
+}
+
+
+function actualizarSituacionPrestamo(prestamo) {
+
+    const elemento =
+        document.getElementById(
+            "ficha-prestamo-situacion"
+        );
+
+    if (prestamo.estado === "DEVUELTO") {
+
+        elemento.textContent = "Devuelto";
+        return;
+    }
+
+    const hoy = new Date();
+
+    hoy.setHours(0, 0, 0, 0);
+
+    const prevista =
+        new Date(
+            prestamo.fecha_prevista_devolucion +
+            "T00:00:00"
+        );
+
+    if (hoy > prevista) {
+        elemento.textContent = "Fuera de plazo";
+    }
+    else {
+        elemento.textContent = "En plazo";
+    }
+}
 
 
 /* ==========================================================
@@ -866,6 +1039,12 @@ function mostrarPrestamos(lista) {
 
         `;
 
+        fila.classList.add("fila-prestamo");
+
+        fila.addEventListener(
+            "click",
+            () => abrirFichaPrestamo(prestamo)
+        );
 
         tbody.appendChild(fila);
 

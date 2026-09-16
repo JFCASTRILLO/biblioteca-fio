@@ -207,6 +207,13 @@ async function iniciarPrestamos() {
                 cerrarFichaPrestamo
             );
 
+        document
+            .getElementById("btn-registrar-devolucion")
+            .addEventListener(
+                "click",
+                registrarDevolucion
+            );
+
     }
     catch (error) {
 
@@ -816,6 +823,143 @@ function cerrarFichaPrestamo() {
     );
 
     prestamoFichaSeleccionado = null;
+}
+
+
+// ==================================================
+// REGISTRAR DEVOLUCIÓN
+// ==================================================
+
+async function registrarDevolucion() {
+
+    if (!prestamoFichaSeleccionado) {
+        return;
+    }
+
+    const prestamo = prestamoFichaSeleccionado;
+
+    if (prestamo.estado !== "PRESTADO") {
+        return;
+    }
+
+    const usuario = prestamo.usuario || {};
+    const ejemplar = prestamo.ejemplar || {};
+
+    const socio =
+        [
+            usuario.numero_socio,
+            [usuario.nombre, usuario.apellidos]
+                .filter(Boolean)
+                .join(" ")
+        ]
+        .filter(Boolean)
+        .join(" — ");
+
+    const descripcionEjemplar =
+        [
+            ejemplar.clave,
+            ejemplar.titulo
+        ]
+        .filter(Boolean)
+        .join(" — ");
+
+
+    const confirmar = window.confirm(
+        "¿Registrar la devolución de este préstamo?\n\n" +
+        "Socio: " + socio + "\n" +
+        "Ejemplar: " + descripcionEjemplar
+    );
+
+    if (!confirmar) {
+        return;
+    }
+
+
+    const boton =
+        document.getElementById(
+            "btn-registrar-devolucion"
+        );
+
+
+    try {
+
+        boton.disabled = true;
+        boton.textContent = "Registrando...";
+
+
+        const {
+            data,
+            error
+        } = await supabaseClient.rpc(
+            "registrar_devolucion",
+            {
+                p_prestamo_id: prestamo.id
+            }
+        );
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        let fechaDevolucion = "";
+
+        if (
+            Array.isArray(data) &&
+            data.length > 0
+        ) {
+            fechaDevolucion =
+                formatearFecha(
+                    data[0].fecha_devolucion
+                );
+        }
+
+
+        cerrarFichaPrestamo();
+
+        await cargarPrestamos();
+
+
+        let mensaje =
+            "Devolución registrada correctamente.\n\n" +
+            "Socio: " + socio + "\n\n" +
+            "Ejemplar: " + descripcionEjemplar;
+
+        if (fechaDevolucion) {
+            mensaje +=
+                "\n\nFecha de devolución: " +
+                fechaDevolucion;
+        }
+
+
+        alert(mensaje);
+
+    }
+    catch (error) {
+
+        console.error(
+            "Error registrando devolución:",
+            error
+        );
+
+        alert(
+            "No se ha podido registrar la devolución.\n\n" +
+            (
+                error.message ||
+                "Se ha producido un error inesperado."
+            )
+        );
+
+    }
+    finally {
+
+        boton.disabled = false;
+        boton.textContent =
+            "Registrar devolución";
+
+    }
+
 }
 
 

@@ -2563,9 +2563,9 @@ body {
     background: #f1f4fa;
 }
 
-/* ==================================================
+/* ==========================================================
    PRÉSTAMOS - FICHA DEL PRÉSTAMO
-   ================================================== */
+   ========================================================== */
 
 #modal-ficha-prestamo {
     align-items: center;
@@ -2573,118 +2573,319 @@ body {
     padding: 30px;
 }
 
+
+/* ----------------------------------------------------------
+   VENTANA
+   ---------------------------------------------------------- */
+
 #modal-ficha-prestamo .ficha-prestamo-admin {
+
     width: min(760px, 94vw);
-    max-height: 90vh;
+
+    max-height: 94vh;
+
     margin: 0;
-    border-radius: 10px;
-    overflow: hidden;
-}
 
-
-/* Contenido */
-
-.contenido-ficha-prestamo {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 22px 32px;
-    padding: 28px;
-}
-
-
-/* Cada dato */
-
-.dato-prestamo {
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    min-width: 0;
+
+    overflow: hidden;
+
+    background: #f3f7fb;
+
+    border: 1px solid #d8e1eb;
+    border-radius: 10px;
+
+    box-shadow:
+        0 18px 45px rgba(25, 36, 70, 0.18);
 }
 
+
+/* ----------------------------------------------------------
+   CABECERA
+   ---------------------------------------------------------- */
+
+#modal-ficha-prestamo .cabecera-ficha-ejemplar {
+
+    flex-shrink: 0;
+
+    margin: 0;
+
+    padding: 18px 28px 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #eef5fb 100%
+        );
+
+    border-bottom: 1px solid #d8e1eb;
+}
+
+
+#modal-ficha-prestamo .cabecera-ficha-ejemplar h2 {
+
+    margin: 0 0 6px 0;
+
+    color: #212c59;
+
+    font-size: 1.45rem;
+    line-height: 1.2;
+}
+
+
+#modal-ficha-prestamo .cabecera-ficha-ejemplar p {
+
+    margin: 0;
+
+    color: #6b7280;
+
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+
+/* ----------------------------------------------------------
+   CUERPO
+   ---------------------------------------------------------- */
+
+#modal-ficha-prestamo .contenido-ficha-prestamo {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 12px 32px;
+
+    padding: 8px 28px 18px;
+
+    background: #f3f7fb;
+}
+
+
+/* ----------------------------------------------------------
+   TARJETAS DE DATOS
+   ---------------------------------------------------------- */
+
+#modal-ficha-prestamo .dato-prestamo {
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+
+    min-width: 0;
+
+    padding: 9px 14px;
+
+    background: #ffffff;
+
+    border: 1px solid #d5e0ea;
+    border-radius: 7px;
+
+    box-shadow:
+        0 2px 5px rgba(33, 44, 89, 0.05);
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+#modal-ficha-prestamo .dato-prestamo:hover {
+
+    border-color: #aebdcd;
+
+    box-shadow:
+        0 4px 10px rgba(33, 44, 89, 0.09);
+
+    transform: translateY(-1px);
+}
+
+
+#modal-ficha-prestamo
 .dato-prestamo.ancho-completo {
+
     grid-column: 1 / -1;
 }
 
 
-/* Etiquetas */
+/* ----------------------------------------------------------
+   ETIQUETAS
+   ---------------------------------------------------------- */
 
-.etiqueta-prestamo {
+#modal-ficha-prestamo .etiqueta-prestamo {
+
     display: block;
-    font-size: .82rem;
-    font-weight: 600;
-    color: #687080;
+
+    margin: 0;
+
+    color: #64758a;
+
+    font-size: 0.78rem;
+    font-weight: 700;
+
+    line-height: 1.15;
+
+    letter-spacing: 0.025em;
+
+    text-transform: uppercase;
 }
 
 
-/* Valores */
+/* ----------------------------------------------------------
+   VALORES
+   ---------------------------------------------------------- */
 
+#modal-ficha-prestamo
 .dato-prestamo > span:not(.etiqueta-prestamo) {
-    font-size: .98rem;
-    line-height: 1.4;
-    color: #20242c;
+
+    color: #252b38;
+
+    font-size: 0.98rem;
+    font-weight: 500;
+
+    line-height: 1.3;
 }
 
 
-/* Observaciones */
+/* ----------------------------------------------------------
+   ESTADO DEL PRÉSTAMO
+   ---------------------------------------------------------- */
 
+#ficha-prestamo-estado {
+
+    align-self: flex-start;
+
+    padding: 4px 10px;
+
+    border: 1px solid #c6dfcf;
+    border-radius: 20px;
+
+    background: #e8f3ec;
+
+    color: #356448 !important;
+
+    font-size: 0.82rem !important;
+    font-weight: 700 !important;
+
+    letter-spacing: 0.02em;
+}
+
+
+/* ----------------------------------------------------------
+   OBSERVACIONES
+   Scroll únicamente dentro del campo
+   ---------------------------------------------------------- */
+
+#modal-ficha-prestamo
 .observaciones-ficha-prestamo {
-    min-height: 52px;
-    padding: 10px 12px;
 
-    border: 1px solid #d6d9df;
+    height: 54px;
+    min-height: 54px;
+    max-height: 54px;
+
+    margin-top: 1px;
+
+    padding: 8px 10px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    box-sizing: border-box;
+
+    background: #f8f9fc;
+
+    border: 1px solid #e0e4ec;
     border-radius: 5px;
 
-    background: #f7f8fa;
     color: #303640;
 
-    line-height: 1.45;
+    font-size: 0.95rem;
+    line-height: 1.4;
+
+    box-shadow:
+        inset 0 1px 2px
+        rgba(33, 44, 89, 0.03);
 }
 
 
-/* Botonera inferior */
+/* ----------------------------------------------------------
+   PIE DE LA FICHA
+   ---------------------------------------------------------- */
 
 #modal-ficha-prestamo .acciones-ficha-ejemplar {
+
+    flex-shrink: 0;
+
+    position: static;
+
     display: flex;
+
     justify-content: flex-end;
+    align-items: center;
+
     gap: 12px;
 
-    padding: 16px 28px 20px;
+    margin: 0;
 
-    border-top: 1px solid #e0e3e8;
+    padding: 10px 28px 12px;
+
+    background: #ffffff;
+
+    border-top: 1px solid #d8e1eb;
 }
 
 
-/* Botón cerrar */
+/* ----------------------------------------------------------
+   BOTÓN CERRAR
+   ---------------------------------------------------------- */
 
+#modal-ficha-prestamo
 #btn-cerrar-ficha-prestamo {
+
     padding: 10px 18px;
 
     border: 1px solid #b8bec8;
     border-radius: 5px;
 
     background: #ffffff;
+    color: #20242c;
 
     font: inherit;
+    font-size: 0.95rem;
     font-weight: 600;
 
     cursor: pointer;
 
     transition:
-        background-color .2s ease,
-        border-color .2s ease,
-        transform .15s ease;
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.15s ease;
 }
 
+
+#modal-ficha-prestamo
 #btn-cerrar-ficha-prestamo:hover {
+
     background: #f1f3f6;
+
     border-color: #8f98a6;
+
     transform: translateY(-1px);
 }
 
 
-/* Botón registrar devolución */
+/* ----------------------------------------------------------
+   BOTÓN REGISTRAR DEVOLUCIÓN
+   ---------------------------------------------------------- */
 
+#modal-ficha-prestamo
 #btn-registrar-devolucion {
+
     padding: 10px 18px;
 
     border: 1px solid #212c59;
@@ -2694,40 +2895,95 @@ body {
     color: #ffffff;
 
     font: inherit;
+    font-size: 0.95rem;
     font-weight: 600;
 
     cursor: pointer;
 
     transition:
-        background-color .2s ease,
-        border-color .2s ease,
-        transform .15s ease;
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.2s ease;
 }
 
-#btn-registrar-devolucion:hover {
+
+#modal-ficha-prestamo
+#btn-registrar-devolucion:hover:not(:disabled) {
+
     background: #2d3b73;
+
     border-color: #2d3b73;
+
     transform: translateY(-1px);
+
+    box-shadow:
+        0 3px 8px rgba(33, 44, 89, 0.18);
 }
 
-/* Responsive */
+
+#modal-ficha-prestamo
+#btn-registrar-devolucion:disabled {
+
+    opacity: 0.45;
+
+    cursor: default;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
 
 @media (max-width: 650px) {
-
-    .contenido-ficha-prestamo {
-        grid-template-columns: 1fr;
-        gap: 18px;
-        padding: 22px;
-    }
-
-    .dato-prestamo.ancho-completo {
-        grid-column: auto;
-    }
 
     #modal-ficha-prestamo {
         padding: 15px;
     }
 
+
+    #modal-ficha-prestamo
+    .contenido-ficha-prestamo {
+
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+
+        padding:
+            8px 22px
+            18px;
+    }
+
+
+    #modal-ficha-prestamo
+    .dato-prestamo.ancho-completo {
+
+        grid-column: auto;
+    }
+
+
+    #modal-ficha-prestamo
+    .cabecera-ficha-ejemplar {
+
+        padding:
+            18px 22px
+            10px;
+    }
+
+
+    #modal-ficha-prestamo
+    .acciones-ficha-ejemplar {
+
+        padding:
+            10px 22px
+            12px;
+
+        flex-wrap: wrap;
+    }
 }
 
 /* ==========================================================

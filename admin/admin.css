@@ -3069,3 +3069,18 @@ body {
         grid-column: auto;
     }
 }
+
+/* ==========================================================
+   FILAS INTERACTIVAS - RESERVAS
+   ========================================================== */
+
+.fila-reserva {
+    cursor: pointer;
+    transition:
+        background-color 0.18s ease;
+}
+
+
+.fila-reserva:hover {
+    background-color: #f2f4f8;
+}

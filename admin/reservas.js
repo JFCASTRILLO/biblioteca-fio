@@ -38,6 +38,8 @@ let reservasFiltradas = [];
 let socioReservaSeleccionado = null;
 let ejemplarReservaSeleccionado = null;
 
+let reservaFichaSeleccionada = null;
+
 /* ==========================================================
    INICIO
    ========================================================== */
@@ -185,6 +187,21 @@ async function iniciarReservas() {
                 "click",
                 registrarNuevaReserva
             );
+
+         document
+            .getElementById("cerrar-ficha-reserva")
+            .addEventListener(
+                "click",
+                cerrarFichaReserva
+            );
+
+
+        document
+            .getElementById("btn-cerrar-ficha-reserva")
+            .addEventListener(
+                "click",
+                cerrarFichaReserva
+            );    
 
     }
     catch (error) {
@@ -926,6 +943,129 @@ async function registrarNuevaReserva() {
     }
 }
 
+/* ==========================================================
+   FICHA DE RESERVA
+   ========================================================== */
+
+function abrirFichaReserva(reserva) {
+
+    reservaFichaSeleccionada =
+        reserva;
+
+
+    const usuario =
+        reserva.usuario || {};
+
+
+    const ejemplar =
+        reserva.ejemplar || {};
+
+
+    const nombreCompleto =
+        [
+            usuario.nombre,
+            usuario.apellidos
+        ]
+        .filter(Boolean)
+        .join(" ");
+
+
+    const socio =
+        [
+            usuario.numero_socio,
+            nombreCompleto
+        ]
+        .filter(Boolean)
+        .join(" — ");
+
+
+    const descripcionEjemplar =
+        [
+            ejemplar.clave,
+            ejemplar.titulo
+        ]
+        .filter(Boolean)
+        .join(" — ");
+
+
+    document
+        .getElementById("ficha-reserva-id")
+        .textContent =
+            reserva.id || "-";
+
+
+    document
+        .getElementById("ficha-reserva-estado")
+        .textContent =
+            reserva.estado || "-";
+
+
+    document
+        .getElementById("ficha-reserva-socio")
+        .textContent =
+            socio || "-";
+
+
+    document
+        .getElementById("ficha-reserva-ejemplar")
+        .textContent =
+            descripcionEjemplar || "-";
+
+
+    document
+        .getElementById("ficha-reserva-fecha")
+        .textContent =
+            formatearFecha(
+                reserva.fecha_reserva
+            );
+
+
+    document
+        .getElementById("ficha-reserva-disponible")
+        .textContent =
+            formatearFecha(
+                reserva.fecha_disponible
+            );
+
+
+    document
+        .getElementById("ficha-reserva-medio-contacto")
+        .textContent =
+            reserva.medio_contacto || "-";
+
+
+    document
+        .getElementById("ficha-reserva-dato-contacto")
+        .textContent =
+            reserva.dato_contacto || "-";
+
+
+    document
+        .getElementById("ficha-reserva-observaciones")
+        .textContent =
+            reserva.observaciones || "-";
+
+
+    document
+        .getElementById("modal-ficha-reserva")
+        .style.display = "flex";
+}
+
+
+/* ==========================================================
+   CERRAR FICHA DE RESERVA
+   ========================================================== */
+
+function cerrarFichaReserva() {
+
+    document
+        .getElementById("modal-ficha-reserva")
+        .style.display = "none";
+
+
+    reservaFichaSeleccionada = null;
+}
+
 
 /* ==========================================================
    CARGAR RESERVAS
@@ -1065,6 +1205,19 @@ function mostrarReservas(lista) {
         const fila =
             document.createElement("tr");
 
+         fila.className =
+            "fila-reserva";
+
+
+        fila.addEventListener(
+            "click",
+            function () {
+
+                abrirFichaReserva(
+                    reserva
+                );
+            }
+        );
 
         fila.innerHTML = `
 

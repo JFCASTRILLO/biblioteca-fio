@@ -3545,3 +3545,50 @@ body {
     border: 1px solid #d49a9a;
     color: #843838;
 }
+
+/* ==========================================================
+   RESERVAS - BOTÓN CANCELAR RESERVA
+   ========================================================== */
+
+#btn-cancelar-reserva {
+    padding: 10px 18px;
+
+    border: 1px solid #c47f7f;
+    border-radius: 5px;
+
+    background: #ffffff;
+    color: #8a3f3f;
+
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color .2s ease,
+        border-color .2s ease,
+        color .2s ease,
+        transform .15s ease,
+        box-shadow .2s ease;
+}
+
+
+#btn-cancelar-reserva:hover:not(:disabled) {
+    background: #f7e4e4;
+    border-color: #a95d5d;
+    color: #743030;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 3px 8px rgba(120, 50, 50, .12);
+}
+
+
+#btn-cancelar-reserva:disabled {
+    opacity: .45;
+    cursor: default;
+    transform: none;
+    box-shadow: none;
+}

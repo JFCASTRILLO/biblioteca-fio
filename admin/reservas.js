@@ -1449,13 +1449,13 @@ function claseEstadoReserva(estado) {
             return "estado-reserva-activa";
 
         case "DISPONIBLE":
-            return "estado-disponible";
+            return "estado-reserva-disponible";
 
         case "ATENDIDA":
-            return "estado-devuelto";
+            return "estado-reserva-atendida";
 
         case "CANCELADA":
-            return "estado-inactivo";
+            return "estado-reserva-cancelada";
 
         default:
             return "";

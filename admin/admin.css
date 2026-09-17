@@ -3488,3 +3488,58 @@ body {
         overflow-y: visible;
     }
 }
+
+/* ==========================================================
+   RESERVAS - ESTADOS
+   ========================================================== */
+
+/* Aspecto común de las pastillas en el listado */
+
+#tabla-reservas-cuerpo .estado-admin {
+    display: inline-block;
+
+    padding: 3px 8px;
+
+    border-radius: 4px;
+
+    font-size: .72rem;
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+/* ACTIVA - esperando devolución del ejemplar */
+
+.estado-reserva-activa {
+    background: #fff0d2;
+    border: 1px solid #e2bd73;
+    color: #805510;
+}
+
+
+/* DISPONIBLE - preparada para recoger */
+
+.estado-reserva-disponible {
+    background: #c6e5d1;
+    border: 1px solid #78b58d;
+    color: #1f6338;
+}
+
+
+/* ATENDIDA - convertida en préstamo */
+
+.estado-reserva-atendida {
+    background: #dce7f5;
+    border: 1px solid #9eb7d5;
+    color: #315a82;
+}
+
+
+/* CANCELADA */
+
+.estado-reserva-cancelada {
+    background: #f4d7d7;
+    border: 1px solid #d49a9a;
+    color: #843838;
+}

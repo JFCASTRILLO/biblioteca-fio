@@ -573,6 +573,28 @@ body {
     color:#c65911;
 }
 
+.estado-devuelto {
+    background: #c6e5d1;
+    color: #1f6338;
+
+    border: 1px solid #78b58d;
+    border-radius: 4px;
+
+    font-weight: 700;
+}
+
+#tabla-prestamos .estado-prestado,
+#tabla-prestamos .estado-devuelto {
+    display: inline-block;
+
+    padding: 3px 8px;
+
+    border-radius: 4px;
+
+    font-size: .72rem;
+    font-weight: 700;
+}
+
 
 .estado-reservado{
     background:#fff2cc;

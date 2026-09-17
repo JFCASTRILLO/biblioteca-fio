@@ -768,41 +768,33 @@ function abrirFichaPrestamo(prestamo) {
 
 
     const estado =
-        document.getElementById(
-            "ficha-prestamo-estado"
-        );
-
-    estado.textContent =
-        prestamo.estado || "-";
-
-
-    const estadoFicha =
-    document.getElementById("ficha-prestamo-estado");
-
-    estadoFicha.classList.remove(
-        "estado-prestamo-prestado",
-        "estado-prestamo-devuelto"
+    document.getElementById(
+        "ficha-prestamo-estado"
     );
 
-    if (prestamo.estado === "PRESTADO") {
-
-        estadoFicha.classList.add(
-            "estado-prestamo-prestado"
-        );
-
-    } else if (prestamo.estado === "DEVUELTO") {
-
-        estadoFicha.classList.add(
-            "estado-prestamo-devuelto"
-        );
-    }
+        estado.textContent =
+            prestamo.estado || "-";
 
 
-    estado.className =
-        "estado-admin " +
-        claseEstadoPrestamo(
-            prestamo.estado
-        );
+        /* Limpiamos las clases de estado anteriores */
+
+        estado.className = "estado-admin";
+
+
+        /* Aplicamos el color correspondiente */
+
+        if (prestamo.estado === "PRESTADO") {
+
+            estado.classList.add(
+                "estado-prestamo-prestado"
+            );
+
+        } else if (prestamo.estado === "DEVUELTO") {
+
+            estado.classList.add(
+                "estado-prestamo-devuelto"
+            );
+        }
 
 
     document.getElementById(

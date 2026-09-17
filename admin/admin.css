@@ -2786,12 +2786,9 @@ body {
 /* Préstamo ya devuelto */
 
 #ficha-prestamo-estado.estado-prestamo-devuelto {
-
-    background: #dcefe3;
-
-    border: 1px solid #9fc9ad;
-
-    color: #285c3a !important;
+    background: #c6e5d1;
+    border: 1px solid #78b58d;
+    color: #1f6338 !important;
 }
 
 

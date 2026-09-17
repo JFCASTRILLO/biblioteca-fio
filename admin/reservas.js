@@ -994,10 +994,32 @@ function abrirFichaReserva(reserva) {
             reserva.id || "-";
 
 
-    document
-        .getElementById("ficha-reserva-estado")
-        .textContent =
-            reserva.estado || "-";
+    const estadoReserva =
+    document.getElementById(
+        "ficha-reserva-estado"
+    );
+
+    estadoReserva.textContent =
+        reserva.estado || "-";
+
+
+    /* Limpiamos cualquier estado anterior */
+
+    estadoReserva.className = "";
+
+
+    /* Aplicamos la misma clase que utiliza el listado */
+
+    const claseReserva =
+        claseEstadoReserva(
+            reserva.estado
+        );
+
+    if (claseReserva) {
+        estadoReserva.classList.add(
+            claseReserva
+        );
+    }
 
 
     document

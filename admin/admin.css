@@ -3379,14 +3379,16 @@ body {
 /* Estado */
 
 #ficha-reserva-estado {
+
     align-self: flex-start;
+
     padding: 4px 10px;
-    background: #e8f3ec;
-    border: 1px solid #c6dfcf;
+
     border-radius: 20px;
-    color: #356448 !important;
+
     font-size: 0.82rem !important;
     font-weight: 700 !important;
+
     letter-spacing: 0.02em;
 }
 

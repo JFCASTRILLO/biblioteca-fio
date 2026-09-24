@@ -3630,3 +3630,18 @@ body {
     transform: none;
     box-shadow: none;
 }
+
+/* ==========================================================
+   RESERVAS - ALTURA CON FECHA HISTÓRICA
+   ========================================================== */
+
+.ficha-reserva-admin.con-fecha-historica {
+    max-height: 98vh;
+}
+
+.ficha-reserva-admin.con-fecha-historica
+.contenido-ficha-reserva {
+    padding-top: 6px;
+    padding-bottom: 10px;
+    gap: 10px 32px;
+}

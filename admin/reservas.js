@@ -1083,6 +1083,17 @@ function abrirFichaReserva(reserva) {
     bloqueAtendida.style.display = "none";
     bloqueCancelacion.style.display = "none";
 
+    const fichaReserva =
+    document.querySelector(
+        ".ficha-reserva-admin"
+        );
+
+        fichaReserva.classList.toggle(
+            "con-fecha-historica",
+            reserva.estado === "ATENDIDA" ||
+            reserva.estado === "CANCELADA"
+        );
+
 
     /* Reserva atendida */
 

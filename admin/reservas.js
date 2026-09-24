@@ -1089,6 +1089,17 @@ function abrirFichaReserva(reserva) {
             ? ""
             : "none";
 
+    const btnPrestar =
+        document.getElementById(
+            "btn-prestar-reserva"
+        );
+
+    btnPrestar.style.display =
+        reserva.estado === "DISPONIBLE"
+            ? ""
+            : "none";
+
+
     document
         .getElementById("modal-ficha-reserva")
         .style.display = "flex";

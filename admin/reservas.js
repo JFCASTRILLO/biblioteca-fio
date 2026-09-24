@@ -210,6 +210,13 @@ async function iniciarReservas() {
                 cancelarReserva
             );
 
+        document
+        .getElementById("btn-prestar-reserva")
+        .addEventListener(
+            "click",
+            registrarPrestamoReserva
+        );
+
     }
     catch (error) {
 
@@ -1252,6 +1259,138 @@ async function cancelarReserva() {
             "Cancelar reserva";
     }
 }
+
+    async function registrarPrestamoReserva() {
+
+    if (!reservaFichaSeleccionada) {
+        return;
+    }
+
+    const reserva = reservaFichaSeleccionada;
+
+    /* Solo una reserva DISPONIBLE puede convertirse en préstamo */
+    if (reserva.estado !== "DISPONIBLE") {
+        return;
+    }
+
+    const usuario = reserva.usuario || {};
+    const ejemplar = reserva.ejemplar || {};
+
+    const nombreUsuario =
+        [
+            usuario.nombre,
+            usuario.apellidos
+        ]
+        .filter(Boolean)
+        .join(" ");
+
+    const socio =
+        [
+            usuario.numero_socio,
+            nombreUsuario
+        ]
+        .filter(Boolean)
+        .join(" — ");
+
+    const libro =
+        [
+            ejemplar.clave,
+            ejemplar.titulo
+        ]
+        .filter(Boolean)
+        .join(" — ");
+
+    const confirmar = window.confirm(
+        "¿Registrar el préstamo de esta reserva?" +
+        "\n\nReserva nº " + reserva.id +
+        "\n\nSocio: " + (socio || "-") +
+        "\n\nEjemplar: " + (libro || "-") +
+        "\n\nEl préstamo tendrá una duración de 15 días."
+    );
+
+    if (!confirmar) {
+        return;
+    }
+
+    const boton =
+        document.getElementById(
+            "btn-prestar-reserva"
+        );
+
+    try {
+
+        boton.disabled = true;
+        boton.textContent =
+            "Registrando...";
+
+        const { data, error } =
+            await supabaseClient.rpc(
+                "registrar_prestamo_reserva",
+                {
+                    p_reserva_id: reserva.id,
+                    p_observaciones: null
+                }
+            );
+
+        if (error) {
+            throw error;
+        }
+
+        const resultado =
+            Array.isArray(data) && data.length
+                ? data[0]
+                : null;
+
+        cerrarFichaReserva();
+
+        await cargarReservas();
+
+        let mensaje =
+            "Préstamo registrado correctamente.";
+
+        if (resultado) {
+
+            mensaje +=
+                "\n\nPréstamo nº " +
+                resultado.prestamo_id;
+
+            if (
+                resultado.fecha_prevista_devolucion
+            ) {
+                mensaje +=
+                    "\nFecha prevista de devolución: " +
+                    formatearFecha(
+                        resultado.fecha_prevista_devolucion
+                    );
+            }
+        }
+
+        alert(mensaje);
+
+    } catch (error) {
+
+        console.error(
+            "Error registrando préstamo desde reserva:",
+            error
+        );
+
+        alert(
+            "No se ha podido registrar el préstamo." +
+            "\n\n" +
+            (
+                error.message ||
+                "Se ha producido un error inesperado."
+            )
+        );
+
+    } finally {
+
+        boton.disabled = false;
+        boton.textContent =
+            "Registrar préstamo";
+    }
+}
+
 
 
 /* ==========================================================

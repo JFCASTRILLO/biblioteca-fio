@@ -3676,3 +3676,48 @@ body {
     border-color: #536aa5;
     box-shadow: 0 0 0 2px rgba(83, 106, 165, .12);
 }
+
+/* ==========================================================
+   RESERVAS - BOTÓN GUARDAR OBSERVACIONES
+   ========================================================== */
+
+#btn-guardar-observaciones-reserva {
+    padding: 9px 16px;
+
+    border: 1px solid #536aa5;
+    border-radius: 5px;
+
+    background: #ffffff;
+    color: #24376f;
+
+    font: inherit;
+    font-size: 0.92rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color .2s ease,
+        border-color .2s ease,
+        color .2s ease,
+        transform .15s ease,
+        box-shadow .2s ease;
+}
+
+#btn-guardar-observaciones-reserva:hover:not(:disabled) {
+    background: #24376f;
+    border-color: #24376f;
+    color: #ffffff;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 3px 8px rgba(36, 55, 111, .18);
+}
+
+#btn-guardar-observaciones-reserva:disabled {
+    opacity: .45;
+    cursor: default;
+    transform: none;
+    box-shadow: none;
+}

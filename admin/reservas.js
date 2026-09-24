@@ -217,6 +217,15 @@ async function iniciarReservas() {
             registrarPrestamoReserva
         );
 
+        document
+        .getElementById(
+            "btn-guardar-observaciones-reserva"
+        )
+        .addEventListener(
+            "click",
+            guardarObservacionesReserva
+        );
+
     }
     catch (error) {
 
@@ -1315,7 +1324,7 @@ async function cancelarReserva() {
     }
 }
 
-    async function registrarPrestamoReserva() {
+async function registrarPrestamoReserva() {
 
     if (!reservaFichaSeleccionada) {
         return;
@@ -1446,7 +1455,85 @@ async function cancelarReserva() {
     }
 }
 
+async function guardarObservacionesReserva() {
 
+    if (!reservaFichaSeleccionada) {
+        return;
+    }
+
+    const reserva = reservaFichaSeleccionada;
+
+    const campo =
+        document.getElementById(
+            "ficha-reserva-observaciones"
+        );
+
+    const boton =
+        document.getElementById(
+            "btn-guardar-observaciones-reserva"
+        );
+
+    const observaciones =
+        campo.value.trim();
+
+    try {
+
+        boton.disabled = true;
+        boton.textContent = "Guardando...";
+
+        const { error } =
+            await supabaseClient.rpc(
+                "actualizar_observaciones_reserva",
+                {
+                    p_reserva_id: reserva.id,
+                    p_observaciones: observaciones
+                }
+            );
+
+        if (error) {
+            throw error;
+        }
+
+        /*
+         * Actualizamos también el objeto que tenemos
+         * cargado en memoria.
+         */
+        reserva.observaciones =
+            observaciones || null;
+
+        /*
+         * Recargamos el listado para mantener los
+         * datos locales sincronizados con Supabase.
+         */
+        await cargarReservas();
+
+        alert(
+            "Observaciones guardadas correctamente."
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Error guardando observaciones:",
+            error
+        );
+
+        alert(
+            "No se han podido guardar las observaciones." +
+            "\n\n" +
+            (
+                error.message ||
+                "Se ha producido un error inesperado."
+            )
+        );
+
+    } finally {
+
+        boton.disabled = false;
+        boton.textContent =
+            "Guardar observaciones";
+    }
+}
 
 /* ==========================================================
    CARGAR RESERVAS

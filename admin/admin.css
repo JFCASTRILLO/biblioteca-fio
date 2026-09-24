@@ -3638,8 +3638,8 @@ body {
 .observaciones-reserva-lateral {
     grid-column: 2;
 
-    min-height: 82px;
-    height: 82px;
+    min-height: 90px;
+    height: 90px;
 
     box-sizing: border-box;
     padding-bottom: 8px;

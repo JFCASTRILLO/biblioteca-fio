@@ -3725,3 +3725,42 @@ body {
     transform: none;
     box-shadow: none;
 }
+
+/* ==========================================================
+   PANEL ADMIN - ICONOS DE LAS TARJETAS
+   ========================================================== */
+
+.titulo-tarjeta-admin {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 14px;
+}
+
+.titulo-tarjeta-admin h3 {
+    margin: 0;
+}
+
+.icono-tarjeta-admin {
+    width: 34px;
+    height: 34px;
+
+    flex: 0 0 34px;
+
+    fill: none;
+    stroke: #212c59;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    transition:
+        transform .2s ease,
+        stroke .2s ease;
+}
+
+/* Pequeño efecto al pasar por la tarjeta */
+
+.tarjeta-admin:hover .icono-tarjeta-admin {
+    transform: translateY(-2px) scale(1.04);
+}

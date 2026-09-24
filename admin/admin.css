@@ -3632,16 +3632,31 @@ body {
 }
 
 /* ==========================================================
-   RESERVAS - ALTURA CON FECHA HISTÓRICA
+   RESERVAS - OBSERVACIONES EN COLUMNA DERECHA
    ========================================================== */
 
-.ficha-reserva-admin.con-fecha-historica {
-    max-height: 98vh;
+.observaciones-reserva-lateral {
+    grid-column: 2;
+    grid-row: span 2;
+
+    min-height: 0;
 }
 
-.ficha-reserva-admin.con-fecha-historica
-.contenido-ficha-reserva {
-    padding-top: 6px;
-    padding-bottom: 10px;
-    gap: 10px 32px;
+.observaciones-reserva-lateral
+#ficha-reserva-observaciones {
+    height: 54px;
+    max-height: 54px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    margin-top: 5px;
+    padding: 8px 10px;
+
+    border: 1px solid #d5e0ea;
+    border-radius: 4px;
+
+    background: #f7f9fc;
+
+    line-height: 1.35;
 }

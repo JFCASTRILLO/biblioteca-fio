@@ -1109,6 +1109,139 @@ function cerrarFichaReserva() {
     reservaFichaSeleccionada = null;
 }
 
+async function cancelarReserva() {
+
+    if (!reservaFichaSeleccionada) {
+        return;
+    }
+
+    const reserva = reservaFichaSeleccionada;
+
+    /* Solo pueden cancelarse reservas pendientes */
+    if (
+        reserva.estado !== "ACTIVA" &&
+        reserva.estado !== "DISPONIBLE"
+    ) {
+        return;
+    }
+
+    const usuario = reserva.usuario || {};
+    const ejemplar = reserva.ejemplar || {};
+
+    const nombreUsuario =
+        [
+            usuario.nombre,
+            usuario.apellidos
+        ]
+        .filter(Boolean)
+        .join(" ");
+
+    const socio =
+        [
+            usuario.numero_socio,
+            nombreUsuario
+        ]
+        .filter(Boolean)
+        .join(" — ");
+
+    const libro =
+        [
+            ejemplar.clave,
+            ejemplar.titulo
+        ]
+        .filter(Boolean)
+        .join(" — ");
+
+    const confirmar = window.confirm(
+        "¿Cancelar esta reserva?" +
+        "\n\nReserva nº " + reserva.id +
+        "\n\nSocio: " + (socio || "-") +
+        "\n\nEjemplar: " + (libro || "-")
+    );
+
+    if (!confirmar) {
+        return;
+    }
+
+    const boton =
+        document.getElementById(
+            "btn-cancelar-reserva"
+        );
+
+    try {
+
+        boton.disabled = true;
+        boton.textContent = "Cancelando...";
+
+        const { data, error } =
+            await supabaseClient.rpc(
+                "cancelar_reserva",
+                {
+                    p_reserva_id: reserva.id
+                }
+            );
+
+        if (error) {
+            throw error;
+        }
+
+        const resultado =
+            Array.isArray(data) && data.length
+                ? data[0]
+                : null;
+
+        cerrarFichaReserva();
+
+        await cargarReservas();
+
+        let mensaje =
+            "Reserva cancelada correctamente.";
+
+        if (
+            resultado &&
+            resultado.siguiente_reserva_id
+        ) {
+
+            mensaje +=
+                "\n\nLa siguiente reserva en espera " +
+                "ha pasado a DISPONIBLE.";
+
+        } else if (
+            resultado &&
+            resultado.estado_ejemplar ===
+                "DISPONIBLE"
+        ) {
+
+            mensaje +=
+                "\n\nEl ejemplar vuelve a estar DISPONIBLE.";
+        }
+
+        alert(mensaje);
+
+    } catch (error) {
+
+        console.error(
+            "Error cancelando reserva:",
+            error
+        );
+
+        alert(
+            "No se ha podido cancelar la reserva." +
+            "\n\n" +
+            (
+                error.message ||
+                "Se ha producido un error inesperado."
+            )
+        );
+
+    } finally {
+
+        boton.disabled = false;
+        boton.textContent =
+            "Cancelar reserva";
+    }
+}
+
 
 /* ==========================================================
    CARGAR RESERVAS

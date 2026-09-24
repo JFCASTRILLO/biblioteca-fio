@@ -1131,10 +1131,10 @@ function abrirFichaReserva(reserva) {
             reserva.dato_contacto || "-";
 
 
-    document
-        .getElementById("ficha-reserva-observaciones")
-        .textContent =
-            reserva.observaciones || "-";
+    document.getElementById(
+        "ficha-reserva-observaciones"
+            ).value =
+            reserva.observaciones || "";
 
     
     const btnCancelar =

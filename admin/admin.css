@@ -3644,8 +3644,13 @@ body {
 
 .observaciones-reserva-lateral
 #ficha-reserva-observaciones {
-    height: 54px;
-    max-height: 54px;
+    width: 100%;
+    height: 68px;
+    min-height: 68px;
+    max-height: 68px;
+
+    box-sizing: border-box;
+    resize: none;
 
     overflow-y: auto;
     overflow-x: hidden;
@@ -3653,10 +3658,20 @@ body {
     margin-top: 5px;
     padding: 8px 10px;
 
-    border: 1px solid #d5e0ea;
+    border: 1px solid #cbd5df;
     border-radius: 4px;
 
-    background: #f7f9fc;
+    background: #ffffff;
+    color: #263238;
 
+    font: inherit;
+    font-size: 0.95rem;
     line-height: 1.35;
+}
+
+.observaciones-reserva-lateral
+#ficha-reserva-observaciones:focus {
+    outline: none;
+    border-color: #536aa5;
+    box-shadow: 0 0 0 2px rgba(83, 106, 165, .12);
 }

@@ -1063,6 +1063,62 @@ function abrirFichaReserva(reserva) {
                 reserva.fecha_disponible
             );
 
+    /* ==========================================================
+    FECHAS HISTÓRICAS DE LA RESERVA
+    ========================================================== */
+
+    const bloqueAtendida =
+        document.getElementById(
+            "bloque-fecha-atendida"
+        );
+
+    const bloqueCancelacion =
+        document.getElementById(
+            "bloque-fecha-cancelacion"
+        );
+
+
+    /* Ocultamos ambos bloques inicialmente */
+
+    bloqueAtendida.style.display = "none";
+    bloqueCancelacion.style.display = "none";
+
+
+    /* Reserva atendida */
+
+    if (
+        reserva.estado === "ATENDIDA" &&
+        reserva.fecha_atendida
+    ) {
+
+        document.getElementById(
+            "ficha-reserva-fecha-atendida"
+        ).textContent =
+            formatearFecha(
+                reserva.fecha_atendida
+            );
+
+        bloqueAtendida.style.display = "";
+    }
+
+
+    /* Reserva cancelada */
+
+    if (
+        reserva.estado === "CANCELADA" &&
+        reserva.fecha_cancelacion
+    ) {
+
+        document.getElementById(
+            "ficha-reserva-fecha-cancelacion"
+        ).textContent =
+            formatearFecha(
+                reserva.fecha_cancelacion
+            );
+
+        bloqueCancelacion.style.display = "";
+    }
+
 
     document
         .getElementById("ficha-reserva-medio-contacto")

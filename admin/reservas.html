@@ -560,13 +560,16 @@
 
                 <div class="dato-reserva observaciones-reserva-lateral">
 
-                    <span class="etiqueta-reserva">
+                    <label
+                        class="etiqueta-reserva"
+                        for="ficha-reserva-observaciones">
                         Observaciones
-                    </span>
+                    </label>
 
-                    <div id="ficha-reserva-observaciones">
-                        -
-                    </div>
+                    <textarea
+                        id="ficha-reserva-observaciones"
+                        rows="3"
+                        maxlength="1000"></textarea>
 
                 </div>
 
@@ -587,6 +590,12 @@
                     id="btn-prestar-reserva"
                     class="btn-prestar-reserva">
                     Registrar préstamo
+                </button>
+
+                <button
+                    type="button"
+                    id="btn-guardar-observaciones-reserva">
+                    Guardar observaciones
                 </button>
 
                 <button

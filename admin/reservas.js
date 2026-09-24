@@ -201,7 +201,14 @@ async function iniciarReservas() {
             .addEventListener(
                 "click",
                 cerrarFichaReserva
-            );    
+            );
+            
+        document
+            .getElementById("btn-cancelar-reserva")
+            .addEventListener(
+                "click",
+                cancelarReserva
+            );
 
     }
     catch (error) {
@@ -1067,6 +1074,20 @@ function abrirFichaReserva(reserva) {
         .textContent =
             reserva.observaciones || "-";
 
+    
+    const btnCancelar =
+        document.getElementById(
+            "btn-cancelar-reserva"
+        );
+
+
+    btnCancelar.style.display =
+        (
+            reserva.estado === "ACTIVA" ||
+            reserva.estado === "DISPONIBLE"
+        )
+            ? ""
+            : "none";
 
     document
         .getElementById("modal-ficha-reserva")

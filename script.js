@@ -649,3 +649,86 @@ document.addEventListener(
 
     }
 );
+
+/* ==========================================================
+   ACCESO DE SOCIOS - APERTURA Y CIERRE DEL MODAL
+   ========================================================== */
+
+function abrirAccesoSocios() {
+
+    const modal =
+        document.getElementById(
+            "modal-acceso-socios"
+        );
+
+    modal.style.display = "flex";
+
+    document.getElementById(
+        "mensaje-acceso-socios"
+    ).style.display = "none";
+
+    document.getElementById(
+        "acceso-password"
+    ).value = "";
+
+    setTimeout(() => {
+        document.getElementById(
+            "acceso-email"
+        ).focus();
+    }, 50);
+}
+
+function cerrarAccesoSocios() {
+
+    const modal =
+        document.getElementById(
+            "modal-acceso-socios"
+        );
+
+    modal.style.display = "none";
+
+    document.getElementById(
+        "acceso-password"
+    ).value = "";
+
+    document.getElementById(
+        "mensaje-acceso-socios"
+    ).style.display = "none";
+}
+
+document
+    .getElementById("btn-acceso-socios")
+    .addEventListener(
+        "click",
+        abrirAccesoSocios
+    );
+
+
+document
+    .getElementById("btn-cerrar-acceso-socios")
+    .addEventListener(
+        "click",
+        cerrarAccesoSocios
+    );
+
+
+document
+    .getElementById("btn-cancelar-acceso")
+    .addEventListener(
+        "click",
+        cerrarAccesoSocios
+    );
+
+
+document
+    .getElementById("modal-acceso-socios")
+    .addEventListener(
+        "click",
+        function (event) {
+
+            if (event.target === this) {
+                cerrarAccesoSocios();
+            }
+
+        }
+    );

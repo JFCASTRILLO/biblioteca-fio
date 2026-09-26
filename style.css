@@ -965,3 +965,58 @@ td {
     }
 
 }
+
+/* ==========================================================
+   CABECERA PÚBLICA - ACCESO DE SOCIOS
+   ========================================================== */
+
+.cabecera-contenido {
+    position: relative;
+}
+
+.acceso-socios {
+    margin-left: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#btn-acceso-socios {
+    padding: 10px 18px;
+
+    border: 1px solid rgba(255,255,255,.75);
+    border-radius: 5px;
+
+    background: transparent;
+    color: #ffffff;
+
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+
+    cursor: pointer;
+
+    transition:
+        background-color .2s ease,
+        color .2s ease,
+        border-color .2s ease,
+        transform .15s ease,
+        box-shadow .2s ease;
+}
+
+#btn-acceso-socios:hover {
+    background: #ffffff;
+    color: #212c59;
+    border-color: #ffffff;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 3px 9px rgba(0,0,0,.14);
+}
+
+#btn-acceso-socios:active {
+    transform: translateY(0);
+}

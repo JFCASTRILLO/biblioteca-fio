@@ -732,3 +732,123 @@ document
 
         }
     );
+
+/* ==========================================================
+   ACCESO DE SOCIOS - AUTENTICACIÓN
+   ========================================================== */
+
+async function iniciarSesionSocio(event) {
+
+    event.preventDefault();
+
+    const email =
+        document.getElementById(
+            "acceso-email"
+        ).value.trim();
+
+    const password =
+        document.getElementById(
+            "acceso-password"
+        ).value;
+
+    const mensaje =
+        document.getElementById(
+            "mensaje-acceso-socios"
+        );
+
+    const boton =
+        document.getElementById(
+            "btn-entrar-socio"
+        );
+
+
+    mensaje.style.display = "none";
+    mensaje.textContent = "";
+
+
+    if (!email || !password) {
+
+        mensaje.textContent =
+            "Introduzca el correo electrónico y la contraseña.";
+
+        mensaje.style.display = "block";
+
+        return;
+    }
+
+
+    try {
+
+        boton.disabled = true;
+        boton.textContent = "Entrando...";
+
+
+        const { data, error } =
+            await clienteSupabase.auth
+                .signInWithPassword({
+                    email: email,
+                    password: password
+                });
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        if (!data.user) {
+            throw new Error(
+                "No se ha podido identificar al usuario."
+            );
+        }
+
+
+        console.log(
+            "Socio autenticado:",
+            data.user.id
+        );
+
+
+        mensaje.textContent =
+            "Identificación correcta.";
+
+        mensaje.style.display = "block";
+
+
+        setTimeout(() => {
+
+            cerrarAccesoSocios();
+
+        }, 700);
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Error en el acceso de socios:",
+            error
+        );
+
+
+        mensaje.textContent =
+            "Correo electrónico o contraseña incorrectos.";
+
+        mensaje.style.display = "block";
+
+    }
+
+    finally {
+
+        boton.disabled = false;
+        boton.textContent = "Entrar";
+
+    }
+}
+
+document
+    .getElementById("form-acceso-socios")
+    .addEventListener(
+        "submit",
+        iniciarSesionSocio
+    );

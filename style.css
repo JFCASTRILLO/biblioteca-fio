@@ -1440,3 +1440,59 @@ td {
     font-size: .82rem;
     line-height: 1.3;
 }
+
+/* ==================================================
+   AJUSTE FINAL FICHA - APROVECHAMIENTO VERTICAL
+   ================================================== */
+
+/* Modal ligeramente más ancho */
+.contenido-modal {
+    width: min(1080px, 96vw);
+}
+
+
+/* Portada + información: acercarlas a la parte superior */
+.detalles-libro {
+    align-items: flex-start;
+    gap: 28px;
+}
+
+
+/* Reducir espacios del encabezado bibliográfico */
+.info-tecnica h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    line-height: 1.08;
+}
+
+
+.fila-autor-reserva {
+    margin-bottom: 10px;
+}
+
+
+.fila-autor-reserva #modal-autor {
+    padding-top: 2px;
+}
+
+
+/* Acercar ID y datos técnicos */
+.id-catalogo-superior {
+    margin-top: 4px;
+    margin-bottom: 8px;
+}
+
+
+/* Compactar ligeramente las filas bibliográficas */
+.grid-detalles p {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 9px;
+    padding-bottom: 9px;
+}
+
+
+/* Acercar la sinopsis a los datos */
+.sinopsis-completa {
+    margin-top: 10px;
+}

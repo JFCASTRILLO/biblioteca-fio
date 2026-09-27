@@ -1512,3 +1512,34 @@ td {
     font-size: 1.72rem;
     line-height: 1.06;
 }
+
+/* ==================================================
+   TÍTULO DEL MODAL - TAMAÑO DEFINITIVO
+   ================================================== */
+
+#modal-titulo {
+    font-size: 1.75rem;
+    line-height: 1.08;
+
+    margin-top: 0;
+    margin-bottom: 9px;
+
+    /* Reserva espacio para el aspa de cierre */
+    padding-right: 42px;
+}
+
+
+/* Título largo */
+
+#modal-titulo.titulo-largo {
+    font-size: 1.60rem;
+    line-height: 1.07;
+}
+
+
+/* Título muy largo */
+
+#modal-titulo.titulo-muy-largo {
+    font-size: 1.45rem;
+    line-height: 1.06;
+}

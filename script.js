@@ -808,6 +808,10 @@ async function iniciarSesionSocio(event) {
             data.user.id
             );
 
+        console.log(
+            "Voy a buscar la ficha en usuarios..."
+        );
+
     /* ------------------------------------------------------
     BUSCAR LA FICHA DEL USUARIO EN BIBLIOTECA
     ------------------------------------------------------ */

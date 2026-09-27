@@ -808,10 +808,6 @@ async function iniciarSesionSocio(event) {
             data.user.id
             );
 
-        console.log(
-            "Voy a buscar la ficha en usuarios..."
-        );
-
     /* ------------------------------------------------------
     BUSCAR LA FICHA DEL USUARIO EN BIBLIOTECA
     ------------------------------------------------------ */
@@ -856,6 +852,9 @@ async function iniciarSesionSocio(event) {
         usuarioBiblioteca
     );
 
+        mostrarSocioEnCabecera(
+            usuarioBiblioteca
+        );
 
         mensaje.textContent =
             "Identificación correcta.";
@@ -899,4 +898,82 @@ document
     .addEventListener(
         "submit",
         iniciarSesionSocio
+    );
+
+/* ==========================================================
+   CABECERA - SESIÓN DEL SOCIO
+   ========================================================== */
+
+function mostrarSocioEnCabecera(usuario) {
+
+    const btnAcceso =
+        document.getElementById(
+            "btn-acceso-socios"
+        );
+
+    const bloqueSesion =
+        document.getElementById(
+            "sesion-socio"
+        );
+
+    const nombreSocio =
+        document.getElementById(
+            "nombre-socio-cabecera"
+        );
+
+
+    nombreSocio.textContent =
+        usuario.numero_socio +
+        " · " +
+        usuario.nombre +
+        " " +
+        usuario.apellidos;
+
+
+    btnAcceso.style.display = "none";
+
+    bloqueSesion.style.display = "flex";
+}
+
+
+function ocultarSocioEnCabecera() {
+
+    document.getElementById(
+        "sesion-socio"
+    ).style.display = "none";
+
+    document.getElementById(
+        "btn-acceso-socios"
+    ).style.display = "";
+}
+
+async function cerrarSesionSocio() {
+
+    const { error } =
+        await clienteSupabase.auth
+            .signOut();
+
+
+    if (error) {
+
+        console.error(
+            "Error al cerrar la sesión:",
+            error
+        );
+
+        return;
+    }
+
+
+    ocultarSocioEnCabecera();
+}
+
+
+document
+    .getElementById(
+        "btn-cerrar-sesion-socio"
+    )
+    .addEventListener(
+        "click",
+        cerrarSesionSocio
     );

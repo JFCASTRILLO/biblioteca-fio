@@ -1217,3 +1217,55 @@ td {
     box-shadow:
         0 3px 8px rgba(33, 44, 89, .18);
 }
+
+/* ==================================================
+   CABECERA - SOCIO IDENTIFICADO
+   ================================================== */
+
+.sesion-socio {
+    display: none;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.identidad-socio {
+    margin-right: 5px;
+    color: #ffffff;
+    font-size: .86rem;
+    font-weight: 600;
+    letter-spacing: .02em;
+    white-space: nowrap;
+}
+
+#btn-mis-reservas,
+#btn-cerrar-sesion-socio {
+    padding: 8px 13px;
+    border: 1px solid rgba(255,255,255,.72);
+    border-radius: 5px;
+    background: transparent;
+    color: #ffffff;
+    font: inherit;
+    font-size: .80rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    transition:
+        background-color .2s ease,
+        color .2s ease,
+        border-color .2s ease,
+        transform .15s ease;
+}
+
+#btn-mis-reservas:hover,
+#btn-cerrar-sesion-socio:hover {
+    background: #ffffff;
+    color: #212c59;
+    border-color: #ffffff;
+    transform: translateY(-1px);
+}
+
+#btn-mis-reservas:active,
+#btn-cerrar-sesion-socio:active {
+    transform: translateY(0);
+}

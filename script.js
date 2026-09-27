@@ -806,7 +806,51 @@ async function iniciarSesionSocio(event) {
         console.log(
             "Socio autenticado:",
             data.user.id
+            );
+
+    /* ------------------------------------------------------
+    BUSCAR LA FICHA DEL USUARIO EN BIBLIOTECA
+    ------------------------------------------------------ */
+
+    const { data: usuarioBiblioteca, error: errorUsuario } =
+        await clienteSupabase
+            .from("usuarios")
+            .select(`
+                id,
+                numero_socio,
+                nombre,
+                apellidos,
+                rol,
+                activo,
+                socio_activo,
+                fecha_ultima_validacion_socio
+            `)
+            .eq(
+                "auth_user_id",
+                data.user.id
+            )
+            .maybeSingle();
+
+
+    if (errorUsuario) {
+        throw errorUsuario;
+    }
+
+
+    if (!usuarioBiblioteca) {
+
+        await clienteSupabase.auth.signOut();
+
+        throw new Error(
+            "La cuenta no está vinculada a un usuario de la Biblioteca FIO."
         );
+    }
+
+
+    console.log(
+        "Ficha Biblioteca FIO:",
+        usuarioBiblioteca
+    );
 
 
         mensaje.textContent =

@@ -1192,7 +1192,7 @@ function actualizarAccionReserva(libro) {
             "Reservar ejemplar";
 
         mensaje.textContent =
-            "El ejemplar está prestado. La reserva quedará en espera.";
+            "El ejemplar está prestado. Reserva en espera.";
 
         return;
     }

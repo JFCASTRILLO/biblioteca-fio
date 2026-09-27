@@ -1566,3 +1566,16 @@ td {
     height: auto;
     min-height: 0;
 }
+
+/* ==================================================
+   AJUSTE VERTICAL SOLO PARA TÍTULOS MUY LARGOS
+   ================================================== */
+
+#modal-titulo.titulo-muy-largo {
+    margin-bottom: 5px;
+}
+
+#modal-titulo.titulo-muy-largo
+~ .fila-autor-reserva {
+    margin-bottom: 5px;
+}

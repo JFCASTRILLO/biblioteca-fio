@@ -1543,3 +1543,26 @@ td {
     font-size: 1.45rem;
     line-height: 1.06;
 }
+
+/* ==================================================
+   PORTADA DEL MODAL - ALTURA MÁXIMA
+   ================================================== */
+
+#modal-portada {
+    width: auto;
+    height: auto;
+
+    max-width: 100%;
+    max-height: 360px;
+
+    object-fit: contain;
+}
+
+.portada-libro {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    height: auto;
+    min-height: 0;
+}

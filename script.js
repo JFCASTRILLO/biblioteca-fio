@@ -30,6 +30,7 @@ const columnasVisibles = [
 let todosLosLibros = [];
 let librosVisibles = [];
 let indiceLibroActual = -1;
+let usuarioSocioActual = null;
 
 /* ==========================================================
    CARGAR CATÁLOGO DESDE SUPABASE
@@ -328,6 +329,7 @@ elEstado.textContent = libro.estado || "-";
 elEstado.className =
     `estado-badge status-${String(libro.estado || "").toLowerCase()}`;
 
+    actualizarAccionReserva(libro);
 
 loader.style.display = "block";
 
@@ -906,6 +908,8 @@ document
 
 function mostrarSocioEnCabecera(usuario) {
 
+    usuarioSocioActual = usuario;
+
     const btnAcceso =
         document.getElementById(
             "btn-acceso-socios"
@@ -937,6 +941,8 @@ function mostrarSocioEnCabecera(usuario) {
 
 
 function ocultarSocioEnCabecera() {
+
+    usuarioSocioActual = null;
 
     document.getElementById(
         "sesion-socio"
@@ -1065,3 +1071,119 @@ document.addEventListener(
     "DOMContentLoaded",
     restaurarSesionSocio
 );
+
+/* ==========================================================
+   RESERVAS - ESTADO DEL BOTÓN EN LA FICHA DEL EJEMPLAR
+   ========================================================== */
+
+function actualizarAccionReserva(libro) {
+
+    const bloque =
+        document.getElementById(
+            "acciones-socio-ejemplar"
+        );
+
+    const boton =
+        document.getElementById(
+            "btn-reservar-ejemplar"
+        );
+
+    const mensaje =
+        document.getElementById(
+            "mensaje-reserva-ejemplar"
+        );
+
+
+    /* Visitante no identificado */
+
+    if (!usuarioSocioActual) {
+
+        bloque.style.display = "none";
+
+        return;
+    }
+
+
+    /* Socio identificado */
+
+    bloque.style.display = "flex";
+
+    boton.disabled = false;
+
+    boton.style.display = "";
+
+    mensaje.textContent = "";
+
+
+    /* Cuenta de Biblioteca deshabilitada */
+
+    if (!usuarioSocioActual.activo) {
+
+        boton.style.display = "none";
+
+        mensaje.textContent =
+            "La cuenta de Biblioteca no está habilitada.";
+
+        return;
+    }
+
+
+    /* Ya no figura como socio activo de la FIO */
+
+    if (!usuarioSocioActual.socio_activo) {
+
+        boton.style.display = "none";
+
+        mensaje.textContent =
+            "La reserva requiere ser socio activo de la FIO.";
+
+        return;
+    }
+
+
+    const estado =
+        String(libro.estado || "")
+            .toLowerCase()
+            .trim();
+
+
+    if (estado === "disponible") {
+
+        boton.textContent =
+            "Reservar ejemplar";
+
+        mensaje.textContent =
+            "El ejemplar está disponible.";
+
+        return;
+    }
+
+
+    if (estado === "prestado") {
+
+        boton.textContent =
+            "Reservar ejemplar";
+
+        mensaje.textContent =
+            "El ejemplar está prestado. La reserva quedará en espera.";
+
+        return;
+    }
+
+
+    if (estado === "reservado") {
+
+        boton.style.display = "none";
+
+        mensaje.textContent =
+            "Este ejemplar ya está reservado.";
+
+        return;
+    }
+
+
+    boton.style.display = "none";
+
+    mensaje.textContent =
+        "Este ejemplar no admite reservas.";
+}

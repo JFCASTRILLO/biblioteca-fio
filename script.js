@@ -322,13 +322,6 @@ document.getElementById("modal-sinopsis").textContent =
         ? libro.sinopsis
         : "Sin descripción adicional.";
 
-const elEstado = document.getElementById("modal-estado");
-
-elEstado.textContent = libro.estado || "-";
-
-elEstado.className =
-    `estado-badge status-${String(libro.estado || "").toLowerCase()}`;
-
     actualizarAccionReserva(libro);
 
 loader.style.display = "block";

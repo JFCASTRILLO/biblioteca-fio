@@ -1396,3 +1396,47 @@ td {
 + .sinopsis-completa {
     margin-top: 14px;
 }
+
+/* ==================================================
+   AUTOR Y RESERVA DEL EJEMPLAR
+   ================================================== */
+
+.fila-autor-reserva {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 25px;
+
+    margin-bottom: 18px;
+}
+
+
+.fila-autor-reserva #modal-autor {
+    margin: 0;
+    padding-top: 4px;
+
+    flex: 1;
+}
+
+
+.fila-autor-reserva .acciones-socio-ejemplar {
+    margin: 0;
+
+    flex: 0 0 auto;
+
+    display: none;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    gap: 5px;
+}
+
+
+.fila-autor-reserva .mensaje-reserva-ejemplar {
+    max-width: 300px;
+
+    text-align: right;
+
+    font-size: .82rem;
+    line-height: 1.3;
+}

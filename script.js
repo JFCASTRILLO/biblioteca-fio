@@ -289,7 +289,40 @@ function limpiarFiltros() {
     buscador.focus();
 }
 
+/* ==========================================================
+   AJUSTAR TAMAÑO DEL TÍTULO EN LA FICHA
+   ========================================================== */
 
+function ajustarTamanoTitulo(titulo) {
+
+    const elementoTitulo =
+        document.getElementById("modal-titulo");
+
+    const longitud =
+        String(titulo || "").length;
+
+
+    elementoTitulo.classList.remove(
+        "titulo-largo",
+        "titulo-muy-largo"
+    );
+
+
+    if (longitud > 70) {
+
+        elementoTitulo.classList.add(
+            "titulo-muy-largo"
+        );
+
+    }
+    else if (longitud > 45) {
+
+        elementoTitulo.classList.add(
+            "titulo-largo"
+        );
+
+    }
+}
 
 
 // 5. EVENTOS MODAL
@@ -306,6 +339,7 @@ const portada = document.getElementById("modal-portada");
 const loader = document.getElementById("loader-portada");
 
 document.getElementById("modal-titulo").textContent = libro.titulo;
+ajustarTamanoTitulo(libro.titulo);
 document.getElementById("modal-autor").textContent = libro.autor;
 document.getElementById("modal-id").textContent = libro.id;
 document.getElementById("modal-editorial").textContent = libro.editorial;

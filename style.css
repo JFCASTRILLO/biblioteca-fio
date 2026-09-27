@@ -1496,3 +1496,19 @@ td {
 .sinopsis-completa {
     margin-top: 10px;
 }
+
+
+/* ==================================================
+   TÍTULOS LARGOS EN LA FICHA
+   ================================================== */
+
+#modal-titulo.titulo-largo {
+    font-size: 2rem;
+    line-height: 1.08;
+}
+
+
+#modal-titulo.titulo-muy-largo {
+    font-size: 1.72rem;
+    line-height: 1.06;
+}

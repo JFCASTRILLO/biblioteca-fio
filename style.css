@@ -1269,3 +1269,74 @@ td {
 #btn-cerrar-sesion-socio:active {
     transform: translateY(0);
 }
+
+/* ==================================================
+   RESERVA DE EJEMPLAR - CATÁLOGO PÚBLICO
+   ================================================== */
+
+.acciones-socio-ejemplar {
+    display: none;
+
+    align-items: center;
+    justify-content: flex-end;
+    gap: 14px;
+
+    margin-top: 14px;
+    margin-bottom: 4px;
+}
+
+
+#btn-reservar-ejemplar {
+    padding: 9px 18px;
+
+    border: 1px solid #212c59;
+    border-radius: 5px;
+
+    background: #212c59;
+    color: #ffffff;
+
+    font: inherit;
+    font-size: .90rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color .2s ease,
+        border-color .2s ease,
+        transform .15s ease,
+        box-shadow .2s ease;
+}
+
+
+#btn-reservar-ejemplar:hover:not(:disabled) {
+    background: #2d3b70;
+    border-color: #2d3b70;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 3px 8px rgba(33,44,89,.18);
+}
+
+
+#btn-reservar-ejemplar:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+
+#btn-reservar-ejemplar:disabled {
+    border-color: #c7cdd5;
+
+    background: #e5e8ec;
+    color: #8a929c;
+
+    cursor: default;
+}
+
+
+.mensaje-reserva-ejemplar {
+    color: #667085;
+    font-size: .86rem;
+    line-height: 1.35;
+}

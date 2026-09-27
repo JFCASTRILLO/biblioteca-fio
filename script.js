@@ -977,3 +977,91 @@ document
         "click",
         cerrarSesionSocio
     );
+
+    /* ==========================================================
+   RESTAURAR SESIÓN DEL SOCIO AL ABRIR LA PÁGINA
+   ========================================================== */
+
+async function restaurarSesionSocio() {
+
+    try {
+
+        const { data, error } =
+            await clienteSupabase.auth
+                .getSession();
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        const sesion = data.session;
+
+
+        if (!sesion || !sesion.user) {
+
+            ocultarSocioEnCabecera();
+
+            return;
+        }
+
+
+        const { data: usuarioBiblioteca, error: errorUsuario } =
+            await clienteSupabase
+                .from("usuarios")
+                .select(`
+                    id,
+                    numero_socio,
+                    nombre,
+                    apellidos,
+                    rol,
+                    activo,
+                    socio_activo,
+                    fecha_ultima_validacion_socio
+                `)
+                .eq(
+                    "auth_user_id",
+                    sesion.user.id
+                )
+                .maybeSingle();
+
+
+        if (errorUsuario) {
+            throw errorUsuario;
+        }
+
+
+        if (!usuarioBiblioteca) {
+
+            await clienteSupabase.auth
+                .signOut();
+
+            ocultarSocioEnCabecera();
+
+            return;
+        }
+
+
+        mostrarSocioEnCabecera(
+            usuarioBiblioteca
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Error al restaurar la sesión del socio:",
+            error
+        );
+
+        ocultarSocioEnCabecera();
+
+    }
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    restaurarSesionSocio
+);

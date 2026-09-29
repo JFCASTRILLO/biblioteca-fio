@@ -165,7 +165,10 @@ async function cargarLibros() {
         document.getElementById("bloque-tabla")
             .style.display = "block";
 
-        mostrarEnTabla(todosLosLibros);
+        /* La lista visible inicial es el catálogo completo */
+        librosVisibles = todosLosLibros;
+
+        mostrarEnTabla(librosVisibles);
 
     }
 

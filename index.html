@@ -322,6 +322,110 @@
 
     <div id="modal-imagen" class="modal-imagen">
 
+
+    <!-- ======================================================
+     MODAL CONFIRMAR RESERVA
+     ====================================================== -->
+
+    <div id="modal-confirmar-reserva" class="modal-confirmar-reserva">
+
+        <div class="contenido-confirmar-reserva">
+
+            <button
+                type="button"
+                class="cerrar-confirmar-reserva"
+                id="btn-cerrar-confirmar-reserva"
+                aria-label="Cerrar">
+                &times;
+            </button>
+
+            <div class="cabecera-confirmar-reserva">
+
+                <h2>Reservar ejemplar</h2>
+
+                <div
+                    id="titulo-confirmar-reserva"
+                    class="titulo-confirmar-reserva">
+                </div>
+
+            </div>
+
+
+            <form id="form-confirmar-reserva">
+
+                <div class="campo-confirmar-reserva">
+
+                    <label for="medio-contacto-reserva">
+                        Medio de contacto
+                    </label>
+
+                    <select
+                        id="medio-contacto-reserva"
+                        required>
+
+                        <option value="">
+                            -- Seleccione --
+                        </option>
+
+                        <option value="EMAIL">
+                            Correo electrónico
+                        </option>
+
+                        <option value="TELEFONO">
+                            Teléfono
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="campo-confirmar-reserva">
+
+                    <label for="dato-contacto-reserva">
+                        Dato de contacto
+                    </label>
+
+                    <input
+                        type="text"
+                        id="dato-contacto-reserva"
+                        autocomplete="off"
+                        required
+                    >
+
+                </div>
+
+
+                <div
+                    id="mensaje-confirmar-reserva"
+                    class="mensaje-confirmar-reserva"
+                    aria-live="polite">
+                </div>
+
+
+                <div class="acciones-confirmar-reserva">
+
+                    <button
+                        type="button"
+                        id="btn-cancelar-reserva">
+                        Cancelar
+                    </button>
+
+                    <button
+                        type="submit"
+                        id="btn-confirmar-reserva">
+                        Confirmar reserva
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
         <span class="cerrar-imagen">&times;</span>
 
         <img id="imagen-ampliada">

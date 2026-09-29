@@ -1579,3 +1579,216 @@ td {
 ~ .fila-autor-reserva {
     margin-bottom: 5px;
 }
+
+/* ==================================================
+   MODAL CONFIRMAR RESERVA
+   ================================================== */
+
+.modal-confirmar-reserva {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 3100;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(12, 20, 43, .58);
+}
+
+
+.contenido-confirmar-reserva {
+    position: relative;
+
+    width: min(460px, 94vw);
+
+    padding: 27px 30px 24px;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    border: 1px solid #d7dde5;
+    border-radius: 8px;
+
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, .22);
+}
+
+
+.cerrar-confirmar-reserva {
+    position: absolute;
+
+    top: 12px;
+    right: 15px;
+
+    padding: 0;
+    border: 0;
+
+    background: transparent;
+    color: #6b7280;
+
+    font-size: 1.8rem;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        color .2s ease,
+        transform .15s ease;
+}
+
+
+.cerrar-confirmar-reserva:hover {
+    color: #212c59;
+    transform: scale(1.08);
+}
+
+
+.cabecera-confirmar-reserva {
+    padding-right: 28px;
+    margin-bottom: 22px;
+}
+
+
+.cabecera-confirmar-reserva h2 {
+    margin: 0 0 7px;
+
+    color: #212c59;
+
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+
+.titulo-confirmar-reserva {
+    color: #667085;
+
+    font-size: .92rem;
+    line-height: 1.4;
+
+    font-weight: 600;
+}
+
+
+.campo-confirmar-reserva {
+    margin-bottom: 17px;
+}
+
+
+.campo-confirmar-reserva label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #374151;
+
+    font-size: .86rem;
+    font-weight: 600;
+}
+
+
+.campo-confirmar-reserva input,
+.campo-confirmar-reserva select {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 10px 11px;
+
+    border: 1px solid #cbd3dc;
+    border-radius: 5px;
+
+    background: #ffffff;
+    color: #263238;
+
+    font: inherit;
+}
+
+
+.campo-confirmar-reserva input:focus,
+.campo-confirmar-reserva select:focus {
+    outline: none;
+
+    border-color: #536aa5;
+
+    box-shadow:
+        0 0 0 2px rgba(83,106,165,.12);
+}
+
+
+.mensaje-confirmar-reserva {
+    display: flex;
+
+    margin: 2px 0 15px;
+
+    font-size: .88rem;
+    line-height: 1.35;
+}
+
+
+.acciones-confirmar-reserva {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 23px;
+}
+
+
+#btn-cancelar-reserva,
+#btn-confirmar-reserva {
+    padding: 9px 17px;
+
+    border-radius: 5px;
+
+    font: inherit;
+    font-size: .90rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color .2s ease,
+        border-color .2s ease,
+        color .2s ease,
+        transform .15s ease,
+        box-shadow .2s ease;
+}
+
+
+#btn-cancelar-reserva {
+    border: 1px solid #cbd3dc;
+
+    background: #ffffff;
+    color: #374151;
+}
+
+
+#btn-cancelar-reserva:hover {
+    background: #f3f5f7;
+    border-color: #aeb8c4;
+}
+
+
+#btn-confirmar-reserva {
+    border: 1px solid #212c59;
+
+    background: #212c59;
+    color: #ffffff;
+}
+
+
+#btn-confirmar-reserva:hover:not(:disabled) {
+    background: #2d3b70;
+    border-color: #2d3b70;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 3px 8px rgba(33,44,89,.18);
+}

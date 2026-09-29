@@ -1147,6 +1147,14 @@ function abrirConfirmacionReserva() {
     ).style.display = "none";
 
     modal.style.display = "flex";
+
+    console.log(
+    "MODAL RESERVA:",
+    modal,
+    "display:",
+    getComputedStyle(modal).display
+);
+
 }
 
 

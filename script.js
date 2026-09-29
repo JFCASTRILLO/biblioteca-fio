@@ -1116,6 +1116,8 @@ document.addEventListener(
 
 function abrirConfirmacionReserva() {
 
+    console.log("CLICK RESERVAR - función ejecutada");
+
     const modal = document.getElementById(
         "modal-confirmar-reserva"
     );

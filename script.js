@@ -762,6 +762,13 @@ document
         }
     );
 
+document
+    .getElementById("btn-reservar-ejemplar")
+    .addEventListener(
+        "click",
+        abrirConfirmacionReserva
+    );
+
 /* ==========================================================
    ACCESO DE SOCIOS - AUTENTICACIÓN
    ========================================================== */
@@ -1099,9 +1106,44 @@ document.addEventListener(
     restaurarSesionSocio
 );
 
+
 /* ==========================================================
    RESERVAS - ESTADO DEL BOTÓN EN LA FICHA DEL EJEMPLAR
    ========================================================== */
+
+function abrirConfirmacionReserva() {
+
+    const modal = document.getElementById(
+        "modal-confirmar-reserva"
+    );
+
+    const titulo = document.getElementById(
+        "titulo-confirmar-reserva"
+    );
+
+    const libro = librosFiltrados[indiceLibroActual];
+
+    if (!libro) {
+        return;
+    }
+
+    titulo.textContent = libro.titulo || "";
+
+    document.getElementById(
+        "medio-contacto-reserva"
+    ).value = "";
+
+    document.getElementById(
+        "dato-contacto-reserva"
+    ).value = "";
+
+    document.getElementById(
+        "mensaje-confirmar-reserva"
+    ).style.display = "none";
+
+    modal.style.display = "flex";
+}
+
 
 function actualizarAccionReserva(libro) {
 

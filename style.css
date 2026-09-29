@@ -1720,7 +1720,7 @@ td {
 
 
 .mensaje-confirmar-reserva {
-    display: flex;
+    display: none;
 
     margin: 2px 0 15px;
 

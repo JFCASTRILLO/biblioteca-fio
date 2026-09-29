@@ -1121,7 +1121,7 @@ function abrirConfirmacionReserva() {
         "titulo-confirmar-reserva"
     );
 
-    const libro = librosFiltrados[indiceLibroActual];
+    const libro = librosVisibles[indiceLibroActual];
 
     if (!libro) {
         return;

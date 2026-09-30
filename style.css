@@ -1967,3 +1967,117 @@ td {
 
     transform: translateY(-1px);
 }
+
+/* ==================================================
+   TARJETAS - MIS RESERVAS
+   ================================================== */
+
+.tarjeta-mi-reserva {
+
+    margin-bottom: 12px;
+    padding: 15px 17px;
+
+    background: #f8f9fb;
+
+    border: 1px solid #e1e4ea;
+    border-radius: 8px;
+
+    transition:
+        box-shadow .2s ease,
+        transform .2s ease;
+}
+
+
+.tarjeta-mi-reserva:hover {
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, .08);
+}
+
+
+.mi-reserva-cabecera {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 8px;
+}
+
+
+.mi-reserva-cabecera strong {
+
+    color: #212c59;
+
+    font-size: .95rem;
+}
+
+
+.estado-mi-reserva {
+
+    display: inline-block;
+
+    padding: 4px 9px;
+
+    border-radius: 12px;
+
+    background: #e8ebf2;
+
+    color: #39415a;
+
+    font-size: .72rem;
+    font-weight: 700;
+
+    letter-spacing: .4px;
+}
+
+
+.mi-reserva-titulo {
+
+    margin-bottom: 9px;
+
+    color: #222222;
+
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+
+.mi-reserva-datos {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px 24px;
+
+    color: #666666;
+
+    font-size: .86rem;
+}
+
+
+.mi-reserva-datos strong {
+
+    color: #444444;
+}
+
+
+.reserva-vacia {
+
+    padding: 25px;
+
+    text-align: center;
+
+    color: #666666;
+
+    background: #f8f9fb;
+
+    border: 1px solid #e1e4ea;
+    border-radius: 8px;
+}

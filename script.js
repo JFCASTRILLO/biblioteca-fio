@@ -772,6 +772,31 @@ document
         abrirConfirmacionReserva
     );
 
+document
+    .getElementById("btn-cerrar-confirmar-reserva")
+    .addEventListener(
+        "click",
+        cerrarConfirmacionReserva
+    );
+
+
+document
+    .getElementById("btn-cancelar-reserva")
+    .addEventListener(
+        "click",
+        cerrarConfirmacionReserva
+    );
+
+document
+    .getElementById("modal-confirmar-reserva")
+    .addEventListener("click", function (event) {
+
+        if (event.target === this) {
+            cerrarConfirmacionReserva();
+        }
+
+    });
+
 /* ==========================================================
    ACCESO DE SOCIOS - AUTENTICACIÓN
    ========================================================== */
@@ -1134,6 +1159,30 @@ function abrirConfirmacionReserva() {
 
     modal.style.display = "flex";
     
+}
+
+function cerrarConfirmacionReserva() {
+
+    const modal = document.getElementById(
+        "modal-confirmar-reserva"
+    );
+
+    modal.style.display = "none";
+
+    document.getElementById(
+        "medio-contacto-reserva"
+    ).value = "";
+
+    document.getElementById(
+        "dato-contacto-reserva"
+    ).value = "";
+
+    const mensaje = document.getElementById(
+        "mensaje-confirmar-reserva"
+    );
+
+    mensaje.textContent = "";
+    mensaje.style.display = "none";
 }
 
 

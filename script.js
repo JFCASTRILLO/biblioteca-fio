@@ -797,6 +797,19 @@ document
 
     });
 
+    document
+    .getElementById("form-confirmar-reserva")
+    .addEventListener(
+        "submit",
+        function (event) {
+
+            event.preventDefault();
+
+            confirmarReservaSocio();
+        }
+    );
+   
+
 /* ==========================================================
    ACCESO DE SOCIOS - AUTENTICACIÓN
    ========================================================== */
@@ -1185,6 +1198,155 @@ function cerrarConfirmacionReserva() {
     mensaje.style.display = "none";
 }
 
+async function confirmarReservaSocio() {
+
+    const libro =
+    librosVisibles[indiceLibroActual];
+
+    if (!usuarioSocioActual || !libro) {
+        return;
+}
+
+    const medioContacto =
+        document
+            .getElementById("medio-contacto-reserva")
+            .value;
+
+    const datoContacto =
+        document
+            .getElementById("dato-contacto-reserva")
+            .value
+            .trim();
+
+    const mensaje =
+        document.getElementById(
+            "mensaje-confirmar-reserva"
+        );
+
+    /* ---------------------------------------------
+       VALIDAR CONTACTO
+       --------------------------------------------- */
+
+    if (!medioContacto) {
+
+        mensaje.textContent =
+            "Seleccione un medio de contacto.";
+
+        mensaje.style.display = "block";
+
+        document
+            .getElementById("medio-contacto-reserva")
+            .focus();
+
+        return;
+    }
+
+    if (!datoContacto) {
+
+        mensaje.textContent =
+            "Indique el dato de contacto.";
+
+        mensaje.style.display = "block";
+
+        document
+            .getElementById("dato-contacto-reserva")
+            .focus();
+
+        return;
+    }
+
+
+    const boton =
+        document.getElementById(
+            "btn-confirmar-reserva"
+        );
+
+
+    try {
+
+        boton.disabled = true;
+        boton.textContent = "Reservando...";
+
+        mensaje.textContent = "";
+        mensaje.style.display = "none";
+
+
+        const {
+            data,
+            error
+        } = await clienteSupabase.rpc(
+            "crear_reserva",
+            {
+                p_usuario_id:
+                    usuarioSocioActual.id,
+
+                p_ejemplar_id:
+                    libro.id,
+
+                p_medio_contacto:
+                    medioContacto,
+
+                p_dato_contacto:
+                    datoContacto,
+
+                p_observaciones:
+                    null
+            }
+        );
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        let numeroReserva = "";
+
+        if (
+            Array.isArray(data) &&
+            data.length > 0
+        ) {
+            numeroReserva =
+                data[0].reserva_id || "";
+        }
+
+
+        cerrarConfirmacionReserva();
+
+
+        let texto =
+            "Reserva registrada correctamente.";
+
+        if (numeroReserva) {
+            texto +=
+                "\n\nNº de reserva: " +
+                numeroReserva;
+        }
+
+        alert(texto);
+
+
+    } catch (error) {
+
+        console.error(
+            "Error creando reserva:",
+            error
+        );
+
+        mensaje.textContent =
+            error.message ||
+            "No se ha podido registrar la reserva.";
+
+        mensaje.style.display = "block";
+
+
+    } finally {
+
+        boton.disabled = false;
+        boton.textContent =
+            "Confirmar reserva";
+    }
+}
 
 function actualizarAccionReserva(libro) {
 

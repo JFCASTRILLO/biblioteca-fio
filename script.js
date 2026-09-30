@@ -840,13 +840,7 @@ async function iniciarSesionSocio(event) {
                 "No se ha podido identificar al usuario."
             );
         }
-
-
-        console.log(
-            "Socio autenticado:",
-            data.user.id
-            );
-
+        
     /* ------------------------------------------------------
     BUSCAR LA FICHA DEL USUARIO EN BIBLIOTECA
     ------------------------------------------------------ */
@@ -884,12 +878,6 @@ async function iniciarSesionSocio(event) {
             "La cuenta no está vinculada a un usuario de la Biblioteca FIO."
         );
     }
-
-
-    console.log(
-        "Ficha Biblioteca FIO:",
-        usuarioBiblioteca
-    );
 
         mostrarSocioEnCabecera(
             usuarioBiblioteca
@@ -1116,8 +1104,6 @@ document.addEventListener(
 
 function abrirConfirmacionReserva() {
 
-    console.log("CLICK RESERVAR - función ejecutada");
-
     const modal = document.getElementById(
         "modal-confirmar-reserva"
     );
@@ -1147,14 +1133,7 @@ function abrirConfirmacionReserva() {
     ).style.display = "none";
 
     modal.style.display = "flex";
-
-    console.log(
-    "MODAL RESERVA:",
-    modal,
-    "display:",
-    getComputedStyle(modal).display
-);
-
+    
 }
 
 

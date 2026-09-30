@@ -2103,3 +2103,33 @@ td {
     background: #eeeeee;
     color: #777777;
 }
+
+.acciones-mi-reserva {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+}
+
+.btn-cancelar-mi-reserva {
+    padding: 7px 13px;
+
+    border: 1px solid #b7bcc7;
+    border-radius: 5px;
+
+    background: #ffffff;
+    color: #555555;
+
+    font-size: .78rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        border-color .2s ease;
+}
+
+.btn-cancelar-mi-reserva:hover {
+    background: #f1f2f5;
+    border-color: #8d94a3;
+}

@@ -834,6 +834,23 @@ function mostrarMisReservas(reservas) {
                     )}
                 </span>
             </div>
+
+            ${
+                reserva.estado === "ACTIVA" ||
+                reserva.estado === "DISPONIBLE"
+                    ? `
+                        <div class="acciones-mi-reserva">
+                            <button
+                                type="button"
+                                class="btn-cancelar-mi-reserva"
+                                data-reserva-id="${reserva.id}"
+                            >
+                                Cancelar reserva
+                            </button>
+                        </div>
+                    `
+                    : ""
+            }
         `;
 
         lista.appendChild(tarjeta);

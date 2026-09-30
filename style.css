@@ -2081,3 +2081,25 @@ td {
     border: 1px solid #e1e4ea;
     border-radius: 8px;
 }
+
+/* Estados de Mis reservas */
+
+.estado-mi-reserva.estado-activa {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.estado-mi-reserva.estado-disponible {
+    background: #dff1e3;
+    color: #25633a;
+}
+
+.estado-mi-reserva.estado-atendida {
+    background: #e3ebf7;
+    color: #31547a;
+}
+
+.estado-mi-reserva.estado-cancelada {
+    background: #eeeeee;
+    color: #777777;
+}

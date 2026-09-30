@@ -811,7 +811,7 @@ function mostrarMisReservas(reservas) {
                     Reserva nº ${reserva.id}
                 </strong>
 
-                <span class="estado-mi-reserva">
+                <span class="estado-mi-reserva estado-${(reserva.estado || "").toLowerCase()}">
                     ${reserva.estado || "-"}
                 </span>
 

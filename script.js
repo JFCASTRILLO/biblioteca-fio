@@ -682,11 +682,184 @@ document.addEventListener(
     }
 );
 
-function abrirMisReservas() {
+async function abrirMisReservas() {
 
-    document
-        .getElementById("modal-mis-reservas")
-        .style.display = "flex";
+    const modal =
+        document.getElementById(
+            "modal-mis-reservas"
+        );
+
+    const lista =
+        document.getElementById(
+            "lista-mis-reservas"
+        );
+
+    const mensaje =
+        document.getElementById(
+            "mensaje-mis-reservas"
+        );
+
+    modal.style.display = "flex";
+
+    lista.innerHTML = "";
+
+    mensaje.textContent =
+        "Cargando reservas...";
+
+    mensaje.style.display = "block";
+
+
+    try {
+
+        const {
+            data,
+            error
+        } = await clienteSupabase
+            .from("reservas")
+            .select(`
+                id,
+                fecha_reserva,
+                fecha_disponible,
+                fecha_atendida,
+                fecha_cancelacion,
+                estado,
+                medio_contacto,
+                dato_contacto,
+
+                ejemplar:ejemplares!reservas_ejemplar_id_fkey (
+                    id,
+                    clave,
+                    titulo,
+                    autor
+                )
+            `)
+            .order(
+                "fecha_reserva",
+                {
+                    ascending: false
+                }
+            )
+            .order(
+                "id",
+                {
+                    ascending: false
+                }
+            );
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        mensaje.style.display = "none";
+
+        mostrarMisReservas(data || []);
+
+
+    } catch (error) {
+
+        console.error(
+            "Error cargando reservas del socio:",
+            error
+        );
+
+        mensaje.textContent =
+            "No se han podido cargar tus reservas.";
+
+        mensaje.style.display = "block";
+    }
+}
+
+function mostrarMisReservas(reservas) {
+
+    const lista =
+        document.getElementById(
+            "lista-mis-reservas"
+        );
+
+    lista.innerHTML = "";
+
+
+    if (reservas.length === 0) {
+
+        lista.innerHTML = `
+            <div class="reserva-vacia">
+                No tienes reservas registradas.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    reservas.forEach(reserva => {
+
+        const ejemplar =
+            reserva.ejemplar || {};
+
+        const tarjeta =
+            document.createElement("div");
+
+        tarjeta.className =
+            "tarjeta-mi-reserva";
+
+        tarjeta.innerHTML = `
+            <div class="mi-reserva-cabecera">
+
+                <strong>
+                    Reserva nº ${reserva.id}
+                </strong>
+
+                <span class="estado-mi-reserva">
+                    ${reserva.estado || "-"}
+                </span>
+
+            </div>
+
+            <div class="mi-reserva-titulo">
+                ${ejemplar.titulo || "-"}
+            </div>
+
+            <div class="mi-reserva-datos">
+                <span>
+                    <strong>Clave:</strong>
+                    ${ejemplar.clave || "-"}
+                </span>
+
+                <span>
+                    <strong>Fecha:</strong>
+                    ${formatearFechaReserva(
+                        reserva.fecha_reserva
+                    )}
+                </span>
+            </div>
+        `;
+
+        lista.appendChild(tarjeta);
+    });
+}
+
+function formatearFechaReserva(fecha) {
+
+    if (!fecha) {
+        return "-";
+    }
+
+    const partes =
+        fecha.split("-");
+
+    if (partes.length !== 3) {
+        return fecha;
+    }
+
+    return (
+        partes[2] +
+        "/" +
+        partes[1] +
+        "/" +
+        partes[0]
+    );
 }
 
 

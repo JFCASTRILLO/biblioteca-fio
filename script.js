@@ -682,6 +682,22 @@ document.addEventListener(
     }
 );
 
+function abrirMisReservas() {
+
+    document
+        .getElementById("modal-mis-reservas")
+        .style.display = "flex";
+}
+
+
+function cerrarMisReservas() {
+
+    document
+        .getElementById("modal-mis-reservas")
+        .style.display = "none";
+}
+
+
 /* ==========================================================
    ACCESO DE SOCIOS - APERTURA Y CIERRE DEL MODAL
    ========================================================== */
@@ -764,6 +780,44 @@ document
 
         }
     );
+
+document
+    .getElementById("btn-mis-reservas")
+    .addEventListener(
+        "click",
+        abrirMisReservas
+    );
+
+
+document
+    .getElementById("btn-cerrar-mis-reservas")
+    .addEventListener(
+        "click",
+        cerrarMisReservas
+    );
+
+
+document
+    .getElementById("btn-cerrar-lista-reservas")
+    .addEventListener(
+        "click",
+        cerrarMisReservas
+    );
+
+
+document
+    .getElementById("modal-mis-reservas")
+    .addEventListener(
+        "click",
+        function (event) {
+
+            if (event.target === this) {
+                cerrarMisReservas();
+            }
+
+        }
+    );
+
 
 document
     .getElementById("btn-reservar-ejemplar")

@@ -1797,3 +1797,173 @@ td {
     box-shadow:
         0 3px 8px rgba(33,44,89,.18);
 }
+
+/* ==================================================
+   MODAL MIS RESERVAS
+   ================================================== */
+
+.modal-mis-reservas {
+
+    display: none;
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    z-index: 10000;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(12, 20, 43, .58);
+}
+
+
+.contenido-mis-reservas {
+
+    position: relative;
+
+    width: min(760px, 94vw);
+    max-height: 82vh;
+
+    padding: 27px 30px 24px;
+
+    background: #ffffff;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 18px 50px rgba(0, 0, 0, .28);
+
+    overflow: hidden;
+}
+
+
+.cerrar-mis-reservas {
+
+    position: absolute;
+
+    top: 12px;
+    right: 16px;
+
+    border: 0;
+    background: transparent;
+
+    font-size: 30px;
+    line-height: 1;
+
+    color: #666666;
+
+    cursor: pointer;
+}
+
+
+.cerrar-mis-reservas:hover {
+
+    color: #212c59;
+}
+
+
+.cabecera-mis-reservas {
+
+    padding-right: 35px;
+    margin-bottom: 20px;
+}
+
+
+.cabecera-mis-reservas h2 {
+
+    margin: 0 0 6px;
+
+    color: #212c59;
+
+    font-size: 1.55rem;
+}
+
+
+.cabecera-mis-reservas p {
+
+    margin: 0;
+
+    color: #666666;
+
+    font-size: .95rem;
+}
+
+
+.lista-mis-reservas {
+
+    max-height: 48vh;
+
+    overflow-y: auto;
+
+    padding-right: 5px;
+}
+
+
+.mensaje-mis-reservas {
+
+    display: none;
+
+    margin-top: 15px;
+
+    padding: 12px 14px;
+
+    border-radius: 6px;
+
+    background: #f3f4f7;
+
+    color: #444444;
+
+    font-size: .92rem;
+}
+
+
+.acciones-mis-reservas {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    margin-top: 22px;
+    padding-top: 18px;
+
+    border-top: 1px solid #e2e2e2;
+}
+
+
+.acciones-mis-reservas button {
+
+    min-width: 120px;
+
+    padding: 11px 20px;
+
+    border: 1px solid #212c59;
+    border-radius: 6px;
+
+    background: #212c59;
+
+    color: #ffffff;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
+}
+
+
+.acciones-mis-reservas button:hover {
+
+    background: #16213e;
+
+    transform: translateY(-1px);
+}

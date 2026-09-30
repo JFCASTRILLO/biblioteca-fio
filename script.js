@@ -1299,6 +1299,12 @@ async function confirmarReservaSocio() {
             throw error;
         }
 
+        /* Actualizar el ejemplar en memoria */
+        libro.estado = "RESERVADO";
+
+        /* Actualizar el botón y mensaje del modal */
+        actualizarAccionReserva(libro);
+
 
         let numeroReserva = "";
 

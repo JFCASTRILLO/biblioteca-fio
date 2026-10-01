@@ -1134,10 +1134,38 @@ function abrirFichaReserva(reserva) {
             reserva.medio_contacto || "-";
 
 
-    document
+        document
         .getElementById("ficha-reserva-dato-contacto")
         .textContent =
             reserva.dato_contacto || "-";
+
+
+    /* ==========================================================
+       AVISO AL SOCIO
+       ========================================================== */
+
+    const estadoAviso =
+        document.getElementById(
+            "ficha-reserva-estado-aviso"
+        );
+
+    estadoAviso.textContent =
+        reserva.estado_aviso || "PENDIENTE";
+
+    estadoAviso.className = "";
+
+    if (reserva.estado_aviso === "ENVIADO") {
+        estadoAviso.classList.add(
+            "estado-aviso-enviado"
+        );
+    }
+
+    document
+        .getElementById("ficha-reserva-fecha-aviso")
+        .textContent =
+            formatearFechaHora(
+                reserva.fecha_aviso
+            );
 
 
     document.getElementById(
@@ -1555,6 +1583,8 @@ async function cargarReservas() {
             estado,
             medio_contacto,
             dato_contacto,
+            estado_aviso,
+            fecha_aviso,
             observaciones,
 
             usuario:usuarios!reservas_usuario_id_fkey (
@@ -1901,6 +1931,30 @@ function formatearFecha(fecha) {
         partes[1] +
         "/" +
         partes[0]
+    );
+}
+
+function formatearFechaHora(fecha) {
+
+    if (!fecha) {
+        return "-";
+    }
+
+    const fechaObj = new Date(fecha);
+
+    if (isNaN(fechaObj.getTime())) {
+        return "-";
+    }
+
+    return fechaObj.toLocaleString(
+        "es-ES",
+        {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+        }
     );
 }
 

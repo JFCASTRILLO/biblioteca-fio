@@ -3486,10 +3486,24 @@ body {
         max-height: 96vh;
     }
 
-    #modal-ficha-reserva .contenido-ficha-reserva {
-        overflow-y: visible;
-    }
 }
+
+#modal-ficha-reserva .contenido-ficha-reserva {
+    overflow-y: visible;
+    gap: 12px 32px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+#modal-ficha-reserva .dato-reserva {
+    padding: 10px 14px;
+}
+
+#modal-ficha-reserva .acciones-ficha-ejemplar {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 
 /* ==========================================================
    RESERVAS - ESTADOS

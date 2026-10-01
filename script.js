@@ -230,6 +230,27 @@ function mostrarEnTabla(listaAMostrar) {
     cuerpo.appendChild(fragmento);
 }
 
+let temporizadorBusqueda = null;
+
+function programarBusqueda() {
+
+    clearTimeout(
+        temporizadorBusqueda
+    );
+
+    temporizadorBusqueda =
+        setTimeout(
+            function () {
+
+                filtrarLibros();
+
+            },
+            350
+        );
+}
+
+
+
 function filtrarLibros() {
 
     const contador =

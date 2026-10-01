@@ -1731,10 +1731,24 @@ async function confirmarReservaSocio() {
             throw error;
         }
 
-        /* Actualizar el ejemplar en memoria */
-        libro.estado = "RESERVADO";
+        /*
+        * Si el ejemplar estaba disponible, la reserva
+        * hace que pase a RESERVADO.
+        *
+        * Si estaba prestado, debe continuar PRESTADO:
+        * la reserva queda ACTIVA a la espera de devolución.
+        */
 
-        /* Actualizar el botón y mensaje del modal */
+        const estadoAnterior =
+            String(libro.estado || "")
+                .toUpperCase()
+                .trim();
+
+        if (estadoAnterior === "DISPONIBLE") {
+
+            libro.estado = "RESERVADO";
+        }
+
         actualizarAccionReserva(libro);
 
 

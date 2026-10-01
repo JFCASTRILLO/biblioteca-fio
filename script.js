@@ -1426,6 +1426,8 @@ function mostrarSocioEnCabecera(usuario) {
 
     usuarioSocioActual = usuario;
 
+    cargarReservasActivasSocio();
+
     const btnAcceso =
         document.getElementById(
             "btn-acceso-socios"
@@ -1441,6 +1443,7 @@ function mostrarSocioEnCabecera(usuario) {
             "nombre-socio-cabecera"
         );
 
+        
 
     nombreSocio.textContent =
         usuario.numero_socio +
@@ -1459,6 +1462,8 @@ function mostrarSocioEnCabecera(usuario) {
 function ocultarSocioEnCabecera() {
 
     usuarioSocioActual = null;
+
+    ejemplaresReservadosSocio.clear();
 
     document.getElementById(
         "sesion-socio"
@@ -1820,6 +1825,58 @@ async function confirmarReservaSocio() {
             "Confirmar reserva";
     }
 }
+
+async function cargarReservasActivasSocio() {
+
+    ejemplaresReservadosSocio.clear();
+
+    if (!usuarioSocioActual) {
+        return;
+    }
+
+    try {
+
+        const {
+            data,
+            error
+        } = await clienteSupabase
+            .from("reservas")
+            .select(`
+                estado,
+                ejemplar_id
+            `)
+            .in(
+                "estado",
+                [
+                    "ACTIVA",
+                    "DISPONIBLE"
+                ]
+            );
+
+        if (error) {
+            throw error;
+        }
+
+        (data || []).forEach(reserva => {
+
+            if (reserva.ejemplar_id) {
+
+                ejemplaresReservadosSocio.add(
+                    reserva.ejemplar_id
+                );
+            }
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Error cargando reservas activas del socio:",
+            error
+        );
+    }
+}
+
+
 
 function actualizarAccionReserva(libro) {
 

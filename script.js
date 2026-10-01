@@ -867,7 +867,8 @@ function mostrarMisReservas(reservas) {
                 function () {
 
                     cancelarMiReserva(
-                        reserva.id
+                        reserva.id,
+                        ejemplar.id
                     );
                 }
             );
@@ -876,7 +877,10 @@ function mostrarMisReservas(reservas) {
     });
 }
 
-async function cancelarMiReserva(reservaId) {
+async function cancelarMiReserva(
+    reservaId,
+    ejemplarId
+) {
 
     const confirmar =
         window.confirm(
@@ -893,7 +897,6 @@ async function cancelarMiReserva(reservaId) {
     try {
 
         const {
-            data,
             error
         } = await clienteSupabase.rpc(
             "cancelar_reserva",
@@ -905,6 +908,63 @@ async function cancelarMiReserva(reservaId) {
 
         if (error) {
             throw error;
+        }
+
+
+        /* ---------------------------------------------
+           CONSULTAR EL ESTADO REAL DEL EJEMPLAR
+           --------------------------------------------- */
+
+        const {
+            data: ejemplarActualizado,
+            error: errorEjemplar
+        } = await clienteSupabase
+            .from("ejemplares")
+            .select("id, estado")
+            .eq("id", ejemplarId)
+            .single();
+
+
+        if (errorEjemplar) {
+            throw errorEjemplar;
+        }
+
+
+        /* ---------------------------------------------
+           ACTUALIZAR EL EJEMPLAR EN MEMORIA
+           --------------------------------------------- */
+
+        const libroEnMemoria =
+            todosLosLibros.find(
+                libro =>
+                    libro.id === ejemplarId
+            );
+
+
+        if (libroEnMemoria) {
+
+            libroEnMemoria.estado =
+                ejemplarActualizado.estado;
+        }
+
+
+        /*
+         * librosVisibles contiene los mismos objetos en
+         * condiciones normales, pero lo comprobamos para
+         * mantener también esa colección sincronizada.
+         */
+
+        const libroVisible =
+            librosVisibles.find(
+                libro =>
+                    libro.id === ejemplarId
+            );
+
+
+        if (libroVisible) {
+
+            libroVisible.estado =
+                ejemplarActualizado.estado;
         }
 
 

@@ -854,8 +854,86 @@ function mostrarMisReservas(reservas) {
         `;
 
         lista.appendChild(tarjeta);
+
+        const botonCancelar =
+            tarjeta.querySelector(
+                ".btn-cancelar-mi-reserva"
+            );
+
+        if (botonCancelar) {
+
+            botonCancelar.addEventListener(
+                "click",
+                function () {
+
+                    cancelarMiReserva(
+                        reserva.id
+                    );
+                }
+            );
+        }
+
     });
 }
+
+async function cancelarMiReserva(reservaId) {
+
+    const confirmar =
+        window.confirm(
+            "¿Deseas cancelar la reserva nº " +
+            reservaId +
+            "?"
+        );
+
+    if (!confirmar) {
+        return;
+    }
+
+
+    try {
+
+        const {
+            data,
+            error
+        } = await clienteSupabase.rpc(
+            "cancelar_reserva",
+            {
+                p_reserva_id: reservaId
+            }
+        );
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        alert(
+            "Reserva cancelada correctamente."
+        );
+
+
+        /* Recargar Mis reservas */
+        await abrirMisReservas();
+
+
+    } catch (error) {
+
+        console.error(
+            "Error cancelando reserva:",
+            error
+        );
+
+        alert(
+            "No se ha podido cancelar la reserva.\n\n" +
+            (
+                error.message ||
+                "Se ha producido un error inesperado."
+            )
+        );
+    }
+}
+
 
 function formatearFechaReserva(fecha) {
 

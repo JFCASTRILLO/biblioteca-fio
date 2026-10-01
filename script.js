@@ -231,43 +231,106 @@ function mostrarEnTabla(listaAMostrar) {
 }
 
 function filtrarLibros() {
-    // 1. Capturar el texto del buscador, pasarlo a minúsculas y quitarle los acentos
-    const textoBusqueda = document.getElementById("buscador").value
-        .toLowerCase()
-        .trim()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, ""); // Borra tildes, diéresis, etc.
-        
-    const estadoSeleccionado = document.getElementById("filtro-estado").value;
 
-    const librosFiltrados = todosLosLibros.filter(libro => {
-        // Validación del desplegable de estado
-        const cumpleEstado = (estadoSeleccionado === "todos") || (libro.estado === estadoSeleccionado);
-        
-        // Validación del input de búsqueda en TODOS los campos del JSON
-        const cumpleBusqueda = (textoBusqueda === "") || Object.keys(libro).some(col => {
-            const valorCelda = libro[col];
-            
-            if (valorCelda !== undefined && valorCelda !== null) {
-                // Convertir el contenido de la celda a minúsculas y quitarle los acentos temporalmente para comparar
-                const celdaNormalizada = String(valorCelda)
-                    .toLowerCase()
-                    .normalize("NFD")
-                    .replace(/[\u0300-\u036f]/g, "");
-                    
-                return celdaNormalizada.includes(textoBusqueda);
-            }
-            return false;
-        });
+    const contador =
+        document.getElementById("contador");
 
-        return cumpleEstado && cumpleBusqueda;
-    });
+    /*
+     * Informar inmediatamente al usuario.
+     */
+    contador.innerText =
+        "Buscando ejemplares...";
 
-    // Guardar la lista actualmente visible
-    librosVisibles = librosFiltrados;
 
-    // Pintar los resultados procesados en la tabla minimalista
-    mostrarEnTabla(librosVisibles);
+    /*
+     * Dejamos un instante al navegador para que
+     * pueda mostrar el mensaje antes de realizar
+     * el filtrado y reconstruir la tabla.
+     */
+    setTimeout(function () {
+
+        // Capturar y normalizar el texto de búsqueda
+        const textoBusqueda =
+            document
+                .getElementById("buscador")
+                .value
+                .toLowerCase()
+                .trim()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "");
+
+
+        const estadoSeleccionado =
+            document
+                .getElementById("filtro-estado")
+                .value;
+
+
+        const librosFiltrados =
+            todosLosLibros.filter(libro => {
+
+                const cumpleEstado =
+                    estadoSeleccionado === "todos" ||
+                    libro.estado === estadoSeleccionado;
+
+
+                const cumpleBusqueda =
+                    textoBusqueda === "" ||
+                    Object.keys(libro).some(col => {
+
+                        const valorCelda =
+                            libro[col];
+
+                        if (
+                            valorCelda !== undefined &&
+                            valorCelda !== null
+                        ) {
+
+                            const celdaNormalizada =
+                                String(valorCelda)
+                                    .toLowerCase()
+                                    .normalize("NFD")
+                                    .replace(
+                                        /[\u0300-\u036f]/g,
+                                        ""
+                                    );
+
+                            return celdaNormalizada.includes(
+                                textoBusqueda
+                            );
+                        }
+
+                        return false;
+                    });
+
+
+                return (
+                    cumpleEstado &&
+                    cumpleBusqueda
+                );
+            });
+
+
+        /*
+         * Guardar la lista actualmente visible
+         */
+        librosVisibles =
+            librosFiltrados;
+
+
+        /*
+         * Mostrar los resultados.
+         *
+         * mostrarEnTabla() sustituirá automáticamente
+         * "Buscando ejemplares..." por:
+         *
+         * "Mostrando X de 3151 ejemplares..."
+         */
+        mostrarEnTabla(
+            librosVisibles
+        );
+
+    }, 30);
 }
 
 function limpiarFiltros() {

@@ -982,6 +982,17 @@ async function cancelarMiReserva(
         }
 
 
+        /*
+        * La reserva ya está cancelada.
+        * Eliminamos el ejemplar de las reservas
+        * activas del socio actual.
+        */
+
+        ejemplaresReservadosSocio.delete(
+            ejemplarId
+        );
+
+
         /* ---------------------------------------------
            CONSULTAR EL ESTADO REAL DEL EJEMPLAR
            --------------------------------------------- */

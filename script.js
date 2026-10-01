@@ -1443,7 +1443,7 @@ function mostrarSocioEnCabecera(usuario) {
             "nombre-socio-cabecera"
         );
 
-        
+
 
     nombreSocio.textContent =
         usuario.numero_socio +
@@ -1756,6 +1756,10 @@ async function confirmarReservaSocio() {
         if (error) {
             throw error;
         }
+
+        ejemplaresReservadosSocio.add(
+            libro.id
+        );
 
         /*
         * Si el ejemplar estaba disponible, la reserva

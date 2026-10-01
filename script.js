@@ -798,6 +798,36 @@ function mostrarMisReservas(reservas) {
         const ejemplar =
             reserva.ejemplar || {};
 
+
+            let textoEstado = "";
+
+            switch (reserva.estado) {
+
+                case "ACTIVA":
+                    textoEstado =
+                        "En espera de disponibilidad";
+                    break;
+
+                case "DISPONIBLE":
+                    textoEstado =
+                        "Disponible para recoger";
+                    break;
+
+                case "ATENDIDA":
+                    textoEstado =
+                        "Reserva atendida";
+                    break;
+
+                case "CANCELADA":
+                    textoEstado =
+                        "Reserva cancelada";
+                    break;
+
+                default:
+                    textoEstado = "";
+            }
+
+
         const tarjeta =
             document.createElement("div");
 
@@ -822,6 +852,7 @@ function mostrarMisReservas(reservas) {
             </div>
 
             <div class="mi-reserva-datos">
+
                 <span>
                     <strong>Clave:</strong>
                     ${ejemplar.clave || "-"}
@@ -833,6 +864,25 @@ function mostrarMisReservas(reservas) {
                         reserva.fecha_reserva
                     )}
                 </span>
+
+                ${
+                    reserva.estado === "DISPONIBLE" &&
+                    reserva.fecha_disponible
+                        ? `
+                            <span>
+                                <strong>Disponible desde:</strong>
+                                ${formatearFechaReserva(
+                                    reserva.fecha_disponible
+                                )}
+                            </span>
+                        `
+                        : ""
+                }
+
+            </div>
+
+            <div class="descripcion-estado-reserva">
+                ${textoEstado}
             </div>
 
             ${

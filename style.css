@@ -2133,3 +2133,13 @@ td {
     background: #f1f2f5;
     border-color: #8d94a3;
 }
+
+.descripcion-estado-reserva {
+
+    margin-top: 9px;
+
+    color: #666666;
+
+    font-size: .84rem;
+    font-style: italic;
+}

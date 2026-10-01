@@ -32,6 +32,8 @@ let librosVisibles = [];
 let indiceLibroActual = -1;
 let usuarioSocioActual = null;
 
+const ejemplaresReservadosSocio = new Set();
+
 /* ==========================================================
    CARGAR CATÁLOGO DESDE SUPABASE
    ========================================================== */
@@ -751,6 +753,25 @@ async function abrirMisReservas() {
             throw error;
         }
 
+        ejemplaresReservadosSocio.clear();
+
+        (data || []).forEach(reserva => {
+
+            if (
+                reserva.estado === "ACTIVA" ||
+                reserva.estado === "DISPONIBLE"
+            ) {
+
+                const ejemplar =
+                    reserva.ejemplar || {};
+
+                if (ejemplar.id) {
+                    ejemplaresReservadosSocio.add(
+                        ejemplar.id
+                    );
+                }
+            }
+        });
 
         mensaje.style.display = "none";
 
@@ -1860,6 +1881,20 @@ function actualizarAccionReserva(libro) {
 
         mensaje.textContent =
             "La reserva requiere ser socio activo de la FIO.";
+
+        return;
+    }
+
+    if (
+        ejemplaresReservadosSocio.has(
+            libro.id
+        )
+    ) {
+
+        boton.style.display = "none";
+
+        mensaje.textContent =
+            "Ya tienes una reserva activa para este ejemplar.";
 
         return;
     }
